@@ -5,12 +5,12 @@ import web3 from '@/web3';
 import * as config from '@/config';
 import request from 'superagent';
 import timeout from 'timeout-then';
-import cryptoWaterMarginABI from './abi/cryptoWaterMargin.json';
+import sponsorTokenABI from './abi/sponsorToken.json';
 
 // Sometimes, web3.version.network might be undefined,
 // as a workaround, use defaultNetwork in that case.
 const network = config.network[web3.version.network] || config.defaultNetwork;
-const cryptoWaterMarginContract = web3.eth.contract(cryptoWaterMarginABI).at(network.contract);
+const sponsorTokenContract = web3.eth.contract(sponsorTokenABI).at(network.contract);
 
 let store = [];
 let isInit = false;
@@ -209,7 +209,7 @@ export const setNextPrice = async (id, priceInWei) => {
 };
 
 export const getItem = async (id) => {
-  const exist = await Promise.promisify(cryptoWaterMarginContract.tokenExists)(id);
+  const exist = await Promise.promisify(sponsorTokenContract.tokenExists)(id);
   if (!exist) return null;
   const card = config.cards[id] || {};
   const item = {
@@ -218,17 +218,17 @@ export const getItem = async (id) => {
     nickname: card.nickname,
   };
   [item.owner, item.price, item.nextPrice] =
-    await Promise.promisify(cryptoWaterMarginContract.allOf)(id);
+    await Promise.promisify(sponsorTokenContract.allOf)(id);
 
   // [[item.owner, item.price, item.nextPrice], item.estPrice] = await Promise.all([
-  //   Promise.promisify(cryptoWaterMarginContract.allOf)(id),
+  //   Promise.promisify(sponsorTokenContract.allOf)(id),
   //   getNextPrice(id)]);
   // item.price = BigNumber.maximum(item.price, item.estPrice);
   return item;
 };
 
 export const buyItem = (id, price) => new Promise((resolve, reject) => {
-  cryptoWaterMarginContract.buy(id, {
+  sponsorTokenContract.buy(id, {
     value: price, // web3.toWei(Number(price), 'ether'),
     gas: 220000,
     gasPrice: 1000000000 * 100,
@@ -236,10 +236,10 @@ export const buyItem = (id, price) => new Promise((resolve, reject) => {
     (err, result) => (err ? reject(err) : resolve(result)));
 });
 
-export const getTotal = () => Promise.promisify(cryptoWaterMarginContract.totalSupply)();
+export const getTotal = () => Promise.promisify(sponsorTokenContract.totalSupply)();
 
 export const getItemIds = async (offset, limit) => {
-  const ids = await Promise.promisify(cryptoWaterMarginContract.itemsForSaleLimit)(offset, limit);
+  const ids = await Promise.promisify(sponsorTokenContract.itemsForSaleLimit)(offset, limit);
   return ids.sort((a, b) => a - b);
 };
 
@@ -251,7 +251,7 @@ export const isItemMaster = async (id) => {
 };
 
 export const getItemsOf = async address => Promise.promisify(
-  cryptoWaterMarginContract.tokensOf)(address)
+  sponsorTokenContract.tokensOf)(address)
   ;
 
 export const getNetwork = async () => {

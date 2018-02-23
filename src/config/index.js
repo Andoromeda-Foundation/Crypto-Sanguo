@@ -1,5 +1,3 @@
-import cardsData from './cards.json';
-
 /* eslint-disable import/prefer-default-export */
 
 export const network = {
@@ -15,7 +13,7 @@ export const network = {
   },
   3: {
     name: 'Ropsten Test Network',
-    contract: '',
+    contract: '0xc4a4c47e823b83852f707ab85d830f2f0d08b54b',
     rpc: 'https://ropsten.infura.io/lTETGFVyQX99UKQ98BN4',
   },
   4: {
@@ -31,8 +29,6 @@ export const network = {
 };
 
 export const defaultNetwork = Object.values(network).find(net => net.default);
-
-export const cards = cardsData;
 
 export const i18n = [
   {
