@@ -23,11 +23,6 @@ export default new Router({
       component: CreateToken,
     },
     {
-      name: 'ListView',
-      path: '/token/list',
-      component: ListView,
-    },
-    {
       name: 'User',
       path: '/user/:address',
       component: UserView,

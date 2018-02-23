@@ -10,7 +10,7 @@
            is-one-quarter-desktop
            is-one-quarter-widescreen
            is-one-quarter-fullhd">
-      <template v-if="1 <= item.id && item.id <= 114">
+      <template v-if="0 <= item.id && item.id <= 114">
         <div class="card">
           <div class="card-image">
             <figure class="image is-5by4">

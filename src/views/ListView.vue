@@ -33,7 +33,8 @@ export default {
 
   async created() {
     this.total = await getTotal();
-    const itemIds = await getItemIds(0, this.total);
+    const itemIds = Array.from(new Array(this.total.toNumber()), (val, index) => index);// await getItemIds(0, this.total);
+
     this.itemIds = itemIds;
     this.loading = false;
   },
