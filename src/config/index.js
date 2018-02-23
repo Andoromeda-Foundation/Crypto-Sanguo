@@ -13,7 +13,7 @@ export const network = {
   },
   3: {
     name: 'Ropsten Test Network',
-    contract: '0xc4a4c47e823b83852f707ab85d830f2f0d08b54b',
+    contract: '0x4d87d33350752205fc3e24de6d7e93d7e3a3d667',
     rpc: 'https://ropsten.infura.io/lTETGFVyQX99UKQ98BN4',
   },
   4: {
@@ -45,5 +45,6 @@ export const i18n = [
     langDisplay: '日本語',
     locale: 'jp',
     aliases: ['jp'],
-  },  
+  },
 ];
+
