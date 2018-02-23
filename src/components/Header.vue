@@ -8,36 +8,53 @@
           <div class="menu_area">
             <nav class="navbar navbar-expand-lg navbar-light">
               <!-- Logo -->
-              <a class="navbar-brand" href="#">Ca.</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ca-navbar" aria-controls="ca-navbar" aria-expanded="false" aria-label="Toggle navigation">
+              <a class="navbar-brand"
+                 href="#">Ca.</a>
+              <button class="navbar-toggler"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#ca-navbar"
+                      aria-controls="ca-navbar"
+                      aria-expanded="false"
+                      aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <!-- Menu Area -->
-              <div class="collapse navbar-collapse" id="ca-navbar">
-                <ul class="navbar-nav ml-auto" id="nav">
+              <div class="collapse navbar-collapse"
+                   id="ca-navbar">
+                <ul class="navbar-nav ml-auto"
+                    id="nav">
                   <li class="nav-item active">
-                    <a class="nav-link" href="#home">Home</a>
+                    <a class="nav-link"
+                       href="#home">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
+                    <a class="nav-link"
+                       href="#about">About</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#features">Features</a>
+                    <a class="nav-link"
+                       href="#features">Features</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#screenshot">Screenshot</a>
+                    <a class="nav-link"
+                       href="#screenshot">Screenshot</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#pricing">Pricing</a>
+                    <a class="nav-link"
+                       href="#pricing">Pricing</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#testimonials">Testimonials</a>
+                    <a class="nav-link"
+                       href="#testimonials">Testimonials</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#team">Team</a>
+                    <a class="nav-link"
+                       href="#team">Team</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
+                    <a class="nav-link"
+                       href="#contact">Contact</a>
                   </li>
                 </ul>
                 <div class="sing-up-button d-lg-none">
@@ -50,7 +67,18 @@
         <!-- Signup btn -->
         <div class="col-12 col-lg-2">
           <div class="sing-up-button d-none d-lg-block">
-            <a href="#">Sign In with Metamask</a>
+            <router-link v-if="!me"
+                         class=" navbar-item"
+                         :to="{ name: 'Login'}">
+              {{$t('Sign In')}}
+            </router-link>
+
+            <router-link v-else
+                         class=" navbar-item"
+                         :to="{ name: 'User', params:{address: me.address}}">
+              {{$t('My Cards')}}
+            </router-link>
+
           </div>
         </div>
       </div>
@@ -64,7 +92,16 @@ export default {
   name: 'Header',
   data() {
     return {};
-  }
+  },
+  async created() {
+    this.$store.dispatch('initLocale');
+    this.$store.dispatch('FETCH_ME');
+  },
+  computed: {
+    me() {
+      return this.$store.state.me;
+    },
+  },
 };
 </script>
 

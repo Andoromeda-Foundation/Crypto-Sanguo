@@ -211,15 +211,15 @@ export const setNextPrice = async (id, priceInWei) => {
 export const getItem = async (id) => {
   const exist = await Promise.promisify(sponsorTokenContract.tokenExists)(id);
   if (!exist) return null;
-  const card = config.cards[id] || {};
+  const card = {};
   const item = {
     id,
     name: card.name,
     nickname: card.nickname,
   };
-  [item.owner, item.price, item.nextPrice] =
+  [item.owner, item.creator, item.price, item.nextPrice] =
     await Promise.promisify(sponsorTokenContract.allOf)(id);
-
+  console.log(item);
   // [[item.owner, item.price, item.nextPrice], item.estPrice] = await Promise.all([
   //   Promise.promisify(sponsorTokenContract.allOf)(id),
   //   getNextPrice(id)]);
@@ -233,7 +233,7 @@ export const buyItem = (id, price) => new Promise((resolve, reject) => {
     gas: 220000,
     gasPrice: 1000000000 * 100,
   },
-    (err, result) => (err ? reject(err) : resolve(result)));
+  (err, result) => (err ? reject(err) : resolve(result)));
 });
 
 export const getTotal = () => Promise.promisify(sponsorTokenContract.totalSupply)();
@@ -258,6 +258,16 @@ export const getNetwork = async () => {
   const netId = await Promise.promisify(web3.version.getNetwork)();
   return config.network[netId];
 };
+
+export const createToken = async ({ price, freeTime, parentId }) =>
+  new Promise((resolve, reject) => {
+    sponsorTokenContract.issueToken(web3.toWei(Number(price), 'ether'), freeTime, parentId, {
+      // value: price, // web3.toWei(Number(price), 'ether'),
+      gas: 220000,
+      gasPrice: 1000000000 * 100,
+    },
+    (err, result) => (err ? reject(err) : resolve(result)));
+  });
 
 export const getLocale = async () => (
   Cookie.get('locale') ||
