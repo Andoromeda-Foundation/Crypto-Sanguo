@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import IndexView from '@/views/IndexView';
-import CreateToken from '@/views/CreateToken';
-import ListView from '@/views/ListView';
-import UserView from '@/views/UserView';
+
+import HomeView from '@/views/HomeView';
+import ExploreView from '@/views/ExploreView';
 import ItemView from '@/views/ItemView';
+import UserView from '@/views/UserView';
+import CreateItemView from '@/views/CreateItemView';
 import LoginView from '@/views/LoginView';
 
 Vue.use(Router);
@@ -15,12 +16,17 @@ export default new Router({
     {
       name: 'Home',
       path: '/',
-      component: IndexView,
+      component: HomeView,
     },
     {
-      name: 'CreateToken',
-      path: '/token/create',
-      component: CreateToken,
+      name: 'Explore',
+      path: '/explore',
+      component: ExploreView,
+    },
+    {
+      name: 'Item',
+      path: '/item/:id(\\d+)',
+      component: ItemView,
     },
     {
       name: 'User',
@@ -28,20 +34,14 @@ export default new Router({
       component: UserView,
     },
     {
-      name: 'List',
-      path: '/list',
-      component: ListView,
+      name: 'CreateItem',
+      path: '/item/create',
+      component: CreateItemView,
     },
     {
       name: 'Login',
       path: '/Login',
       component: LoginView,
     },
-    {
-      name: 'Item',
-      path: '/item/:id(\\d+)',
-      component: ItemView,
-    },
-
   ],
 });
