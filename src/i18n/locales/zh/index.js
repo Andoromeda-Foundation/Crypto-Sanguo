@@ -3,6 +3,14 @@ const PRIVACY_CONTENT = require('raw-loader!./privacy.html');
 const TERMS_CONTENT = require('raw-loader!./terms.html');
 
 module.exports = {
+  header: {
+    nav: {
+      siteName: "智能签名",
+      explore: "发现",
+      createItem: "创建Token",
+      myPage: "我的主页",
+    }
+  },
   CryptoHero: '以太水浒',
   'My Cards': '我的卡牌',
   'Sign In': '登录游戏',
