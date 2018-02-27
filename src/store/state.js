@@ -7,6 +7,9 @@
 // Pass a function that returns an object, the returned object is used as the root state.
 // This is useful when you want to reuse the state object especially for module reuse.
 // https://vuex.vuejs.org/en/modules.html#module-reuse
+
+import { mapState } from 'vuex';
+
 export default () => ({
   locale: '',
   me: null,
@@ -22,4 +25,7 @@ export default () => ({
   // The state can be gotten in all child components. Such as: this.$store.state.msg
   // You should never directly modify the state. Such as: this.$store.state.msg = "New Msg";
   */
+  computed: mapState([
+    'me'
+  ])
 });

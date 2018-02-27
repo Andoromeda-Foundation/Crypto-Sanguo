@@ -1,107 +1,87 @@
 <template>
-  <!-- ***** Header Area Start ***** -->
-  <header class="header_area animated">
-    <div class="container-fluid">
-      <div class="row align-items-center">
-        <!-- Menu Area Start -->
-        <div class="col-12 col-lg-10">
-          <div class="menu_area">
-            <nav class="navbar navbar-expand-lg navbar-light">
-              <!-- Logo -->
-              <a class="navbar-brand"
-                 href="#">Ca.</a>
-              <button class="navbar-toggler"
-                      type="button"
-                      data-toggle="collapse"
-                      data-target="#ca-navbar"
-                      aria-controls="ca-navbar"
-                      aria-expanded="false"
-                      aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <!-- Menu Area -->
-              <div class="collapse navbar-collapse"
-                   id="ca-navbar">
-                <ul class="navbar-nav ml-auto"
-                    id="nav">
-                  <li class="nav-item active">
-                    <a class="nav-link"
-                       href="#home">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link"
-                       href="#about">About</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link"
-                       href="#features">Features</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link"
-                       href="#screenshot">Screenshot</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link"
-                       href="#pricing">Pricing</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link"
-                       href="#testimonials">Testimonials</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link"
-                       href="#team">Team</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link"
-                       href="#contact">Contact</a>
-                  </li>
-                </ul>
-                <div class="sing-up-button d-lg-none">
-                  <a href="#">Sign In with Metamask</a>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
-        <!-- Signup btn -->
-        <div class="col-12 col-lg-2">
-          <div class="sing-up-button d-none d-lg-block">
-            <router-link v-if="!me"
-                         class=" navbar-item"
-                         :to="{ name: 'Login'}">
-              {{$t('Sign In')}}
-            </router-link>
+  <header>
+    <nav class="navbar is-dark">
+      <div class="navbar-brand">
+        <router-link class="navbar-item"
+                     :to="{ name: 'Home'}">
+          {{$t('header.nav.siteName')}}
+        </router-link>
 
-            <router-link v-else
-                         class=" navbar-item"
-                         :to="{ name: 'User', params:{address: me.address}}">
-              {{$t('My Cards')}}
-            </router-link>
+        <router-link class="navbar-item"
+                     :to="{ name: 'Explore' }">
+          {{$t('header.nav.explore')}}
+        </router-link>
 
-          </div>
-        </div>
+        <router-link v-if="!me"
+                     class="navbar-item"
+                     :to="{ name: 'Login'}">
+          {{$t('header.nav.signIn')}}
+        </router-link>
+
+        <router-link v-else
+                     class="navbar-item"
+                     :to="{ name: 'User', params:{ address: me.address }}">
+          {{$t('header.nav.myPage')}}
+        </router-link>
       </div>
-    </div>
+
+      <div class="navbar-end">
+
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              {{network.name}}
+            </p>
+          </div>
+        </div>
+
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <div class="control">
+              <div class="select">
+                <I18nSwitcher />
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </nav>
   </header>
-  <!-- ***** Header Area End ***** -->
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { getNetwork, getAnnouncements } from "@/api";
+import I18nSwitcher from "@/components/I18nSwitcher";
+
 export default {
-  name: 'Header',
+  name: "Header",
+  components: {
+    I18nSwitcher
+  },
   data() {
-    return {};
+    return {
+      network: {}
+    };
   },
   async created() {
-    this.$store.dispatch('initLocale');
-    this.$store.dispatch('FETCH_ME');
+    this.$store.dispatch("FETCH_ME");
+    const network = await getNetwork();
+    if (!network) {
+      alert("Unknown network!");
+      return;
+    }
+    this.network = network;
+    if (!network.contract) {
+      alert(`Unsupported ${network.name}`);
+    }
   },
   computed: {
-    me() {
-      return this.$store.state.me;
-    },
+    ...mapState(["me"])
   },
+  watch: {}
 };
 </script>
 
