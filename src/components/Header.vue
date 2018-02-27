@@ -4,29 +4,29 @@
       <div class="navbar-brand">
         <router-link class="navbar-item"
                      :to="{ name: 'Home'}">
-          {{$t('header.nav.siteName')}}
+          {{$t('Smart Signature')}}
         </router-link>
 
         <router-link class="navbar-item"
                      :to="{ name: 'Explore' }">
-          {{$t('header.nav.explore')}}
+          {{$t('Explore')}}
         </router-link>
 
         <router-link v-if="!me"
                      class="navbar-item"
                      :to="{ name: 'Login'}">
-          {{$t('header.nav.signIn')}}
+          {{$t('SignIn')}}
         </router-link>
 
         <template v-else>
           <router-link class="navbar-item"
                        :to="{ name: 'CreateItem' }">
-            {{$t('header.nav.createItem')}}
+            {{$t('CreateItem')}}
           </router-link>
 
           <router-link class="navbar-item"
                        :to="{ name: 'User', params:{address: me.address}}">
-            {{$t('header.nav.myPage')}}
+            {{$t('MyPage')}}
           </router-link>
         </template>
 
@@ -151,6 +151,9 @@ header {
   font-size: 1.14rem;
   color: #fff;
 }
-
+a.navbar-item:hover {
+  color: #fdda46 !important;
+  background-color: transparent !important;
+}
 
 </style>
