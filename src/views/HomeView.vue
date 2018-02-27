@@ -48,7 +48,9 @@
 
         <div class="box" id="business-expertise">
           <div class="card-content">
-            <img class="image-box border-shadow " src="/static/img/" alt="">
+            <span class="icon has-text-danger">
+              <img class="image-box border-shadow " src="/static/img/hammer.svg" alt="">
+            </span>
             <p>
               <!-- <span class="key-question">Pergunta chave:</span> -->
               <br>
@@ -64,44 +66,49 @@
       </div><!-- direcionamento de produto -->
       <div class="column is-4">
         <h3 class="title is-5 feature-title has-text-black has-text-centered has-text-weight-normal">
-          Design de<br>
-          serviços (UI/UX)
+           Gain profit<br>
+           without cost
+
         </h3>
-        <div class="card is-shadowless is-radiusless" id="design-expertise" style="height: 508px;">
+        <div class="box" id="design-expertise">
           <div class="card-content">
-            <i class="material-icons">people</i>
+            <span class="icon has-text-danger">
+              <img class="image-box border-shadow " src="/static/img/wallet.svg" alt="">
+            </span>
             <p>
-              <span class="key-question">Pergunta chave:</span>
+              <!-- <span class="key-question">Pergunta chave:</span> -->
               <br>
               </p><h4 class="title is-4 has-text-weight-normal key-question">
-                A solução atende e desperta o desejo do público alvo?
+                一劳永逸，即刻产生收益，发行通证无门槛。
               </h4>
             <p></p>
             <p class="feature-description">
-              No processo de design é preciso ponderar estética e funcionalidade, para que a experiência proporcionada pela solução <strong>engaje, desperte desejo e atenda as reais necessidades</strong> do negócio e de seus usuários.
+             大部分智能签名除了以太坊本身的手续费之外并没有发行费用。用户发行智能签名之后通常可以立刻产生收益。
+ 
             </p>
           </div>
         </div>
       </div><!-- design de serviços -->
       <div class="column is-4">
         <h3 class="title is-5 feature-title has-text-black has-text-centered has-text-weight-normal">
-          Tecnologia e<br>
-          desenvolvimento
+          Attach your token <br>
+          anywhere
         </h3>
-
-        <div class="card is-shadowless is-radiusless" id="development-expertise" style="height: 508px;">
+    
+        <div class="box" id="development-expertise" >
           <div class="card-content">
-            <i class="material-icons">phonelink</i>
+            <span class="icon has-text-danger">
+              <img class="image-box border-shadow " src="/static/img/search.svg" alt="">
+            </span>
             <p>
-              <span class="key-question">Pergunta chave:</span>
+              <!-- <span class="key-question">Pergunta chave:</span> -->
               <br>
               </p><h4 class="title is-4 has-text-weight-normal key-question">
-                A solução pode ser viabilizada?
+                 Attach your token anywhere like a anti-fake signature with traceability.
               </h4>
             <p></p>
             <p class="feature-description">
-              Toda ferramenta tem um propósito que permite atingir um determinado objetivo.<br>
-              <strong>Temos domínio em diversas tecnologias</strong> e iremos propor a que melhor se encaixar no contexto do seu produto ou serviço.
+              正本溯源，可将 Token 附着在任何位置，每一款智能签名都对应以太坊上的一枚实体通证，通过区块链本身的不可篡改性，可以对每一篇文章的来源进行追溯，从而在用户行使权力时，提供强而有力的证据。
             </p>
           </div>
         </div>
@@ -114,3 +121,4 @@
 </section>
 
 </template>
+
