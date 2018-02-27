@@ -2,20 +2,19 @@
   <div id="app">
     <Header />
 
-    <div>
-      <router-view :key="key"></router-view>
-    </div>
+    <router-view class="container view"
+                 :key="key"></router-view>
 
     <Footer />
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
     Footer
@@ -30,5 +29,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.view {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 </style>
