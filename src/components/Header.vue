@@ -1,6 +1,6 @@
 <template>
-  <header>
-    <nav class="navbar is-dark">
+  <header :class="[$route.name === 'Home' ? 'sig-home-header' : '']">
+    <nav class="navbar">
       <div class="navbar-brand">
         <router-link class="navbar-item"
                      :to="{ name: 'Home'}">
@@ -86,12 +86,71 @@ export default {
     }
   },
   computed: {
-    ...mapState(["me"])
+    locale: {
+      get() {
+        const locale = this.$store.state.locale;
+        const i18n = this.$config ? this.$config.i18n : [];
+        const lang = i18n.find(
+          item =>
+            item.locale === locale ||
+            item.aliases.some(alias => alias === locale),
+        );
+        return lang ? lang.locale : null;
+      },
+      set(value) {
+        this.$store.dispatch('setLocale', value);
+      },
+    },
+    me() {
+      return this.$store.state.me;
+    },
   },
-  watch: {}
+  methods: {
+    onCloseInfo() {
+      this.isShowInfo = false;
+    },
+  },
+  watch: {
+    locale(val) {
+      this.$i18n.locale = val;
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
+.notification {
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+header {
+  position: relative;
+}
+.navbar {
+  background: rgba(0, 0, 0, 0.5);
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  right: 0;
+}
+/* .sig-home-header .navbar {
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+} */
+
+.navbar-item {
+  font-weight: 700;
+  padding: 0.7rem 2rem;
+  /* margin: 0.5rem 2rem; */
+  font-size: 1.14rem;
+  color: #fff;
+}
+
 
 </style>
