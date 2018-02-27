@@ -3,7 +3,7 @@
         "constant": true,
         "inputs": [
             {
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
@@ -40,11 +40,37 @@
                 "type": "address"
             },
             {
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
         "name": "approve",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_tokenId",
+                "type": "uint256"
+            },
+            {
+                "name": "_price",
+                "type": "uint256"
+            },
+            {
+                "name": "_frozen1",
+                "type": "uint256"
+            },
+            {
+                "name": "_frozen2",
+                "type": "uint256"
+            }
+        ],
+        "name": "changePrice",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -76,7 +102,7 @@
                 "type": "address"
             },
             {
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
@@ -90,7 +116,7 @@
         "constant": true,
         "inputs": [
             {
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
@@ -109,7 +135,7 @@
         "constant": true,
         "inputs": [
             {
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
@@ -140,19 +166,11 @@
         "constant": false,
         "inputs": [
             {
-                "name": "_itemId",
-                "type": "uint256"
-            },
-            {
-                "name": "_price",
-                "type": "uint256"
-            },
-            {
-                "name": "_frozen",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
-        "name": "changePrice",
+        "name": "judgeFakeToken",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -163,25 +181,6 @@
         "inputs": [
             {
                 "name": "_tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "freeOf",
-        "outputs": [
-            {
-                "name": "_free",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "_itemId",
                 "type": "uint256"
             }
         ],
@@ -219,7 +218,7 @@
         "constant": true,
         "inputs": [
             {
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
@@ -256,7 +255,7 @@
         "constant": true,
         "inputs": [
             {
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
@@ -288,6 +287,24 @@
         ],
         "payable": false,
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_tokenId",
+                "type": "uint256"
+            },
+            {
+                "name": "_plaintiff",
+                "type": "address"
+            }
+        ],
+        "name": "judgeFakeTokenAndTransfer",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -354,7 +371,7 @@
                 "type": "address"
             },
             {
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
@@ -368,7 +385,26 @@
         "constant": true,
         "inputs": [
             {
-                "name": "_itemId",
+                "name": "_tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "free1Of",
+        "outputs": [
+            {
+                "name": "_free",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
@@ -449,32 +485,29 @@
         "type": "function"
     },
     {
-        "constant": false,
+        "constant": true,
         "inputs": [
             {
-                "name": "_price",
-                "type": "uint256"
-            },
-            {
-                "name": "_frozen",
-                "type": "uint256"
-            },
-            {
-                "name": "_parent",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
-        "name": "issueToken",
-        "outputs": [],
+        "name": "free2Of",
+        "outputs": [
+            {
+                "name": "_free",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
     },
     {
         "constant": false,
         "inputs": [
             {
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             }
         ],
@@ -504,6 +537,32 @@
         "type": "function"
     },
     {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_price",
+                "type": "uint256"
+            },
+            {
+                "name": "_frozen1",
+                "type": "uint256"
+            },
+            {
+                "name": "_frozen2",
+                "type": "uint256"
+            },
+            {
+                "name": "_parent",
+                "type": "uint256"
+            }
+        ],
+        "name": "issueToken",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -514,7 +573,7 @@
         "inputs": [
             {
                 "indexed": true,
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             },
             {
@@ -536,7 +595,7 @@
         "inputs": [
             {
                 "indexed": true,
-                "name": "_itemId",
+                "name": "_tokenId",
                 "type": "uint256"
             },
             {
