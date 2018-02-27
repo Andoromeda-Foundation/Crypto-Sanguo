@@ -17,12 +17,28 @@
       </p>
     </div>
 
-    <label class="label">冷却时间</label>
+    <label class="label">Frozen1时间</label>
     <div class="field has-addons">
       <p class="control">
         <input class="input"
                type="number"
-               v-model="freeTime"
+               v-model="frozen1"
+               placeholder="">
+
+      </p>
+      <p class="control">
+        <a class="button is-static">
+          秒
+        </a>
+      </p>
+    </div>
+
+    <label class="label">Frozen2时间</label>
+    <div class="field has-addons">
+      <p class="control">
+        <input class="input"
+               type="number"
+               v-model="frozen2"
                placeholder="">
 
       </p>
@@ -57,15 +73,16 @@
 </template>
 
 <script>
-import { createToken } from '@/api';
+import { createToken } from "@/api";
 
 export default {
-  name: 'item-view',
+  name: "item-view",
 
   data: () => ({
     price: null,
-    freeTime: null,
-    parentId: null,
+    frozen1: null,
+    frozen2: null,
+    parentId: null
   }),
 
   computed: {},
@@ -77,25 +94,21 @@ export default {
     onSubmit() {
       createToken({
         price: this.price,
-        freeTime: this.freeTime,
-        parentId: this.parentId,
+        frozen1: this.frozen1,
+        frozen2: this.frozen2,
+        parentId: this.parentId
       })
-        .then((result) => {
-          alert('成功了，一会刷新');
-          console.log(result);
+        .then(txHash => {
+          alert("成功了，一会刷新. txHash: " + txHash);
         })
-        .catch((e) => {
-          alert('出错了.');
+        .catch(e => {
+          alert("出错了.");
           console.log(e);
         });
-    },
-  },
+    }
+  }
 };
 </script>
  <style scoped>
-.createTokenView{
-  margin-top: 110px;
-  margin: 10rem;
 
-}
 </style>
