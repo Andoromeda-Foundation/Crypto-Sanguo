@@ -18,11 +18,18 @@
           {{$t('header.nav.signIn')}}
         </router-link>
 
-        <router-link v-else
-                     class="navbar-item"
-                     :to="{ name: 'User', params:{ address: me.address }}">
-          {{$t('header.nav.myPage')}}
-        </router-link>
+        <template v-else>
+          <router-link class="navbar-item"
+                       :to="{ name: 'CreateItem' }">
+            {{$t('header.nav.createItem')}}
+          </router-link>
+
+          <router-link class="navbar-item"
+                       :to="{ name: 'User', params:{address: me.address}}">
+            {{$t('header.nav.myPage')}}
+          </router-link>
+        </template>
+
       </div>
 
       <div class="navbar-end">
