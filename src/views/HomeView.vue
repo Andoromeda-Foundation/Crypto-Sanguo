@@ -1,5 +1,5 @@
 <template>
-<section class="primary-background" style="background-image: url('/static/icons-background.svg')">
+<section class="primary-background" style="background-image: url('../../static/icons-background.svg')">
     <section class="section has-text-centered">
         <div class="section">
             <h1 class="title has-text-grey" style="font-size: 3rem;">
