@@ -1,26 +1,49 @@
 <template>
   <div>
-    <section class="hero user-info-wrapper"
-             v-bind:style="{ backgroundColor: '#'+address.slice(-6)}">
+    <section class="session ">
       <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-          </h1>
-          <h2 class="subtitle">
-            {{$t('User')}}: {{address}}
-          </h2>
+        <div class="column is-8 is-offset-2">
+          <div class="box ">
+            <div class="columns">
+            <div class="column ">
+              <div class="column is-half">
+              <p class="image is-128x128">
+                <img src="https://bulma.io/images/placeholders/128x128.png">
+              </p>
+              </div>
+              <div class="column is-half">
+                <h1 class="">
+                  {{$t('Nickname')}}: {{nickame}}
+                </h1>
+                <h2 class="">
+                  {{$t('Address')}}: {{address}}
+                </h2>
+                <h1 class="">
+                  {{$t('Benefit')}}: {{benefit}}
+                </h1>
+              </div>
+            </div>
+            
+          </div>
+            
+            <div class="navbar-tabs">
+            <a class="navbar-item is-tab">
+            <a v-if="me && me.address.toUpperCase() === address">{{$t('Cards I Bought')}}</a>
+            <a v-else>{{$t('Cards He Bought')}}</a>
+            </a>
+            <a class="navbar-item is-tab">
+            <a v-if="me && me.address.toUpperCase() === address">{{$t('Cards I Created')}}</a>
+            <a v-else>{{$t('Cards He Created')}}</a>
+            </a>
+          </div>
+          </div>
         </div>
+        
       </div>
+      
     </section>
 
-    <div class="tabs">
-      <ul>
-        <li class="is-active">
-          <a v-if="me && me.address.toUpperCase() === address">{{$t('My Cards')}}</a>
-          <a v-else>{{$t('His Cards')}}</a>
-        </li>
-      </ul>
-    </div>
+    
     <ItemList :itemIds='itemIds' />
   </div>
 </template>
