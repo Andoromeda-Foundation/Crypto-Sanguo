@@ -7,6 +7,7 @@ import ItemView from '@/views/ItemView';
 import UserView from '@/views/UserView';
 import CreateItemView from '@/views/CreateItemView';
 import LoginView from '@/views/LoginView';
+import RecentView from '@/views/RecentView';
 
 Vue.use(Router);
 
@@ -43,5 +44,11 @@ export default new Router({
       path: '/Login',
       component: LoginView,
     },
+    {
+      name: 'Recent',
+      path: '/Recent',
+      component: RecentView,
+    },
+    
   ],
 });
