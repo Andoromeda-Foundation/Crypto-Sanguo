@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <img class="image-box border-shadow " src="/static/img/eth.png" alt="">
+                    <img class="image-box border-shadow " src="../../static/img/eth.png" alt="">
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="box" id="business-expertise">
           <div class="card-content">
             <span class="icon has-text-danger">
-              <img class="image-box border-shadow " src="/static/img/hammer.svg" alt="">
+              <img class="image-box border-shadow " src="../../static/img/hammer.svg" alt="">
             </span>
             <p>
               <!-- <span class="key-question">Pergunta chave:</span> -->
@@ -73,7 +73,7 @@
         <div class="box" id="design-expertise">
           <div class="card-content">
             <span class="icon has-text-danger">
-              <img class="image-box border-shadow " src="/static/img/wallet.svg" alt="">
+              <img class="image-box border-shadow " src="../../static/img/wallet.svg" alt="">
             </span>
             <p>
               <!-- <span class="key-question">Pergunta chave:</span> -->
@@ -98,7 +98,7 @@
         <div class="box" id="development-expertise" >
           <div class="card-content">
             <span class="icon has-text-danger">
-              <img class="image-box border-shadow " src="/static/img/search.svg" alt="">
+              <img class="image-box border-shadow " src="../../static/img/search.svg" alt="">
             </span>
             <p>
               <!-- <span class="key-question">Pergunta chave:</span> -->
