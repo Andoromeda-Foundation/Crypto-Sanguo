@@ -1,5 +1,5 @@
 <template>
-<section class="primary-background" style="background-image: url(../../static/icons-background.svg)">
+<section class="primary-background" style="background-image: url(./static/icons-background.svg)">
     <section class="section has-text-centered">
         <div class="section">
             <h1 class="title has-text-grey" style="font-size: 3rem;">
@@ -84,7 +84,7 @@
             <p></p>
             <p class="feature-description">
              大部分智能签名除了以太坊本身的手续费之外并没有发行费用。用户发行智能签名之后通常可以立刻产生收益。
- 
+
             </p>
           </div>
         </div>
