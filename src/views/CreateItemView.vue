@@ -8,21 +8,45 @@
           <div class="box" style="width: 400px;">
             <div class="field is-horizen">
               <label class="label">发行价</label>
-              <div class="field ">
-                <p class="control">
+              <div class="field has-addons">
+                <p class="control is-expanded">
                     <input class="input"
                       type="number"
                       v-model="price"
                       placeholder="输入Token的发行价">
                 </p>
-              </div>
-              <label class="label">Frozen时间</label>
-              <div class="field ">
                 <p class="control">
+                  <a class="button is-static">
+                  eth
+                  </a>
+                </p>
+              </div>
+              <label class="label">Frozen时间1</label>
+              <div class="field has-addons">
+                <p class="control is-expanded">
                   <input class="input"
                         type="number"
                         v-model="frozen1"
                         placeholder="请输入冻结的时间">
+                </p>
+                <p class="control">
+                  <a class="button is-static">
+                  s
+                  </a>
+                </p>
+              </div>
+              <label class="label">Frozen时间2</label>
+              <div class="field has-addons">
+                <p class="control is-expanded">
+                  <input class="input "
+                        type="number"
+                        v-model="frozen1"
+                        placeholder="请输入冻结的时间">
+                </p>
+                <p class="control">
+                  <a class="button is-static">
+                  s
+                  </a>
                 </p>
               </div>
 
