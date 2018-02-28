@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <img class="image-box border-shadow " src="/../../static/img/eth.svg" alt="">
+                    <img class="image-box border-shadow " src="/./static/img/eth.svg" alt="">
                 </div>
             </div>
         </div>
