@@ -1,5 +1,5 @@
 <template>
-  <div class="createTokenView">
+  <div class="createTokenView" style="background-image: url(./static/icons-background.svg)">
     <div class="hero-body">
       <div class="column is-4 is-offset-4">
         <h3 class="title has-text-grey has-text-centered">Create Token</h3>

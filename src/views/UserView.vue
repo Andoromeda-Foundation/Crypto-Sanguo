@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="session ">
+    <section class="session" style="background-image: url(./static/icons-background.svg)">
       <div class="hero-body">
         <div class="column is-8 is-offset-2">
           <div class="box ">

@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="" style="background-image: url(./static/icons-background.svg)">
     <div v-if="loading"
          class="loader-wrapper">
       <pulse-loader></pulse-loader>

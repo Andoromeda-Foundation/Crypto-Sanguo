@@ -3,6 +3,15 @@ const PRIVACY_CONTENT = require('raw-loader!./privacy.html');
 const TERMS_CONTENT = require('raw-loader!./terms.html');
 
 module.exports = {
+  header: {
+    nav: {
+      siteName: "Smart Signature",
+      explore: "Explore",
+      createItem: "Create Item",
+      myPage: "My Page",
+      Transactions: "Transactions"
+    }
+  },
   CryptoHero: 'CryptoHero',
   'My Cards': 'My Cards',
   'Sign In': 'Sign In',

@@ -3,6 +3,15 @@ const PRIVACY_CONTENT = require('raw-loader!./privacy.html');
 const TERMS_CONTENT = require('raw-loader!./terms.html');
 
 module.exports = {
+  header: {
+    nav: {
+      siteName: "智能サイン",
+      explore: "発見",
+      createItem: "新规Token",
+      myPage: "ホームページ",
+      Transactions: "交易"
+    }
+  },
   CryptoHero: '暗号化英雄',
   'My Cards': 'コレクションカード',
   'Sign In': 'サインイン',

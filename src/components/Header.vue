@@ -4,29 +4,34 @@
       <div class="navbar-brand">
         <router-link class="navbar-item"
                      :to="{ name: 'Home'}">
-          {{$t('Smart Signature')}}
+          {{$t('header.nav.siteName')}}
         </router-link>
 
         <router-link class="navbar-item"
                      :to="{ name: 'Explore' }">
-          {{$t('Explore')}}
+          {{$t('header.nav.explore')}}
         </router-link>
 
         <router-link v-if="!me"
                      class="navbar-item"
                      :to="{ name: 'Login'}">
-          {{$t('SignIn')}}
+          {{$t('header.nav.SignIn')}}
         </router-link>
 
         <template v-else>
           <router-link class="navbar-item"
                        :to="{ name: 'CreateItem' }">
-            {{$t('CreateItem')}}
+            {{$t('header.nav.createItem')}}
           </router-link>
 
           <router-link class="navbar-item"
                        :to="{ name: 'User', params:{address: me.address}}">
-            {{$t('MyPage')}}
+            {{$t('header.nav.myPage')}}
+          </router-link>
+
+          <router-link class="navbar-item"
+                       :to="{ name: 'Transaction', params:{address: me.address}}">
+            {{$t('header.nav.Transactions')}}
           </router-link>
         </template>
 

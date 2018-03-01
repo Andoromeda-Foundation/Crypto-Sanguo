@@ -8,6 +8,7 @@ import UserView from '@/views/UserView';
 import CreateItemView from '@/views/CreateItemView';
 import LoginView from '@/views/LoginView';
 import RecentView from '@/views/RecentView';
+import TransactionView from '@/views/TransactionView';
 
 Vue.use(Router);
 
@@ -49,6 +50,10 @@ export default new Router({
       path: '/Recent',
       component: RecentView,
     },
-    
+    {
+      name: 'Transaction',
+      path: '/transaction',
+      component: TransactionView
+    }
   ],
 });

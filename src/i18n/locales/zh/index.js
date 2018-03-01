@@ -9,6 +9,7 @@ module.exports = {
       explore: "发现",
       createItem: "创建Token",
       myPage: "我的主页",
+      Transactions: "交易"
     }
   },
   CryptoHero: '以太水浒',
