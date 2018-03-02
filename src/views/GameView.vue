@@ -1,14 +1,15 @@
 <template>
   <div class="game-view">
     <div class="columns">
-      <div class="column">
-        <ve-map :data="chartData"
+      <div class="column ">
+        <ve-map height="100vh"
+                :data="chartData"
                 :settings="chartSettings"
                 :extend="chartExtend"></ve-map>
       </div>
       <div class="column">
         UI
-    </div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +29,9 @@ export default {
       position: "world",
       beforeRegisterMap(json) {
         return json;
-      }
+      },
+      zoom: 1,
+      roam: true
     };
     this.chartExtend = {
       series: {
