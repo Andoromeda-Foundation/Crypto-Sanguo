@@ -1,7 +1,7 @@
 <template>
   <div class="game-view">
     <div class="columns">
-      <div class="column ">
+      <div class="column">
         <ve-map height="100vh"
                 :data="chartData"
                 :legend-visible="legendVisible"
@@ -38,7 +38,20 @@ export default {
       },
       selectedMode: "single",
       zoom: 1,
-      roam: false
+      roam: false,
+      itemStyle: {
+        normal: {
+          borderColor: "rgba(0, 0, 0, 0.2)"
+        },
+        emphasis: {
+          areaColor: null,
+          shadowOffsetX: 0,
+          shadowOffsetY: 0,
+          shadowBlur: 20,
+          borderWidth: 0,
+          shadowColor: "rgba(0, 0, 0, 0.5)"
+        }
+      }
     };
     this.chartExtend = {
       series: {
