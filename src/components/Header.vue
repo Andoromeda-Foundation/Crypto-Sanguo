@@ -7,11 +7,6 @@
           {{$t('header.nav.siteName')}}
         </router-link>
 
-        <router-link class="navbar-item"
-                     :to="{ name: 'Explore' }">
-          {{$t('header.nav.explore')}}
-        </router-link>
-
         <router-link v-if="!me"
                      class="navbar-item"
                      :to="{ name: 'Login'}">
@@ -33,6 +28,16 @@
                        :to="{ name: 'Transaction', params:{address: me.address}}">
             {{$t('header.nav.Transactions')}}
           </router-link>
+
+          <router-link class="navbar-item"
+                       :to="{ name: 'Explore' }">
+            {{$t('header.nav.explore')}}
+          </router-link>
+
+          <router-link class="navbar-item"
+                       :to="{ name: 'HeroList' }">
+            {{$t('header.nav.herolist')}}
+          </router-link>          
         </template>
 
       </div>

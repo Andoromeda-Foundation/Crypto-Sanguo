@@ -7,10 +7,10 @@ module.exports = {
     nav: {
       siteName: "以太三国",
       explore: "探索",
-      createItem: "创建Token",
       game: "时局",      
-      myPage: "内阁",
-      Transactions: "时事"
+      myPage: "势力",
+      Transactions: "时事",     
+      herolist: "百科"
     }
   },
   'My Cards': '我的卡牌',
