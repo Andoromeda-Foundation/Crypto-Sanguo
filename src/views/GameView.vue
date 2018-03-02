@@ -31,7 +31,7 @@ export default {
         return json;
       },
       zoom: 1,
-      roam: true
+      roam: false
     };
     this.chartExtend = {
       series: {
