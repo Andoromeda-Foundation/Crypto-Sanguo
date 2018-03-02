@@ -36,7 +36,47 @@ export default {
     this.chartExtend = {
       series: {
         nameMap: {
-          SHU: "蜀国"
+          XiangPing: "襄平",
+          BeiPing: "北平",
+          Ji: "蓟",
+          JinYang: "晋阳",
+          ShangDang: "上党",
+          NanPi: "南皮",
+          Er: "兒",
+          BeiHai: "北海",
+          ChenLiu: "陈留",
+          LuoYang: "洛阳",
+          HongNong: "弘农",
+          ChangAn: "长安",
+          TianShui: "天水",
+          WuWei: "武威",
+          JiuQuan: "酒泉",
+          XiaYan: "下堰",
+          XuChang: "许昌",
+          ShouChun: "寿春",
+          NanYang: "南阳",
+          XiangYang: "襄阳",
+          ChangSha: "长沙",
+          GuiYang: "桂阳",
+          LingLing: "零陵",
+          JianYe: "建业",
+          KuaiJi: "会稽",
+          JianAn: "建安",
+          FuYang: "阜阳",
+          ChaiSang: "柴桑",
+          HanZhong: "汉中",
+          WuDu: "武都",
+          YongAn: "永安",
+          JiangZhou: "江州",
+          ChengDu: "成都",
+          ZhuTi: "朱提",
+          YongChang: "永昌",
+          JianNing: "建宁",
+          NanHai: "南海",
+          CangWu: "苍梧",
+          HePu: "合浦",
+          YuLin: "郁林",
+          JiaoZhi: "交趾"
         }
       }
     };
