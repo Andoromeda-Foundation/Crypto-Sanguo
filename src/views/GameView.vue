@@ -4,7 +4,9 @@
       <div class="column ">
         <ve-map height="100vh"
                 :data="chartData"
+                :legend-visible="legendVisible"
                 :settings="chartSettings"
+                :events="chartEvents"
                 :extend="chartExtend"></ve-map>
       </div>
       <div class="column">
@@ -21,20 +23,26 @@ export default {
 
   created: function() {
     this.chartData = {
-      columns: ["位置", " 人口"],
-      rows: [{ 位置: "蜀国", " 人口": 123 }]
+      columns: ["位置", "势力", "兵力", "城防", "人口"],
+      rows: [
+        { 位置: "北平", 人口: 123, 兵力: 11, 城防: 250, 势力: 999 },
+        { 位置: "襄平", 人口: 1223 }
+      ]
     };
+    this.legendVisible = false;
     this.chartSettings = {
       positionJsonLink: "./static/gameGeo.json",
       position: "world",
       beforeRegisterMap(json) {
         return json;
       },
+      selectedMode: "single",
       zoom: 1,
       roam: false
     };
     this.chartExtend = {
       series: {
+        showLegendSymbol: false,
         nameMap: {
           XiangPing: "襄平",
           BeiPing: "北平",
@@ -78,6 +86,14 @@ export default {
           YuLin: "郁林",
           JiaoZhi: "交趾"
         }
+      }
+    };
+    this.chartEvents = {
+      click(e) {
+        console.log(e.name);
+      },
+      mouseover(e) {
+        console.log(e.name);
       }
     };
   }
