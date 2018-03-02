@@ -1,18 +1,18 @@
- const FAQs_CONTENT = require('raw-loader!./faq.html');
+const FAQs_CONTENT = require('raw-loader!./faq.html');
 const PRIVACY_CONTENT = require('raw-loader!./privacy.html');
 const TERMS_CONTENT = require('raw-loader!./terms.html');
 
 module.exports = {
   header: {
     nav: {
-      siteName: "Smart Signature",
+      siteName: "CryptoThreeKingdoms",
       explore: "Explore",
       createItem: "Create Item",
-      myPage: "My Page",
-      Transactions: "Transactions"
+      game: "Game",
+      myPage: "Cabinet",
+      Transactions: "Events"
     }
   },
-  CryptoHero: 'CryptoHero',
   'My Cards': 'My Cards',
   'Sign In': 'Sign In',
   Home: 'Home',

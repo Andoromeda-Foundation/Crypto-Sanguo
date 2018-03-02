@@ -5,6 +5,7 @@ import HomeView from '@/views/HomeView';
 import ExploreView from '@/views/ExploreView';
 import ItemView from '@/views/ItemView';
 import UserView from '@/views/UserView';
+import GameView from '@/views/GameView';
 import CreateItemView from '@/views/CreateItemView';
 import LoginView from '@/views/LoginView';
 import RecentView from '@/views/RecentView';
@@ -35,6 +36,11 @@ export default new Router({
       path: '/user/:address',
       component: UserView,
     },
+    {
+      name: 'Game',
+      path: '/game',
+      component: GameView,
+    },    
     {
       name: 'CreateItem',
       path: '/item/create',

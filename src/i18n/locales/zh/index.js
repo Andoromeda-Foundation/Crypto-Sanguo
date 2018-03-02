@@ -5,14 +5,14 @@ const TERMS_CONTENT = require('raw-loader!./terms.html');
 module.exports = {
   header: {
     nav: {
-      siteName: "智能签名",
-      explore: "发现",
+      siteName: "以太三国",
+      explore: "探索",
       createItem: "创建Token",
-      myPage: "我的主页",
-      Transactions: "交易"
+      game: "时局",      
+      myPage: "内阁",
+      Transactions: "时事"
     }
   },
-  CryptoHero: '以太水浒',
   'My Cards': '我的卡牌',
   'Sign In': '登录游戏',
   Home: '首页',

@@ -20,8 +20,8 @@
 
         <template v-else>
           <router-link class="navbar-item"
-                       :to="{ name: 'CreateItem' }">
-            {{$t('header.nav.createItem')}}
+                       :to="{ name: 'Game' }">
+            {{$t('header.nav.game')}}
           </router-link>
 
           <router-link class="navbar-item"
