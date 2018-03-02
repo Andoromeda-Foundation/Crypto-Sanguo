@@ -4,7 +4,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "SHU"
+                "name": "XiangPing"
             },
             "geometry": {
                 "type": "Polygon",
@@ -108,7 +108,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "BeiPing"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -219,7 +221,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "Ji"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -302,7 +306,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "JinYang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -393,7 +399,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "ShangDang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -500,7 +508,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "NanPi"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -583,7 +593,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "Er"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -710,7 +722,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "BeiHai"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -877,7 +891,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "ChenLiu"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -992,7 +1008,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "LuoYang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1135,7 +1153,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "HongNong"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1266,7 +1286,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "ChangAn"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1437,7 +1459,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "TianShui"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1696,7 +1720,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "WuWei"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1947,7 +1973,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "JiuQuan"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2266,7 +2294,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "XiaYan"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2409,7 +2439,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "XuChang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2564,7 +2596,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "ShouChun"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2711,7 +2745,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "NanYang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2894,7 +2930,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "XiangYang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3045,7 +3083,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "ChangSha"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3248,7 +3288,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "GuiYang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3439,7 +3481,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "LingLing"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3610,7 +3654,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "JianYe"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3733,7 +3779,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "KuaiJi"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3924,7 +3972,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "JianAn"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -4155,7 +4205,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "FuYang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -4374,7 +4426,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "ChaiSang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -4585,7 +4639,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "HanZhong"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -4740,7 +4796,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "WuDu"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -4915,7 +4973,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "YongAn"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -5046,7 +5106,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "JiangZhou"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -5201,7 +5263,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "ChengDu"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -5372,7 +5436,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "ZhuTi"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -5571,7 +5637,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "YongChang"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -5766,7 +5834,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "JianNing"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -5973,7 +6043,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "NanHai"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -6140,7 +6212,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "CangWu"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -6283,7 +6357,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "HePu"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -6498,7 +6574,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "YuLin"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -6653,7 +6731,9 @@
         },
         {
             "type": "Feature",
-            "properties": {},
+            "properties": {
+                "name": "JiaoZhi"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
