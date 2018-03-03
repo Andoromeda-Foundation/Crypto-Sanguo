@@ -1,56 +1,67 @@
 <template>
-  <div>
-    <h2 class="title">武将百科</h2>
-    <table id="payouts"
-           class="table table-striped table-sm table-bordered"
-           cellspacing="0"
-           width="100%">
-      <thead>
-        <tr>
-          <th>姓名</th>
-          <th>综合</th>
-          <th>统御</th>
-          <th>武力</th>
-          <th>智力</th>
-          <th>政治</th>
-          <th>魅力</th>
-          <th>所属</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="data in datas"
-            :key="data.姓名">
-          <td>{{data.姓名}}</td>
-          <td>{{data.综合}}</td>
-          <td>{{data.统御}}</td>
-          <td>{{data.武力}}</td>
-          <td>{{data.智力}}</td>
-          <td>{{data.政治}}</td>
-          <td>{{data.魅力}}</td>
-          <td>13FX90</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div>
+  <h2 class="title">武将百科</h2>
+  <table id="payouts"
+         class="table table-striped table-sm table-bordered"
+         cellspacing="0"
+         width="100%">
+    <thead>
+      <tr>
+        <th @click="setSortKey('姓名')">姓名</th>
+        <th @click="setSortKey('综合')">综合</th>
+        <th @click="setSortKey('统御')">统御</th>
+        <th @click="setSortKey('武力')">武力</th>
+        <th @click="setSortKey('智力')">智力</th>
+        <th @click="setSortKey('政治')">政治</th>
+        <th @click="setSortKey('魅力')">魅力</th>
+        <th @click="setSortKey('所属')">所属</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="hero in this.heros">
+        <td>{{hero.姓名}}</td>
+        <td>{{hero.综合}}</td>
+        <td>{{hero.统御}}</td>
+        <td>{{hero.武力}}</td>
+        <td>{{hero.智力}}</td>
+        <td>{{hero.政治}}</td>
+        <td>{{hero.魅力}}</td>
+        <td>13FX90</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 </template>
 
 <script>
 export default {
-  name: 'TransactionView',
+  name: 'HeroListView',
   data() {
+    this.sortKey = '综合'
+    this.isAsc = false
     return {
-      datas: [],
-    };
+      heros: []
+    }
   },
-  mounted() {
-    this.$http.get('static/heroes.json').then((response) => {
-      this.datas = response.body;
-    });
+  mounted: function() {
+    console.log(this.me)
+    this.$http.get('static/heroes.json').then(function(response) {
+      this.heros = _.orderBy(response.body, this.sortKey, this.isAsc ? 'asc' : 'desc')
+    })
   },
+  methods: {
+    setSortKey: function(sortKey) {
+      this.isAsc = (this.sortKey === sortKey) ? !this.isAsc : false
+      this.sortKey = sortKey
+      this.heros = _.orderBy(this.heros, this.sortKey, this.isAsc ? 'asc' : 'desc')
+    }
+  }
 };
+
 </script>
 
-<style scoped>
+<style scoped="">
 .title {
   text-align: center;
 }
