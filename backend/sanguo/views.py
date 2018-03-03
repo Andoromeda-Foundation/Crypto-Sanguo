@@ -1,10 +1,13 @@
 from django.http import JsonResponse
 from sanguo.constants import TOKEN_EXPIRE_AFTER
 from sanguo.models import Heroes
+import json
+from django.core import serializers
 
 
-def new_hero_view(requests):
-    return JsonResponse({"heroes": ["test"]})
+def hero_view(requests):
+    hero_list = serializers.serialize("json", Heroes.objects.all())
+    return JsonResponse({"heroes": json.loads(hero_list)})
 
 
 def login_view(request):

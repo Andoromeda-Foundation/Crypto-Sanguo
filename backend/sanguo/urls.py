@@ -1,6 +1,6 @@
 from django.urls import path
-from sanguo.views import new_hero_view
+from sanguo.views import hero_view
 
 urlpatterns = [
-    path('new_hero/', new_hero_view),
+    path('heroes/', hero_view),
 ]
