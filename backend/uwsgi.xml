@@ -5,7 +5,7 @@
     <master>true</master>
     <processes>2</processes>
     <threads>2</threads>
-    <module>wsgi</module>
+    <module>backend.wsgi</module>
     <profiler>true</profiler>
     <memory-report>true</memory-report>
     <enable-threads>true</enable-threads>
