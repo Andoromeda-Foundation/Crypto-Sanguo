@@ -1,16 +1,16 @@
-const FAQs_CONTENT = require('raw-loader!./faq.html');
-const PRIVACY_CONTENT = require('raw-loader!./privacy.html');
-const TERMS_CONTENT = require('raw-loader!./terms.html');
+import FAQ_CONTENT from './faq.html';
+import PRIVACY_CONTENT from './privacy.html';
+import TERMS_CONTENT from './terms.html';
 
-module.exports = {
+export default {
   header: {
     nav: {
-      siteName: "智能サイン",
-      explore: "発見",
-      createItem: "新规Token",
-      myPage: "ホームページ",
-      Transactions: "交易"
-    }
+      siteName: '智能サイン',
+      explore: '発見',
+      createItem: '新规Token',
+      myPage: 'ホームページ',
+      Transactions: '交易',
+    },
   },
   CryptoHero: '暗号化英雄',
   'My Cards': 'コレクションカード',
@@ -35,7 +35,7 @@ module.exports = {
   BUY_BTN: '購入',
   PREMIUM_BUY_BTN: '{rate}プレミアム購入',
   BUY_PRICE_TIP: '課金の総額が高くなると、カードの獲得率が一方になる。 トランザクション毎に100以上のガスを投入してこれ以上のスピードで確認される！',
-  FAQs_CONTENT,
+  FAQ_CONTENT,
   PRIVACY_CONTENT,
   TERMS_CONTENT,
 };

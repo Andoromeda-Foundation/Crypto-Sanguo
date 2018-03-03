@@ -1,17 +1,17 @@
-const FAQs_CONTENT = require('raw-loader!./faq.html');
-const PRIVACY_CONTENT = require('raw-loader!./privacy.html');
-const TERMS_CONTENT = require('raw-loader!./terms.html');
+import FAQ_CONTENT from './faq.html';
+import PRIVACY_CONTENT from './privacy.html';
+import TERMS_CONTENT from './terms.html';
 
-module.exports = {
+export default {
   header: {
     nav: {
-      siteName: "CryptoThreeKingdoms",
-      explore: "Explore",
-      createItem: "Create Item",
-      game: "Game",
-      myPage: "Cabinet",
-      Transactions: "Events"
-    }
+      siteName: 'CryptoThreeKingdoms',
+      explore: 'Explore',
+      createItem: 'Create Item',
+      game: 'Game',
+      myPage: 'Cabinet',
+      Transactions: 'Events',
+    },
   },
   'My Cards': 'My Cards',
   'Sign In': 'Sign In',
@@ -20,7 +20,7 @@ module.exports = {
   Owner: 'Owner',
   'Current Price': 'Current Price',
   Buy: 'Buy',
-  BirthdayGift: 'Birthday Tribute(HOT)',  
+  BirthdayGift: 'Birthday Tribute(HOT)',
   'Terms of Service': 'Terms',
   'Privacy Policy': 'Privacy',
   'Contact Us': 'Contact',
@@ -36,7 +36,7 @@ module.exports = {
   BUY_BTN: 'Buy',
   PREMIUM_BUY_BTN: '{rate} Premium to buy',
   BUY_PRICE_TIP: 'The higher the bid, the greater the chance of getting it. Use 100+gas to make the transaction proved fast!',
-  FAQs_CONTENT,
+  FAQ_CONTENT,
   PRIVACY_CONTENT,
   TERMS_CONTENT,
 };

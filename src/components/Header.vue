@@ -37,7 +37,7 @@
           <router-link class="navbar-item"
                        :to="{ name: 'HeroList' }">
             {{$t('header.nav.herolist')}}
-          </router-link>          
+          </router-link>
         </template>
 
       </div>
@@ -69,25 +69,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { getNetwork, getAnnouncements } from "@/api";
-import I18nSwitcher from "@/components/I18nSwitcher";
+import { getNetwork } from '@/api';
+import I18nSwitcher from '@/components/I18nSwitcher';
 
 export default {
-  name: "Header",
+  name: 'Header',
   components: {
-    I18nSwitcher
+    I18nSwitcher,
   },
   data() {
     return {
-      network: {}
+      network: {},
     };
   },
   async created() {
-    this.$store.dispatch("FETCH_ME");
+    this.$store.dispatch('FETCH_ME');
     const network = await getNetwork();
     if (!network) {
-      alert("Unknown network!");
+      alert('Unknown network!');
       return;
     }
     this.network = network;
@@ -165,5 +164,4 @@ a.navbar-item:hover {
   color: #fdda46 !important;
   background-color: transparent !important;
 }
-
 </style>
