@@ -16,6 +16,7 @@
     "bluebird": "^3.5.1",
     "echarts": "^4.0.4",
     "js-cookie": "^2.2.0",
+    "lodash": "^4.17.5",
     "superagent": "^3.8.2",
     "timeout-then": "^1.1.0",
     "v-charts": "^1.16.2",
