@@ -8,12 +8,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
-  name: "I18nSwither",
+  name: 'I18nSwither',
   async created() {
-    this.$store.dispatch("initLocale");
+    this.$store.dispatch('initLocale');
   },
   computed: {
     locale: {
@@ -23,20 +21,20 @@ export default {
         const lang = i18n.find(
           item =>
             item.locale === locale ||
-            item.aliases.some(alias => alias === locale)
+            item.aliases.some(alias => alias === locale),
         );
         return lang ? lang.locale : null;
       },
       set(value) {
-        this.$store.dispatch("setLocale", value);
-      }
-    }
+        this.$store.dispatch('setLocale', value);
+      },
+    },
   },
   watch: {
     locale(val) {
       this.$i18n.locale = val;
-    }
-  }
+    },
+  },
 };
 </script>
 

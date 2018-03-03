@@ -41,7 +41,7 @@ export default new Router({
       name: 'Game',
       path: '/game',
       component: GameView,
-    },    
+    },
     {
       name: 'CreateItem',
       path: '/item/create',
@@ -51,7 +51,7 @@ export default new Router({
       name: 'HeroList',
       path: '/herolist',
       component: HeroListView,
-    },    
+    },
     {
       name: 'Login',
       path: '/Login',
@@ -65,7 +65,7 @@ export default new Router({
     {
       name: 'Transaction',
       path: '/transaction',
-      component: TransactionView
-    }
+      component: TransactionView,
+    },
   ],
 });

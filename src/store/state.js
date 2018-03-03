@@ -26,6 +26,6 @@ export default () => ({
   // You should never directly modify the state. Such as: this.$store.state.msg = "New Msg";
   */
   computed: mapState([
-    'me'
-  ])
+    'me',
+  ]),
 });

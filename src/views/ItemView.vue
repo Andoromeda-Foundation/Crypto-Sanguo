@@ -48,11 +48,11 @@
 </template>
 
 <script>
-import { buyItem } from "@/api";
-import { toReadablePrice } from "@/util";
+import { buyItem } from '@/api';
+import { toReadablePrice } from '@/util';
 
 export default {
-  name: "item-view",
+  name: 'item-view',
 
   data: () => ({}),
 
@@ -65,10 +65,10 @@ export default {
     },
     item() {
       return this.$store.state.items[this.itemId];
-    }
+    },
   },
   async created() {
-    this.$store.dispatch("FETCH_ITEM", this.itemId);
+    this.$store.dispatch('FETCH_ITEM', this.itemId);
   },
 
   watch: {},
@@ -76,24 +76,24 @@ export default {
   methods: {
     onBuy(rate) {
       if (this.$store.state.signInError) {
-        return this.$router.push({ name: "Login" });
+        this.$router.push({ name: 'Login' });
+        return;
       }
       const buyPrice = this.item.price.times(rate).toFixed(0);
       buyItem(this.itemId, buyPrice)
-        .then(txHash => {
-          alert(this.$t("BUY_SUCCESS_MSG") + "txHash: " + txHash);
-          setNextPrice(this.itemId, buyPrice);
+        .then((txHash) => {
+          alert(`${this.$t('BUY_SUCCESS_MSG')}txHash: ${txHash}`);
         })
-        .catch(e => {
-          alert(this.$t("BUY_FAIL_MSG"));
+        .catch((e) => {
+          alert(this.$t('BUY_FAIL_MSG'));
           console.log(e);
         });
     },
     toDisplayedPrice(priceInWei) {
       const readable = toReadablePrice(priceInWei);
       return `${readable.price} ${readable.unit}`;
-    }
-  }
+    },
+  },
 };
 </script>
  <style scoped>

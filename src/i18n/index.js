@@ -8,7 +8,8 @@ const messages = {};
 
 i18n.forEach((item) => {
   // eslint-disable-next-line
-  const locale = require(`./locales/${item.locale}`);
+  let locale = require(`./locales/${item.locale}`);
+  locale = locale.default;
   item.aliases.forEach((alias) => {
     messages[alias] = locale;
   });
