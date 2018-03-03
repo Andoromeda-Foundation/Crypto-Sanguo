@@ -1,4 +1,5 @@
 import json
+import traceback
 from sanguo.models import Heroes
 
 
@@ -21,12 +22,15 @@ def insert_hero_data():
                 "intelligence": int(info['智力']),
                 "politics": int(info['政治']),
                 "charm": int(info['魅力']),
-                "score": int(info['综合'])
+                "score": int(info['综合']),
+                "image": info['image_name'],
+                "introduce": info.get('生平', '')
             }
-        except:
-            print(info)
+        except Exception as err:
+            print("err: %s, callstack: %s, info: %s" % (err, traceback.format_exc(), info))
         if Heroes.objects.filter(name=hero_info['name']):
             print("%s exist, try next" % hero_info['name'])
+            continue
         hero = Heroes(name=hero_info['name'],
                       leadership=hero_info['leadership'],
                       force=hero_info['force'],
@@ -34,5 +38,7 @@ def insert_hero_data():
                       politics=hero_info['politics'],
                       charm=hero_info['charm'],
                       score=hero_info['score'],
+                      image=hero_info['image'],
+                      introduce=hero_info['introduce'],
                       is_enabled=1)
         hero.save()

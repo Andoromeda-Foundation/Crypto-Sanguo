@@ -11,6 +11,8 @@ class Heroes(models.Model):
     politics = models.IntegerField()  # 政治
     charm = models.IntegerField()  # 魅力
     score = models.IntegerField()  # 综合
+    image = models.CharField(max_length=100, default="")  # 头像
+    introduce = models.TextField(default="")  # 生平
     is_enabled = models.IntegerField(default=1, choices=EnabledChoices)
 
     mtime = models.DateTimeField(blank=True,  auto_now_add=True)
@@ -22,8 +24,9 @@ class Heroes(models.Model):
         verbose_name_plural = u'英雄'
 
     def __str__(self):
-        return "Hero with name=%s, 统帅=%s, 武力=%s, 智力=%s, 政治=%s, 魅力=%s, 综合=%s, 是否开启=%s" \
-               % (self.name, self.leadership, self.force, self.intelligence, self.politics, self.charm, self.score, self.is_enabled)
+        return "Hero with name=%s, 统帅=%s, 武力=%s, 智力=%s, 政治=%s, 魅力=%s, 综合=%s, 头像=%s, 生平=%s, 是否开启=%s" \
+               % (self.name, self.leadership, self.force, self.intelligence, self.politics, self.charm, self.score,
+                  self.image, self.introduce, self.is_enabled)
 
 
 class Cities(models.Model):
