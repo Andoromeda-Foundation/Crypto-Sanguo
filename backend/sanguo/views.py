@@ -39,7 +39,8 @@ def login_view(request):
     }
     user_battle_info = get_user_battle_info(address)
     player_info.update(user_battle_info)
-    return JsonResponse({"err_code": 0, "err_msg": "", "player_info": player_info})
+    map_info = get_map_info()
+    return JsonResponse({"err_code": 0, "err_msg": "", "player_info": player_info, "map_info": map_info})
 
 
 def get_current_battle_state():
@@ -89,6 +90,17 @@ def get_user_battle_info(address):
         "soldier": user_battle.soldier if user_battle else 0
     }
 
+
+def get_map_info():
+    cities = Cities.objects.all()
+    city_list = [model_to_dict(city) for city in cities]
+    for city in city_list:
+        city_ownership = CityOwnership.objects.filter(city_id=city['id']).first()
+        if city_ownership:
+            city['owner_info'] = get_user_battle_info(city_ownership.address)
+        else:
+            city['owner_info'] = {}
+    return city_list
 
 def my_address_view(request):
     address = request.session.get("uid", "")
@@ -140,12 +152,5 @@ def get_my_hero_view(request):
 
 
 def map_info_view(request):
-    cities = Cities.objects.all()
-    city_list = [model_to_dict(city) for city in cities]
-    for city in city_list:
-        city_ownership = CityOwnership.objects.filter(city_id=city['id']).first()
-        if city_ownership:
-            city['owner_info'] = get_user_battle_info(city_ownership.address)
-        else:
-            city['owner_info'] = {}
+    city_list = get_map_info()
     return JsonResponse({"err_code": 0, "city_list": city_list})
