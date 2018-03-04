@@ -1,6 +1,6 @@
 import json
 import traceback
-from sanguo.models import Heroes
+from sanguo.models import Heroes, Cities
 
 
 def insert_hero_data():
@@ -43,3 +43,28 @@ def insert_hero_data():
                       is_enabled=1)
         hero.save()
 
+
+def insert_city_data():
+    data = json.load(open('backend/data/cities.json'))
+    for city_name in data:
+        try:
+            # name = models.CharField(max_length=30)
+            # defence = models.IntegerField()  # 防御力
+            # defence_add = models.IntegerField()  # 每次转手防御力增长
+            # soldier_recover = models.IntegerField()  # 单位时间兵力增长
+            city_info = {
+                "name": city_name,
+                "defence": 1000,
+                "defence_add": 1000,
+                "soldier_recover": 1000,
+            }
+        except Exception as err:
+            print("err: %s, callstack: %s, info: %s" % (err, traceback.format_exc(), city_name))
+        if Cities.objects.filter(name=city_info['name']):
+            print("%s exist, try next" % city_info['name'])
+            continue
+        city = Cities(name=city_info['name'],
+                      defence=city_info['defence'],
+                      defence_add=city_info['defence_add'],
+                      soldier_recover=city_info['soldier_recover'])
+        city.save()

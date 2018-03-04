@@ -4,8 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from backend import settings
 from sanguo.constants import TOKEN_EXPIRE_AFTER, BattleState
-from sanguo.models import Heroes, HeroOwnership, CityOwnership, UserBattleInfo
+from sanguo.models import Heroes, HeroOwnership, CityOwnership, UserBattleInfo, Cities
 import json
+import random
 from django.core import serializers
 
 
@@ -83,7 +84,7 @@ def get_user_battle_info(address):
 def my_address_view(request):
     address = request.session.get("uid", "")
     if not address:
-        return {"err_code": 401, "msg": "用户未登录 请重新登录"}
+        return JsonResponse({"err_code": 401, "msg": "用户未登录 请重新登录"})
 
     return JsonResponse({"err_code": 0, "address": address})
 
@@ -92,3 +93,38 @@ def user_info_view(request):
     address = request.GET.get("address")
     battle_info = get_user_battle_info(address)
     return JsonResponse(battle_info)
+
+
+def get_my_hero_view(request):
+    if get_current_battle_state() != BattleState.get_hero:
+        return JsonResponse({"err_code": -1, "msg": "当前不是获取英雄阶段"})
+    address = request.session.get("uid", "")
+    if not address:
+        return JsonResponse({"err_code": 401, "msg": "用户未登录 请重新登录"})
+    heroes = HeroOwnership.objects.filter(address=address)
+    if heroes:
+        return JsonResponse({"err_code": -1, "msg": "你已经有英雄了 无法重复获取"})
+    cities = CityOwnership.objects.filter(address=address)
+    if cities:
+        return JsonResponse({"err_code": -1, "msg": "你已经有城市了 无法重复获取"})
+    try:
+        soldier = UserBattleInfo.objects.get(address=address)
+        if soldier.soldier > 0:
+            return JsonResponse({"err_code": -1, "msg": "你已经拥有兵力 无法重复获取"})
+    except Exception as err:
+        pass
+    heroes = list(Heroes.objects.all())
+    heroes = random.sample(heroes, 3)
+    for hero in heroes:
+        hero_ownership = HeroOwnership(address=address, hero_id=hero.pk)
+        hero_ownership.save()
+    cities = Cities.objects.all()
+    not_occupied_cities = [city for city in cities if not CityOwnership.objects.filter(city_id=city.pk).exists()]
+    print("noc", not_occupied_cities)
+    if not_occupied_cities:
+        city = random.sample(not_occupied_cities, 1)[0]
+        city_ownership = CityOwnership(address=address, city_id=city.pk)
+        city_ownership.save()
+    user_battle_info = UserBattleInfo(address=address, soldier=20000)
+    user_battle_info.save()
+    return JsonResponse({"err_code": 0, "msg": ""})
