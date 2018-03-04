@@ -49,6 +49,13 @@ def get_current_battle_state():
     return int(current_state)
 
 
+def get_current_countdown_timestamp():
+    current_countdown_timestamp = settings.user_redis.get("state_countdown")
+    if not current_countdown_timestamp:
+        return -1
+    return int(current_countdown_timestamp)
+
+
 def get_user_battle_info(address):
     """
     int soldier;
@@ -75,6 +82,7 @@ def get_user_battle_info(address):
             print("err: %s, traceback: %s" % (err, traceback.format_exc()))
     return {
         "state": get_current_battle_state(),
+        "countdown": get_current_countdown_timestamp(),
         "heroes": hero_list,
         "cities": city_list,
         "soldier": user_battle.soldier if user_battle else 0
@@ -127,4 +135,4 @@ def get_my_hero_view(request):
         city_ownership.save()
     user_battle_info = UserBattleInfo(address=address, soldier=20000)
     user_battle_info.save()
-    return JsonResponse({"err_code": 0, "msg": ""})
+    return JsonResponse({"err_code": 0, "msg": "", "countdown": get_current_countdown_timestamp()})
