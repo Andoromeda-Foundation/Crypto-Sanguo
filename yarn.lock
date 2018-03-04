@@ -2069,11 +2069,7 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-echarts-amap@^1.0.0-rc.6:
-  version "1.0.0-rc.6"
-  resolved "https://registry.yarnpkg.com/echarts-amap/-/echarts-amap-1.0.0-rc.6.tgz#5782a74daee52ed44ce3f8f62577561783f09e16"
-
-echarts@^4.0.4:
+echarts@^4.0.2:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/echarts/-/echarts-4.0.4.tgz#36aa8a47d33543d3dfe6a7bc1228ddc3a1e41157"
   dependencies:
@@ -5419,6 +5415,10 @@ requires-port@1.0.x, requires-port@1.x.x, requires-port@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
 
+resize-detector@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/resize-detector/-/resize-detector-0.1.2.tgz#7aed9163def753fb0015245e29f5b93c67d060d2"
+
 resolve-cwd@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/resolve-cwd/-/resolve-cwd-2.0.0.tgz#00a9f7387556e27038eae232caa372a6a59b665a"
@@ -6371,12 +6371,6 @@ uuid@^3.0.0, uuid@^3.0.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
-v-charts@^1.16.2:
-  version "1.16.2"
-  resolved "https://registry.yarnpkg.com/v-charts/-/v-charts-1.16.2.tgz#7c2e1895789aba5a95b6974bf9942c63183291e0"
-  dependencies:
-    echarts-amap "^1.0.0-rc.6"
-
 validate-npm-package-license@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.1.tgz#2804babe712ad3379459acfbe24746ab2c303fbc"
@@ -6409,6 +6403,14 @@ vm-browserify@0.0.4:
 vue-config@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/vue-config/-/vue-config-1.0.0.tgz#f6e6704845808fbfa3b17300fc7ffd624c2ca42e"
+
+vue-echarts@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/vue-echarts/-/vue-echarts-3.0.3.tgz#7de8d144e44ff7d9c6bc8753cc75a44873316284"
+  dependencies:
+    echarts "^4.0.2"
+    lodash "^4.17.4"
+    resize-detector "^0.1.2"
 
 vue-eslint-parser@^2.0.1:
   version "2.0.2"
