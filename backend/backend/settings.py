@@ -38,7 +38,7 @@ db_conn_args = {
     "host": '127.0.0.1',
     "port": 3306,
     "user": 'lucky917',
-    "passwd": 'gamegame123',
+    "passwd": 'gamegame917',
     'charset': 'utf8mb4'
 }
 
@@ -50,7 +50,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sg',
         'USER': 'lucky917',
-        'PASSWORD': 'gamegame123',
+        'PASSWORD': 'gamegame917',
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'OPTIONS': {'charset': 'utf8mb4'},
