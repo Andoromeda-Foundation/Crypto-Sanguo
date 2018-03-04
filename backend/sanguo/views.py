@@ -14,6 +14,7 @@ def login_view(request):
     address = request.POST.get('address')
     request.session['uid'] = address
     request.session.set_expiry(TOKEN_EXPIRE_AFTER)
+    return {"err_code": 0, "err_msg": ""}
 
 
 def all_heroes(request):
