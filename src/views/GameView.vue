@@ -1,6 +1,16 @@
 <template>
   <div class="game-view">
-    <div class="columns">
+    <div class="game-wrapper">
+      <iframe height="100%"
+              width="100%"
+              src="./static/cocos/index.html"
+              scrolling=auto
+              frameborder=0>
+        <p>Your browser does not support iframes.</p>
+      </iframe>
+    </div>
+    <div v-if="false"
+         class="columns">
       <div class="column">
         <ve-map height="100vh"
                 :data="chartData"
@@ -113,3 +123,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.game-wrapper {
+  height: 100vh;
+}
+</style>
