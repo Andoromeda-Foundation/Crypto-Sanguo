@@ -6,6 +6,8 @@ import VueLodash from 'vue-lodash';
 import vueConfig from 'vue-config';
 import VueLazyload from 'vue-lazyload';
 import VueResource from 'vue-resource';
+// https://github.com/ecomfe/vue-echarts/blob/master/demo/Demo.vue
+import ECharts from 'vue-echarts/components/ECharts';
 import * as config from '@/config';
 import App from './App';
 import store from './store';
@@ -17,6 +19,7 @@ Vue.use(VueLodash, lodash);
 Vue.use(VueResource);
 Vue.use(VueLazyload);
 Vue.use(vueConfig, config);
+Vue.component('ECharts', ECharts);
 
 /* eslint-disable no-new */
 new Vue({
