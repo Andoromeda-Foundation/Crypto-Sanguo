@@ -77,7 +77,7 @@ def get_user_battle_info(address):
             print("err: %s, traceback: %s" % (err, traceback.format_exc()))
     for city in cities:
         try:
-            city_list.append(model_to_dict(Heroes.objects.get(pk=city.city_id)))
+            city_list.append(model_to_dict(Cities.objects.get(pk=city.city_id)))
         except Exception as err:
             print("err: %s, traceback: %s" % (err, traceback.format_exc()))
     return {

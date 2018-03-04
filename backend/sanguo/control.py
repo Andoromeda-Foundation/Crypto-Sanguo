@@ -16,14 +16,14 @@ def start_get_hero():
     UserBattleInfo.objects.all().delete()
     # 将比赛状态设为get_hero 并记录时间戳
     settings.user_redis.set("battle_state", BattleState.get_hero)
-    settings.user_redis.set("state_countdown", time.time() + GET_HERO_INTERVAL)  # 10分钟的比赛时间
+    settings.user_redis.set("state_countdown", int(time.time()) + GET_HERO_INTERVAL)  # 10分钟的比赛时间
 
 
 # 比赛阶段
 def start_match():
     # 开始比赛
     settings.user_redis.set("battle_state", BattleState.battle)
-    settings.user_redis.set("state_countdown", time.time() + BATTLE_INTERVAL)  # 10分钟的比赛时间
+    settings.user_redis.set("state_countdown", int(time.time()) + BATTLE_INTERVAL)  # 10分钟的比赛时间
 
 
 def clear_data():
