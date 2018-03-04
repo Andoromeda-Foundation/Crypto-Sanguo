@@ -42,3 +42,4 @@ def insert_hero_data():
                       introduce=hero_info['introduce'],
                       is_enabled=1)
         hero.save()
+

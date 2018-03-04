@@ -2,7 +2,8 @@ import traceback
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
-from sanguo.constants import TOKEN_EXPIRE_AFTER
+from backend import settings
+from sanguo.constants import TOKEN_EXPIRE_AFTER, BattleState
 from sanguo.models import Heroes, HeroOwnership, CityOwnership, UserBattleInfo
 import json
 from django.core import serializers
@@ -40,6 +41,13 @@ def login_view(request):
     return JsonResponse({"err_code": 0, "err_msg": "", "player_info": player_info})
 
 
+def get_current_battle_state():
+    current_state = settings.user_redis.get("battle_state")
+    if not current_state:
+        return BattleState.get_hero
+    return int(current_state)
+
+
 def get_user_battle_info(address):
     """
     int soldier;
@@ -65,6 +73,7 @@ def get_user_battle_info(address):
         except Exception as err:
             print("err: %s, traceback: %s" % (err, traceback.format_exc()))
     return {
+        "state": get_current_battle_state(),
         "heroes": hero_list,
         "cities": city_list,
         "soldier": user_battle.soldier if user_battle else 0
