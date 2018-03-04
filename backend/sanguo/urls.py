@@ -1,5 +1,6 @@
 from django.urls import path
-from sanguo.views import hero_view, login_view, my_address_view, user_info_view, get_my_hero_view, map_info_view
+from sanguo.views import hero_view, login_view, my_address_view, user_info_view, get_my_hero_view, map_info_view, \
+    attack_view
 
 urlpatterns = [
     path('heroes/', hero_view),
@@ -8,4 +9,5 @@ urlpatterns = [
     path('user_info/', user_info_view),
     path('get_my_hero/', get_my_hero_view),
     path('map_info/', map_info_view),
+    path('attack/', attack_view)
 ]

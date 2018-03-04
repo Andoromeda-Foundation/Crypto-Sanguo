@@ -102,6 +102,7 @@ def get_map_info():
             city['owner_info'] = {}
     return city_list
 
+
 def my_address_view(request):
     address = request.session.get("uid", "")
     if not address:
@@ -154,3 +155,45 @@ def get_my_hero_view(request):
 def map_info_view(request):
     city_list = get_map_info()
     return JsonResponse({"err_code": 0, "city_list": city_list})
+
+
+@csrf_exempt
+def attack_view(request):
+    """
+    a1: 进攻方兵力和
+    a2: 进攻方武将战斗力和
+    d1: 防守方兵力和
+    d2: 防守方武将战斗力和
+    d3: 防守方所在城市的城防
+
+    进攻方战斗力： a1 * a2 / (a2 + d2)
+    防守方战斗力：(d1+d3) * d2 / (a2 + d2)
+    根据战斗力比率 roll 点，如果进攻方获胜，防守方兵力 -1k，城防 -1k。
+    防守方获胜，进攻方兵力 -1k。
+    直到有一方兵力为 0，或者防守方城防为 0。
+
+    胜:
+        => 占领 增加兵力增长速度 城池实力增长 损失兵力
+    负:
+        => 损失兵力
+    """
+    address = request.session.get("uid", "")
+    city_id = int(request.POST.get("city_id"))
+    if get_current_battle_state() != BattleState.battle:
+        return JsonResponse({"err_code": -1, "msg": "当前不是战斗阶段"})
+    city_ownership = CityOwnership.objects.filter(city_id=city_id).first()
+    if not city_ownership:
+        # 去掉城防 换所有权
+        city_ownership = CityOwnership(address=address, city_id=city_id)
+        city_ownership.save()
+        return JsonResponse({"err_code": 0, "success": 1})
+
+    if address == city_ownership.address:
+        return JsonResponse({"err_code": -1, "msg": "自己不能进攻自己"})
+    # 战斗 更换城市所有权
+    city_ownership.address = address
+    city_ownership.save()
+    return {
+        "err_code": 0,
+        "success": 1,
+    }
