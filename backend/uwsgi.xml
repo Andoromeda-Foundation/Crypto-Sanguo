@@ -1,0 +1,16 @@
+<uwsgi>
+    <socket>0.0.0.0:9901</socket>
+    <listen>64</listen>
+    <stats>localhost:1717</stats>
+    <master>true</master>
+    <processes>2</processes>
+    <threads>2</threads>
+    <module>backend.wsgi</module>
+    <profiler>true</profiler>
+    <memory-report>true</memory-report>
+    <enable-threads>true</enable-threads>
+    <limit-as>6048</limit-as>
+    <buffer-size>65536</buffer-size>
+    <harakiri>30</harakiri>
+    <disable-logging></disable-logging>
+</uwsgi>

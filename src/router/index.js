@@ -10,6 +10,7 @@ import CreateItemView from '@/views/CreateItemView';
 import LoginView from '@/views/LoginView';
 import RecentView from '@/views/RecentView';
 import TransactionView from '@/views/TransactionView';
+import HeroListView from '@/views/HeroListView';
 
 Vue.use(Router);
 
@@ -40,11 +41,16 @@ export default new Router({
       name: 'Game',
       path: '/game',
       component: GameView,
-    },    
+    },
     {
       name: 'CreateItem',
       path: '/item/create',
       component: CreateItemView,
+    },
+    {
+      name: 'HeroList',
+      path: '/herolist',
+      component: HeroListView,
     },
     {
       name: 'Login',
@@ -59,7 +65,7 @@ export default new Router({
     {
       name: 'Transaction',
       path: '/transaction',
-      component: TransactionView
-    }
+      component: TransactionView,
+    },
   ],
 });

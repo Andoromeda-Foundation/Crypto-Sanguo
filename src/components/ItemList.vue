@@ -31,39 +31,39 @@
 </template>
 
 <script>
-import { toReadablePrice } from "@/util";
+import { toReadablePrice } from '@/util';
 
 export default {
-  name: "item-lists",
-  props: ["itemIds"],
+  name: 'item-lists',
+  props: ['itemIds'],
 
   data: () => ({}),
 
   computed: {
     items() {
-      return this.itemIds.map(id => {
+      return this.itemIds.map((id) => {
         const item = this.$store.state.items[id];
         return item || { id };
       });
-    }
+    },
   },
 
   methods: {
     toDisplayedPrice(priceInWei) {
       const readable = toReadablePrice(priceInWei);
       return `${readable.price} ${readable.unit}`;
-    }
+    },
   },
 
   created() {},
 
   watch: {
     itemIds(newItemIds) {
-      newItemIds.forEach(itemId => {
-        this.$store.dispatch("FETCH_ITEM", itemId);
+      newItemIds.forEach((itemId) => {
+        this.$store.dispatch('FETCH_ITEM', itemId);
       });
-    }
-  }
+    },
+  },
 };
 </script>
  <style scoped>

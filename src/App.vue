@@ -10,22 +10,22 @@
 </template>
 
 <script>
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Header,
-    Footer
+    Footer,
   },
   computed: {
     key() {
       return this.$route.name !== undefined
         ? this.$route.name + +new Date()
         : this.$route + +new Date();
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,6 +1,3 @@
 <template>
-
-
+  <div>RecentView</div>
 </template>
-
-// name owner price time

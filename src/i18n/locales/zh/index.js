@@ -1,17 +1,17 @@
-const FAQs_CONTENT = require('raw-loader!./faq.html');
-const PRIVACY_CONTENT = require('raw-loader!./privacy.html');
-const TERMS_CONTENT = require('raw-loader!./terms.html');
+import FAQ_CONTENT from './faq.html';
+import PRIVACY_CONTENT from './privacy.html';
+import TERMS_CONTENT from './terms.html';
 
-module.exports = {
+export default {
   header: {
     nav: {
-      siteName: "以太三国",
-      explore: "探索",
-      createItem: "创建Token",
-      game: "时局",      
-      myPage: "内阁",
-      Transactions: "时事"
-    }
+      siteName: '以太三国',
+      explore: '探索',
+      game: '时局',
+      myPage: '势力',
+      Transactions: '时事',
+      herolist: '百科',
+    },
   },
   'My Cards': '我的卡牌',
   'Sign In': '登录游戏',
@@ -37,7 +37,7 @@ module.exports = {
   BUY_BTN: '正价买入',
   PREMIUM_BUY_BTN: '溢价{rate}买入',
   BUY_PRICE_TIP: '出价越高，抢到的几率越大! 推荐使用100+gas，提高交易确认速度！',
-  FAQs_CONTENT,
+  FAQ_CONTENT,
   PRIVACY_CONTENT,
   TERMS_CONTENT,
 };

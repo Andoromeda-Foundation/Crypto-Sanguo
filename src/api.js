@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
 import Cookie from 'js-cookie';
-import { BigNumber } from 'bignumber.js';
 import web3 from '@/web3';
 import * as config from '@/config';
 import request from 'superagent';
@@ -259,9 +258,9 @@ export const getNetwork = async () => {
   return config.network[netId];
 };
 
-export const createToken = async ({ price, frozen1,frozen2, parentId }) =>
+export const createToken = async ({ price, frozen1, frozen2, parentId }) =>
   new Promise((resolve, reject) => {
-    sponsorTokenContract.issueToken(web3.toWei(Number(price), 'ether'), frozen1,frozen2, parentId, {
+    sponsorTokenContract.issueToken(web3.toWei(Number(price), 'ether'), frozen1, frozen2, parentId, {
       // value: price, // web3.toWei(Number(price), 'ether'),
       gas: 220000,
       gasPrice: 1000000000 * 100,

@@ -1,5 +1,6 @@
 <template>
-  <div class="" style="background-image: url(./static/icons-background.svg)">
+  <div class=""
+       style="background-image: url(./static/icons-background.svg)">
     <div v-if="loading"
          class="loader-wrapper">
       <pulse-loader></pulse-loader>
@@ -9,22 +10,22 @@
 </template>
 
 <script>
-import PulseLoader from "vue-spinner/src/PulseLoader";
-import ItemList from "@/components/ItemList";
-import { getTotal } from "@/api";
+import PulseLoader from 'vue-spinner/src/PulseLoader';
+import ItemList from '@/components/ItemList';
+import { getTotal } from '@/api';
 
 export default {
-  name: "item-list",
+  name: 'item-list',
   components: {
     PulseLoader,
-    ItemList
+    ItemList,
   },
 
   data() {
     return {
       loading: true,
       itemIds: [],
-      total: null
+      total: null,
     };
   },
 
@@ -34,14 +35,14 @@ export default {
     this.total = await getTotal();
     const itemIds = Array.from(
       new Array(this.total.toNumber()),
-      (val, index) => index
+      (val, index) => index,
     );
     this.itemIds = itemIds;
     this.loading = false;
   },
 
   methods: {},
-  watch: {}
+  watch: {},
 };
 </script>
 <style scoped>
