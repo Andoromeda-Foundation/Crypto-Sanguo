@@ -83,6 +83,7 @@ def get_user_battle_info(address):
     return {
         "state": get_current_battle_state(),
         "countdown": get_current_countdown_timestamp(),
+        "address": address,
         "heroes": hero_list,
         "cities": city_list,
         "soldier": user_battle.soldier if user_battle else 0
@@ -136,3 +137,15 @@ def get_my_hero_view(request):
     user_battle_info = UserBattleInfo(address=address, soldier=20000)
     user_battle_info.save()
     return JsonResponse({"err_code": 0, "msg": "", "countdown": get_current_countdown_timestamp()})
+
+
+def map_info_view(request):
+    cities = Cities.objects.all()
+    city_list = [model_to_dict(city) for city in cities]
+    for city in city_list:
+        city_ownership = CityOwnership.objects.filter(city_id=city['id']).first()
+        if city_ownership:
+            city['owner_info'] = get_user_battle_info(city_ownership.address)
+        else:
+            city['owner_info'] = {}
+    return JsonResponse({"err_code": 0, "city_list": city_list})
