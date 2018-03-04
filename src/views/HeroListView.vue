@@ -18,17 +18,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(hero,index) in heros"
-            :key="index">
-          <td>{{hero.姓名}}</td>
-          <td>{{hero.综合}}</td>
-          <td>{{hero.统御}}</td>
-          <td>{{hero.武力}}</td>
-          <td>{{hero.智力}}</td>
-          <td>{{hero.政治}}</td>
-          <td>{{hero.魅力}}</td>
-          <td>13FX90</td>
-        </tr>
+        <a href="/hero/{{hero.id}}" target="_blank">
+          <tr v-for="(hero,index) in heros"
+              :key="index">
+            <td>{{hero.姓名}}</td>
+            <td>{{hero.综合}}</td>
+            <td>{{hero.统御}}</td>
+            <td>{{hero.武力}}</td>
+            <td>{{hero.智力}}</td>
+            <td>{{hero.政治}}</td>
+            <td>{{hero.魅力}}</td>
+            <td>13FX90</td>
+          </tr>
+        </a>
       </tbody>
     </table>
   </div>
