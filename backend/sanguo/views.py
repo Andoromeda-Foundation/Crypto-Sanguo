@@ -178,25 +178,93 @@ def attack_view(request):
         => 损失兵力
     """
     address = request.session.get("uid", "")
+    if not address:
+        return JsonResponse({"err_code": 401, "msg": "用户尚未登录"})
+
     city_id = int(request.POST.get("city_id"))
+    target_city_id = int(request.POST.get("target_city_id"))
+    attack_soldier_number = int(request.POST.get("attack_soldier_number"))
+
     if get_current_battle_state() != BattleState.battle:
         return JsonResponse({"err_code": -1, "msg": "当前不是战斗阶段"})
-    city_ownership = CityOwnership.objects.filter(city_id=city_id).first()
-    if not city_ownership:
-        # 去掉城防 换所有权
-        city_ownership = CityOwnership(address=address, city_id=city_id)
-        city_ownership.save()
-        return JsonResponse({"err_code": 0, "success": 1})
 
-    if address == city_ownership.address:
+    city = Cities.objects.filter(city_id=city_id).first()
+    if not city:
+        return JsonResponse({"err_code": -1, "msg": "Invalid city_id"})
+
+    city_ownership = CityOwnership.objects.filter(city_id=city_id).first()
+    if not city_ownership or city_ownership.address != address:
+        return JsonResponse({"err_code": -1, "msg": "不是进攻城市的owner!"})
+
+    target_city = Cities.objects.filter(city_id=target_city_id).first()
+    if not target_city:
+        return JsonResponse({"err_code": -1, "msg": "Invalid target_city_id"})
+
+    # 判断对手合法性
+    target_city_ownership = CityOwnership.objects.filter(city_id=target_city_id).first()
+    if target_city_ownership and target_city_ownership.address == address:
         return JsonResponse({"err_code": -1, "msg": "自己不能进攻自己"})
-    # 战斗 更换城市所有权
-    city_ownership.address = address
+
+    # 判断兵力
+    if city_ownership.soldier < attack_soldier_number:
+        return JsonResponse({"err_code": -1, "msg": "没有足够兵力"})
+
+    # 出兵
+    city_ownership.soldier -= attack_soldier_number
     city_ownership.save()
-    return JsonResponse({
-        "err_code": 0,
-        "success": 1,
-    })
+
+    # 破防
+    if attack_soldier_number <= target_city.defence:
+        return JsonResponse({"err_code": 0, "success": 0, "msg": "兵力太少, 破城失败"})
+    attack_soldier_number -= target_city.defence
+
+    # 白刃战
+    target_city_ownership = CityOwnership.objects.filter(city_id=target_city_id).first()
+    if not target_city_ownership:
+        # 换所有权 更新城防 ownership
+        new_city_ownership = CityOwnership(address=address, city_id=target_city_id, soldier=attack_soldier_number)
+        new_city_ownership.save()
+        city.defence += city.defence_add
+        city.save()
+        return JsonResponse({"err_code": 0, "success": 1, "msg": "成功攻城!"})
+
+    target_address = target_city_ownership.address
+    user_power = get_user_hero_power(address)  # 武将战力
+    target_power = get_user_hero_power(target_address)  # 武将战力
+    if attack_soldier_number*user_power < target_city_ownership.soldier*target_power:
+        # 攻城失败 更新兵力
+        target_city_ownership.soldier -=  attack_soldier_number*user_power/target_power
+        target_city_ownership.save()
+        return JsonResponse({"err_code": 0, "success": 0, "msg": "兵力太少,白刃战失败!"})
+    else:
+        # 攻城成功 更新城防 ownership
+        target_city_ownership.delete()
+        attack_soldier_number -= target_city_ownership.soldier*target_power/user_power
+        new_city_ownership = CityOwnership(address=address, city_id=target_city_id, soldier=attack_soldier_number)
+        new_city_ownership.save()
+        target_city.defence += target_city.defence_add
+        target_city.save()
+        return JsonResponse({"err_code": 0, "success": 1, "msg": "白刃战攻城成功!"})
+
+
+def get_user_soldier(address):
+    try:
+        user_battle = UserBattleInfo.objects.get(address=address)
+    except Exception as err:
+        user_battle = []
+    return int(user_battle.soldier) if user_battle else 0
+
+
+def get_user_hero_power(address):
+    """
+    用户的战力为用户所有武将的战力和
+    """
+    hero_ownship_list = HeroOwnership.objects.filter(address=address)
+    total_power = 0
+    for hero_ownership in hero_ownship_list:
+        hero = Heroes.objects.filter(id=hero_ownership.hero_id).first()
+        total_power += int(hero.score)
+    return total_power
 
 
 @csrf_exempt

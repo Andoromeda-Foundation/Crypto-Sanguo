@@ -90,6 +90,7 @@ class HeroOwnership(models.Model):
 class CityOwnership(models.Model):
     address = models.CharField(max_length=100)
     city_id = models.IntegerField()
+    soldier = models.IntegerField(default=0)  # 城市兵力
 
     mtime = models.DateTimeField(blank=True,  auto_now_add=True)
     ctime = models.DateTimeField(blank=True, auto_now_add=True)
