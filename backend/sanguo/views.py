@@ -193,7 +193,11 @@ def attack_view(request):
     # 战斗 更换城市所有权
     city_ownership.address = address
     city_ownership.save()
-    return {
+    return JsonResponse({
         "err_code": 0,
         "success": 1,
-    }
+    })
+
+@csrf_exempt
+def debug_view(request):
+    return JsonResponse(request.POST)
