@@ -9,4 +9,5 @@ class BattleState(object):
 
 GET_HERO_INTERVAL = 600
 BATTLE_INTERVAL = 3600  # 比赛时间1h
+PRICE_INTERVAL = 1200
 

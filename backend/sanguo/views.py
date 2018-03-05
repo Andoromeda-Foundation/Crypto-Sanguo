@@ -97,7 +97,7 @@ def get_map_info():
     for city in city_list:
         city_ownership = CityOwnership.objects.filter(city_id=city['id']).first()
         if city_ownership:
-            city['owner_info'] = get_user_battle_info(city_ownership.address)
+            city['owner_info'] = model_to_dict(city_ownership)
         else:
             city['owner_info'] = {}
     return city_list

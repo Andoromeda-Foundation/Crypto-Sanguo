@@ -1,6 +1,9 @@
 import json
+import time
 import traceback
-from sanguo.models import Heroes, Cities
+from sanguo.constants import BattleState
+from sanguo.models import Heroes, Cities, CityOwnership
+from sanguo.views import get_current_battle_state
 
 
 def insert_hero_data():
@@ -68,3 +71,19 @@ def insert_city_data():
                       defence_add=city_info['defence_add'],
                       soldier_recover=city_info['soldier_recover'])
         city.save()
+
+
+def manage_soldier():
+    while True:
+        time.sleep(10)
+        if get_current_battle_state() == BattleState.battle:
+            # 兵力增长
+            city_ownership_list = CityOwnership.objects.all()
+            for city_ownership in city_ownership_list:
+                city_id = city_ownership.city_id
+                city = Cities.objects.filter(id=city_id).first()
+                if not city:
+                    print("Bug! 城市不存在")
+                    continue
+                city_ownership.soldier += city.soldier_recover
+                city_ownership.save()

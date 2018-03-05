@@ -5,7 +5,7 @@ from backend import settings
 
 
 # 获取武将阶段
-from sanguo.constants import BattleState, GET_HERO_INTERVAL, BATTLE_INTERVAL
+from sanguo.constants import BattleState, GET_HERO_INTERVAL, BATTLE_INTERVAL, PRICE_INTERVAL
 from sanguo.models import HeroOwnership, CityOwnership, UserBattleInfo
 
 
@@ -26,5 +26,7 @@ def start_match():
     settings.user_redis.set("state_countdown", int(time.time()) + BATTLE_INTERVAL)  # 10分钟的比赛时间
 
 
-def clear_data():
-    pass
+def send_prize():
+    # 开始比赛
+    settings.user_redis.set("battle_state", BattleState.give_prize)
+    settings.user_redis.set("state_countdown", int(time.time()) + PRICE_INTERVAL)  # 10分钟的比赛时间
