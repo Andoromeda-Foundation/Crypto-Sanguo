@@ -198,6 +198,7 @@ def attack_view(request):
         "success": 1,
     })
 
+
 @csrf_exempt
 def debug_view(request):
     return JsonResponse(request.POST)

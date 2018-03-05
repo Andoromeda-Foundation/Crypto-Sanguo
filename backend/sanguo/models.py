@@ -31,6 +31,7 @@ class Heroes(models.Model):
 
 class Cities(models.Model):
     name = models.CharField(max_length=30)
+    init_defence = models.IntegerField(default=1000)
     defence = models.IntegerField()  # 防御力
     defence_add = models.IntegerField()  # 每次转手防御力增长
     soldier_recover = models.IntegerField()  # 单位时间兵力增长
