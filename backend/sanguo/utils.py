@@ -73,11 +73,21 @@ def insert_city_data():
         city.save()
 
 
-def manage_soldier():
+def manage_soldier(times=-1):
+    """
+    支持两种模式:
+        调试模式 times为正数 表示经过多少轮兵力增长
+        游戏模式: 每10秒进行一轮兵力增长
+    """
+    current_times = 0
     while True:
-        time.sleep(10)
+        if times <= 0:
+            time.sleep(10)
+        if current_times == times:
+            return
         if get_current_battle_state() == BattleState.battle:
             # 兵力增长
+            print("进行一轮兵力增长")
             city_ownership_list = CityOwnership.objects.all()
             for city_ownership in city_ownership_list:
                 city_id = city_ownership.city_id
@@ -87,3 +97,6 @@ def manage_soldier():
                     continue
                 city_ownership.soldier += city.soldier_recover
                 city_ownership.save()
+        else:
+            print("当前非战斗状态")
+        current_times += 1

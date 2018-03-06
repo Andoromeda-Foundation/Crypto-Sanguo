@@ -6,7 +6,7 @@ from backend import settings
 
 # 获取武将阶段
 from sanguo.constants import BattleState, GET_HERO_INTERVAL, BATTLE_INTERVAL, PRICE_INTERVAL
-from sanguo.models import HeroOwnership, CityOwnership, UserBattleInfo
+from sanguo.models import HeroOwnership, CityOwnership, UserBattleInfo, Cities
 
 
 def start_get_hero():
@@ -14,6 +14,10 @@ def start_get_hero():
     HeroOwnership.objects.all().delete()
     CityOwnership.objects.all().delete()
     UserBattleInfo.objects.all().delete()
+    cities = Cities.objects.all()
+    for city in cities:
+        city.defence = city.init_defence
+        city.save()
     # 将比赛状态设为get_hero 并记录时间戳
     settings.user_redis.set("battle_state", BattleState.get_hero)
     settings.user_redis.set("state_countdown", int(time.time()) + GET_HERO_INTERVAL)  # 10分钟的比赛时间

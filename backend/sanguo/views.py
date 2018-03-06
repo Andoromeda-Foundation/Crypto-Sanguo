@@ -38,6 +38,7 @@ def login_view(request):
         "address": address,
     }
     user_battle_info = get_user_battle_info(address)
+    print("battle_info", user_battle_info)
     player_info.update(user_battle_info)
     map_info = get_map_info()
     return JsonResponse({"err_code": 0, "err_msg": "", "player_info": player_info, "map_info": map_info})
@@ -114,9 +115,10 @@ def my_address_view(request):
 def user_info_view(request):
     address = request.GET.get("address")
     battle_info = get_user_battle_info(address)
-    return JsonResponse(battle_info)
+    return JsonResponse({"err_code": 0, "msg": "正常", "user_info": battle_info})
 
 
+@csrf_exempt
 def get_my_hero_view(request):
     if get_current_battle_state() != BattleState.get_hero:
         return JsonResponse({"err_code": -1, "msg": "当前不是获取英雄阶段"})
@@ -129,24 +131,26 @@ def get_my_hero_view(request):
     cities = CityOwnership.objects.filter(address=address)
     if cities:
         return JsonResponse({"err_code": -1, "msg": "你已经有城市了 无法重复获取"})
+    # TODO: wangangang 兵力直接部署到城市
     try:
         soldier = UserBattleInfo.objects.get(address=address)
         if soldier.soldier > 0:
             return JsonResponse({"err_code": -1, "msg": "你已经拥有兵力 无法重复获取"})
     except Exception as err:
         pass
+    cities = Cities.objects.all()
+    not_occupied_cities = [city for city in cities if not CityOwnership.objects.filter(city_id=city.pk).exists()]
+    if not_occupied_cities:
+        city = random.sample(not_occupied_cities, 1)[0]
+        city_ownership = CityOwnership(address=address, city_id=city.pk, soldier=20000)
+        city_ownership.save()
+    else:
+        return JsonResponse({"err_code": -1, "msg": "本轮城市认领完, 请等待下轮", "countdown": get_current_countdown_timestamp()})
     heroes = list(Heroes.objects.all())
     heroes = random.sample(heroes, 3)
     for hero in heroes:
         hero_ownership = HeroOwnership(address=address, hero_id=hero.pk)
         hero_ownership.save()
-    cities = Cities.objects.all()
-    not_occupied_cities = [city for city in cities if not CityOwnership.objects.filter(city_id=city.pk).exists()]
-    print("noc", not_occupied_cities)
-    if not_occupied_cities:
-        city = random.sample(not_occupied_cities, 1)[0]
-        city_ownership = CityOwnership(address=address, city_id=city.pk)
-        city_ownership.save()
     user_battle_info = UserBattleInfo(address=address, soldier=20000)
     user_battle_info.save()
     return JsonResponse({"err_code": 0, "msg": "", "countdown": get_current_countdown_timestamp()})
@@ -188,7 +192,7 @@ def attack_view(request):
     if get_current_battle_state() != BattleState.battle:
         return JsonResponse({"err_code": -1, "msg": "当前不是战斗阶段"})
 
-    city = Cities.objects.filter(city_id=city_id).first()
+    city = Cities.objects.filter(pk=city_id).first()
     if not city:
         return JsonResponse({"err_code": -1, "msg": "Invalid city_id"})
 
@@ -196,7 +200,7 @@ def attack_view(request):
     if not city_ownership or city_ownership.address != address:
         return JsonResponse({"err_code": -1, "msg": "不是进攻城市的owner!"})
 
-    target_city = Cities.objects.filter(city_id=target_city_id).first()
+    target_city = Cities.objects.filter(pk=target_city_id).first()
     if not target_city:
         return JsonResponse({"err_code": -1, "msg": "Invalid target_city_id"})
 
