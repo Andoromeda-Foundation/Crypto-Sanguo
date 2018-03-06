@@ -31,6 +31,7 @@ class Heroes(models.Model):
 
 class Cities(models.Model):
     name = models.CharField(max_length=30)
+    init_defence = models.IntegerField(default=1000)
     defence = models.IntegerField()  # 防御力
     defence_add = models.IntegerField()  # 每次转手防御力增长
     soldier_recover = models.IntegerField()  # 单位时间兵力增长
@@ -89,6 +90,7 @@ class HeroOwnership(models.Model):
 class CityOwnership(models.Model):
     address = models.CharField(max_length=100)
     city_id = models.IntegerField()
+    soldier = models.IntegerField(default=0)  # 城市兵力
 
     mtime = models.DateTimeField(blank=True,  auto_now_add=True)
     ctime = models.DateTimeField(blank=True, auto_now_add=True)
@@ -119,3 +121,20 @@ class UserBattleInfo(models.Model):
     def __str__(self):
         return "UserBattleInfo with address=%s, soldier=%s" \
                % (self.address, self.soldier)
+
+
+class BattleMessage(models.Model):
+    address = models.CharField(max_length=100)  # 如果address为all 表示是
+    message = models.CharField(max_length=1000)
+
+    mtime = models.DateTimeField(blank=True,  auto_now_add=True)
+    ctime = models.DateTimeField(blank=True, auto_now_add=True)
+
+    class Meta:
+        app_label = 'sanguo'
+        db_table = 'battle_message'
+        verbose_name_plural = u'消息'
+
+    def __str__(self):
+        return "UserBattleInfo with address=%s, message=%s" \
+               % (self.address, self.message)

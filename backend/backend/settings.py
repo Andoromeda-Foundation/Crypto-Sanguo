@@ -38,7 +38,7 @@ db_conn_args = {
     "host": '127.0.0.1',
     "port": 3306,
     "user": 'lucky917',
-    "passwd": 'gamegame123',
+    "passwd": 'gamegame917',
     'charset': 'utf8mb4'
 }
 
@@ -50,7 +50,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sg',
         'USER': 'lucky917',
-        'PASSWORD': 'gamegame123',
+        'PASSWORD': 'gamegame917',
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'OPTIONS': {'charset': 'utf8mb4'},
@@ -64,11 +64,12 @@ DATABASES = {
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["api.lucky917.com"]
+ALLOWED_HOSTS = ["api.bitbuluo.com", "127.0.0.1"]
 
 
 # Application definition
 INSTALLED_APPS = [
+    'corsheaders',
     'sanguo.apps.SanguoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -79,6 +80,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,6 +89,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'backend.urls'
 
