@@ -121,3 +121,7 @@ class UserBattleInfo(models.Model):
     def __str__(self):
         return "UserBattleInfo with address=%s, soldier=%s" \
                % (self.address, self.soldier)
+
+
+class BattleMessage(models.Model):
+    message = models.CharField(max_length=1000)
