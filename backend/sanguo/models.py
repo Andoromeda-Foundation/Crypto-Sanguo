@@ -124,4 +124,17 @@ class UserBattleInfo(models.Model):
 
 
 class BattleMessage(models.Model):
+    address = models.CharField(max_length=100)  # 如果address为all 表示是
     message = models.CharField(max_length=1000)
+
+    mtime = models.DateTimeField(blank=True,  auto_now_add=True)
+    ctime = models.DateTimeField(blank=True, auto_now_add=True)
+
+    class Meta:
+        app_label = 'sanguo'
+        db_table = 'battle_message'
+        verbose_name_plural = u'消息'
+
+    def __str__(self):
+        return "UserBattleInfo with address=%s, message=%s" \
+               % (self.address, self.message)

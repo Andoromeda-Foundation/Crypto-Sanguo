@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from backend import settings
 from sanguo.constants import TOKEN_EXPIRE_AFTER, BattleState
-from sanguo.models import Heroes, HeroOwnership, CityOwnership, UserBattleInfo, Cities
+from sanguo.models import Heroes, HeroOwnership, CityOwnership, UserBattleInfo, Cities, BattleMessage
 import json
 import random
 from django.core import serializers
@@ -13,6 +13,11 @@ from django.core import serializers
 def hero_view(requests):
     hero_list = serializers.serialize("json", Heroes.objects.all())
     return JsonResponse({"heroes": json.loads(hero_list)})
+
+
+def add_battle_message(address, msg):
+    battle_message = BattleMessage(address=address, message=msg)
+    battle_message.save()
 
 
 @csrf_exempt
@@ -41,6 +46,7 @@ def login_view(request):
     print("battle_info", user_battle_info)
     player_info.update(user_battle_info)
     map_info = get_map_info()
+    add_battle_message(address, "恭喜你成功登陆! 您的地址是: %s" % address)
     return JsonResponse({"err_code": 0, "err_msg": "", "player_info": player_info, "map_info": map_info})
 
 
@@ -144,6 +150,8 @@ def get_my_hero_view(request):
         city = random.sample(not_occupied_cities, 1)[0]
         city_ownership = CityOwnership(address=address, city_id=city.pk, soldier=20000)
         city_ownership.save()
+        add_battle_message(address, "恭喜你获得城市 %s , 兵力: %s, 防御: %s, 兵力回复速度: %s, 换手防御增长: %s, " %
+                           (city.name, 20000, city.init_defence, city.soldier_recover, city.defence_add))
     else:
         return JsonResponse({"err_code": -1, "msg": "本轮城市认领完, 请等待下轮", "countdown": get_current_countdown_timestamp()})
     heroes = list(Heroes.objects.all())
@@ -151,14 +159,27 @@ def get_my_hero_view(request):
     for hero in heroes:
         hero_ownership = HeroOwnership(address=address, hero_id=hero.pk)
         hero_ownership.save()
+        # leadership = models.IntegerField()  # 统帅
+        # force = models.IntegerField()  # 武力
+        # intelligence = models.IntegerField()  # 智力
+        # politics = models.IntegerField()  # 政治
+        # charm = models.IntegerField()  # 魅力
+        # score = models.IntegerField()  # 综合
+        add_battle_message(address, "恭喜你获得英雄 %s , 综合战力: %s, 其中: 统帅: %s, 武力: %s, 智力: %s, 政治: %s, 魅力: %s,"
+                           % (hero.name, hero.score, hero.leadership, hero.force, hero.intelligence, hero.politics, hero.charm))
     user_battle_info = UserBattleInfo(address=address, soldier=20000)
     user_battle_info.save()
     return JsonResponse({"err_code": 0, "msg": "", "countdown": get_current_countdown_timestamp()})
 
 
 def map_info_view(request):
-    city_list = get_map_info()
-    return JsonResponse({"err_code": 0, "city_list": city_list})
+    address = request.session.get('uid', '')
+    player_info = {}
+    if address:
+        user_battle_info = get_user_battle_info(address)
+        player_info.update(user_battle_info)
+    map_info = get_map_info()
+    return JsonResponse({"err_code": 0, "map_info": map_info, "player_info": player_info})
 
 
 @csrf_exempt
@@ -219,6 +240,10 @@ def attack_view(request):
 
     # 破防
     if attack_soldier_number <= target_city.defence:
+        add_battle_message(address, "兵力太少, 攻城失败, 损失兵力 %s" % attack_soldier_number)
+        if target_city_ownership:
+            add_battle_message(target_city_ownership.address,
+                               "%s携带%s兵力进攻了你的城市, 您的城市毫发无伤!!" % (address, attack_soldier_number))
         return JsonResponse({"err_code": 0, "success": 0, "msg": "兵力太少, 破城失败"})
     attack_soldier_number -= target_city.defence
 
@@ -237,7 +262,7 @@ def attack_view(request):
     target_power = get_user_hero_power(target_address)  # 武将战力
     if attack_soldier_number*user_power < target_city_ownership.soldier*target_power:
         # 攻城失败 更新兵力
-        target_city_ownership.soldier -=  attack_soldier_number*user_power/target_power
+        target_city_ownership.soldier -= attack_soldier_number*user_power/target_power
         target_city_ownership.save()
         return JsonResponse({"err_code": 0, "success": 0, "msg": "兵力太少,白刃战失败!"})
     else:
@@ -274,3 +299,12 @@ def get_user_hero_power(address):
 @csrf_exempt
 def debug_view(request):
     return JsonResponse(request.POST)
+
+
+def user_battle_msg_view(request):
+    address = request.session.get("uid", "")
+    if not address:
+        return JsonResponse({"err_code": 401, "msg": "address为空 需要重新登录"})
+    msg_list = BattleMessage.objects.filter(address=address).order_by('-ctime')[:100]
+    msg_list = [msg.message for msg in msg_list]
+    return JsonResponse({"err_code": 0, "msg_list": msg_list})
