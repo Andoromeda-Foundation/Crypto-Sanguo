@@ -150,7 +150,7 @@ def get_my_hero_view(request):
         city = random.sample(not_occupied_cities, 1)[0]
         city_ownership = CityOwnership(address=address, city_id=city.pk, soldier=20000)
         city_ownership.save()
-        add_battle_message(address, "恭喜你获得城市 %s , 兵力: %s, 防御: %s, 兵力回复速度: %s, 换手防御增长: %s, " %
+        add_battle_message(address, "恭喜你获得城市 %s , 兵力: %s, 防御: %s, 兵力回复速度: %s, 换手防御增长: %s" %
                            (city.name, 20000, city.init_defence, city.soldier_recover, city.defence_add))
     else:
         return JsonResponse({"err_code": -1, "msg": "本轮城市认领完, 请等待下轮", "countdown": get_current_countdown_timestamp()})
@@ -208,7 +208,7 @@ def attack_view(request):
 
     city_id = int(request.POST.get("city_id"))
     target_city_id = int(request.POST.get("target_city_id"))
-    attack_soldier_number = int(request.POST.get("attack_soldier_number"))
+    original_attack_soldier_number = attack_soldier_number = int(request.POST.get("attack_soldier_number"))
 
     if get_current_battle_state() != BattleState.battle:
         return JsonResponse({"err_code": -1, "msg": "当前不是战斗阶段"})
@@ -255,6 +255,8 @@ def attack_view(request):
         new_city_ownership.save()
         city.defence += city.defence_add
         city.save()
+        add_battle_message(address, "恭喜你获得新的城池 %s, 损失兵力: %s, 剩余兵力: %s, 防御: %s, 兵力回复速度: %s, 换手防御增长: %s" %
+                           (city.name, target_city.defence, new_city_ownership.soldier, city.init_defence, city.soldier_recover, city.defence_add))
         return JsonResponse({"err_code": 0, "success": 1, "msg": "成功攻城!"})
 
     target_address = target_city_ownership.address
@@ -264,6 +266,10 @@ def attack_view(request):
         # 攻城失败 更新兵力
         target_city_ownership.soldier -= attack_soldier_number*user_power/target_power
         target_city_ownership.save()
+        add_battle_message(address, "攻城失败! 您损失兵力 %s 人, 对方损失兵力 %s 人" %
+                           (original_attack_soldier_number, target_city_ownership.soldier))
+        add_battle_message(target_address, "%s 携带 %s 兵力进攻了你的城市, 您损失兵力 %s 人" %
+                           (address, original_attack_soldier_number, attack_soldier_number*user_power/target_power))
         return JsonResponse({"err_code": 0, "success": 0, "msg": "兵力太少,白刃战失败!"})
     else:
         # 攻城成功 更新城防 ownership
@@ -273,6 +279,11 @@ def attack_view(request):
         new_city_ownership.save()
         target_city.defence += target_city.defence_add
         target_city.save()
+        add_battle_message(address, "恭喜你获得新的城池 %s, 损失兵力: %s, 剩余兵力: %s, 防御: %s, 兵力回复速度: %s, 换手防御增长: %s" %
+                           (city.name, original_attack_soldier_number - attack_soldier_number, attack_soldier_number,
+                            city.defence, city.soldier_recover, city.defence_add))
+        add_battle_message(target_address, "城池被夺! %s 携带 %s 兵力进攻了你的城市, 攻略成功!" %
+                           (address, original_attack_soldier_number))
         return JsonResponse({"err_code": 0, "success": 1, "msg": "白刃战攻城成功!"})
 
 

@@ -98,6 +98,11 @@ class TestDev(object):
             test_attack(0, 2)
         if step == 5:
             test_attack(1, 2)
+        if step == 6:
+            for i in range(3):
+                print("uaddr%s消息列表" % i)
+                resp = json.loads(requests.get("http://%s/sanguo/battle_msg/" % self.host, cookies={"sessionid": self.user_list[0]['sessionid']}).content)
+                print(resp)
 
 
 class TestProd(TestDev):
