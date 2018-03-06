@@ -23,7 +23,7 @@
       </thead>
       <tbody>
 
-        <tr v-for="(hero,index) in heros"
+        <tr class="row" v-for="(hero,index) in heros"
             :key="index">
           <td>
             <a v-bind:href="'/hero/'+hero.id"
@@ -93,7 +93,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .title {
   text-align: center;
 }
@@ -118,5 +118,14 @@ input:focus {
     0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
     0 0 8px rgba(102, 175, 233, 0.6);
+}
+.row { 
+  background: LightGray; 
+}
+.row:nth-child(odd) { 
+  background: white; 
+}
+.row:hover { 
+  background: gray; 
 }
 </style>
