@@ -11,6 +11,7 @@ export default {
       game: 'Game',
       myPage: 'Cabinet',
       Transactions: 'Events',
+      herolist: 'General List',      
     },
   },
   'My Cards': 'My Cards',
