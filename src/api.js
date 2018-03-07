@@ -207,6 +207,20 @@ export const setNextPrice = async (id, priceInWei) => {
   return price * 1.1;
 };
 
+export const setPrice = (id, price) =>
+  new Promise((resolve, reject) => {
+    sponsorTokenContract.changePrice(
+      id,
+      price,
+      {
+        value: 0,
+        gas: 220000,
+        gasPrice: 1000000000 * 66, // be nice
+      },
+      (err, result) => (err ? reject(err) : resolve(result)),
+    );
+  });
+
 export const getItem = async (id) => {
   const exist = await Promise.promisify(sponsorTokenContract.tokenExists)(id);
   if (!exist) return null;

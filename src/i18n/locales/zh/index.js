@@ -13,6 +13,13 @@ export default {
       herolist: '百科',
     },
   },
+  itemView: {
+    tabs: {
+      bio: '武将介绍',
+      attributes: '武将属性',
+      transactions: '交易记录',
+    },
+  },
   'My Cards': '我的卡牌',
   'Sign In': '登录游戏',
   Home: '首页',
