@@ -22,6 +22,16 @@
       <h5>骑兵：{{hero.骑兵}}</h5>
       <h5>武器：{{hero.武器}}</h5>
       <h5>水军：{{hero.水军}}</h5>
+    <br />
+    <h2 class="title">数值</h2>
+      <h5>统御：{{hero.统御}}</h5>
+      <h5>武力：{{hero.武力}}</h5>
+      <h5>智力：{{hero.智力}}</h5>
+      <h5>政治：{{hero.政治}}</h5>
+      <h5>魅力：{{hero.魅力}}</h5>
+      <h5>统武和：{{hero.统武和}}</h5>
+      <h5>统武智和：{{hero.统武智和}}</h5>
+      <h5>综合：{{hero.综合}}</h5>
   </div>
 
 </template>
@@ -98,10 +108,8 @@ export default {
               calculable: true,
               series: [{
                   type: 'radar',
-                  calculable: true,
                   data: [{
                     value: [this.hero.统御, this.hero.武力, this.hero.智力, this.hero.政治, this.hero.魅力, this.hero.统武和, this.hero.统武智和],
-                    name: "预算分配"
                   }]
               }]
           })
