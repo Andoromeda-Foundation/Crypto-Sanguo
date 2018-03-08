@@ -47,7 +47,8 @@ def login_view(request):
     player_info.update(user_battle_info)
     map_info = get_map_info()
     add_battle_message(address, "恭喜你成功登陆! 您的地址是: %s" % address)
-    return JsonResponse({"err_code": 0, "err_msg": "", "player_info": player_info, "map_info": map_info})
+    return JsonResponse({"err_code": 0, "err_msg": "", "player_info": player_info, "map_info": map_info,
+                         "msg_list": get_user_latest_n_message(address, 100, -1)})
 
 
 def get_current_battle_state():
@@ -314,8 +315,17 @@ def debug_view(request):
 
 def user_battle_msg_view(request):
     address = request.session.get("uid", "")
+    msg_id = int(request.GET.get('msg_id', -1))
     if not address:
         return JsonResponse({"err_code": 401, "msg": "address为空 需要重新登录"})
-    msg_list = BattleMessage.objects.filter(address=address).order_by('-ctime')[:100]
-    msg_list = [msg.message for msg in msg_list]
+    msg_list = get_user_latest_n_message(address, 100, msg_id)
+    return JsonResponse({"err_code": 0, "msg_list": msg_list})
+
+
+def get_user_latest_n_message(address, number, msg_id):
+    """
+    基于msg_id获取用户最近的number条消息
+    """
+    msg_list = BattleMessage.objects.filter(address=address, pk__gt=msg_id).order_by('-ctime')[:number]
+    msg_list = [{"msg": msg.message, "msg_id": msg.pk, "timestamp": msg.ctime.timestamp()} for msg in msg_list]
     return JsonResponse({"err_code": 0, "msg_list": msg_list})
