@@ -70,7 +70,7 @@ require = function e(t, n, r) {
         }
         cx /= points.length;
         cy /= points.length;
-        this.node.getChildByName("label").getComponent(cc.Label).string = _index + " " + _name;
+        this.node.getChildByName("label").getComponent(cc.Label).string = _name;
         CityShift.length <= _index && (CityShift[_index] = [ 0, 0 ]);
         this.node.position = cc.p(cx + CityShift[_index][0], cy + CityShift[_index][1]);
       },
@@ -501,17 +501,18 @@ require = function e(t, n, r) {
     var PlayerData = require("PlayerData");
     var CityConfig = require("CityConfig").CityConfig;
     var Game = require("Game");
+    var CityName = require("Utils").CityName;
     cc.Class({
       extends: cc.Component,
       properties: {},
       init: function init(index) {
         this.cityId = index;
-        this.node.getChildByName("cityNameLabel").getComponent(cc.Label).string = CityConfig.features[index].properties.name;
+        this.node.getChildByName("cityNameLabel").getComponent(cc.Label).string = CityName[index];
         var isMy = false;
         if (null != CityData.cityList[index].owner_info.address) {
           this.node.getChildByName("citySoldierLabel").active = true;
           this.node.getChildByName("citySoldierTextLabel").active = true;
-          this.node.getChildByName("cityOwnerLabel").getComponent(cc.Label).string = CityData.cityList[index].owner_info.address;
+          this.node.getChildByName("cityOwnerLabel").getComponent(cc.Label).string = CityData.cityList[index].owner_info.address.substr(-6);
           this.node.getChildByName("citySoldierLabel").getComponent(cc.Label).string = CityData.cityList[index].owner_info.soldier;
           CityData.cityList[index].owner_info.address == PlayerData.address && (isMy = true);
         } else {
@@ -536,7 +537,8 @@ require = function e(t, n, r) {
     CityConfig: "CityConfig",
     CityData: "CityData",
     Game: "Game",
-    PlayerData: "PlayerData"
+    PlayerData: "PlayerData",
+    Utils: "Utils"
   } ],
   CityListView: [ function(require, module, exports) {
     "use strict";
@@ -679,6 +681,8 @@ require = function e(t, n, r) {
     var CityData = require("CityData");
     var CityConfig = require("CityConfig").CityConfig;
     var HttpAction = require("HttpAction");
+    var CityName = require("Utils").CityName;
+    var MsgData = require("MsgData");
     var Game = cc.Class({
       extends: cc.Component,
       properties: {
@@ -752,8 +756,10 @@ require = function e(t, n, r) {
       },
       attack: function attack(fromCity, soldier) {
         cc.log(fromCity, this.atkCity, soldier);
+        var thiz = this;
         HttpAction.attack(fromCity, this.atkCity, soldier, function(data) {
           cc.log(data);
+          thiz.refreshAll();
         });
       },
       onLoad: function onLoad() {
@@ -765,7 +771,7 @@ require = function e(t, n, r) {
           this.centerArr.push(cityNameLabel);
           if (0 == i) continue;
           cityNode.getComponent("City").init(i, CityConfig.features[i].geometry.coordinates[0]);
-          cityNameLabel.getComponent("CityCenter").init(i, CityConfig.features[i].properties.name, CityConfig.features[i].geometry.coordinates[0]);
+          cityNameLabel.getComponent("CityCenter").init(i, CityName[i], CityConfig.features[i].geometry.coordinates[0]);
           this.mapLayer.addChild(cityNode);
           this.mapLayer.addChild(cityNameLabel, 100 + i);
           this.refreshColor(i);
@@ -778,24 +784,39 @@ require = function e(t, n, r) {
       start: function start() {
         var addr = cc.sys.localStorage.getItem("username");
         var thiz = this;
+        var onLogin = function onLogin(data) {
+          thiz.initData(data);
+          MsgData.ReadIndex = data.msg_list.length;
+          MsgData.MsgList = data.msg_list.reverse();
+          cc.log(MsgData);
+        };
         HttpAction.login(addr, function(data) {
           0 == data.player_info.state && 0 == data.player_info.heroes.length ? HttpAction.get_my_hero(function(data) {
-            cc.log(data);
             HttpAction.login(addr, function(data) {
-              thiz.initData(data);
+              onLogin(data);
             });
-          }) : thiz.initData(data);
+          }) : onLogin(data);
         });
       },
       update: function update(dt) {
-        var thiz = this;
         this.tickCnt++;
         if (600 == this.tickCnt) {
           this.tickCnt = 0;
-          HttpAction.refreshInfo(function(data) {
-            thiz.initData(data);
-          });
+          this.refreshAll();
         }
+      },
+      refreshAll: function refreshAll() {
+        var thiz = this;
+        HttpAction.refreshInfo(function(data) {
+          thiz.initData(data);
+        });
+        var nowMsg = 0;
+        MsgData.MsgList.length > 0 && (nowMsg = MsgData.MsgList[MsgData.MsgList.length - 1].msg_id);
+        cc.log("noMsg " + nowMsg);
+        HttpAction.refreshMsg(nowMsg, function(data) {
+          MsgData.MsgList = MsgData.MsgList.concat(data.msg_list.reverse());
+          cc.log(data.msg_list);
+        });
       }
     });
     cc._RF.pop();
@@ -803,7 +824,9 @@ require = function e(t, n, r) {
     CityConfig: "CityConfig",
     CityData: "CityData",
     HttpAction: "HttpAction",
-    PlayerData: "PlayerData"
+    MsgData: "MsgData",
+    PlayerData: "PlayerData",
+    Utils: "Utils"
   } ],
   HeroConfig: [ function(require, module, exports) {
     "use strict";
@@ -837,6 +860,11 @@ require = function e(t, n, r) {
         data += "target_city_id=" + tarCity + "&";
         data += "soldier=" + soldier;
         HttpManager.postEntry("attack", data, handler);
+      },
+      refreshMsg: function refreshMsg(nowMsg, handler) {
+        var data = "";
+        data += "msg_id=" + nowMsg;
+        HttpManager.getEntry("battle_msg", data, handler);
       }
     };
     module.exports = HttpAction;
@@ -857,22 +885,29 @@ require = function e(t, n, r) {
       },
       getEntry: function getEntry(api, data, handler) {
         var tarUrl = this.baseUrl + api + "/";
-        this.sendGet(tarUrl, data, handler);
+        this.sendGet(tarUrl + "?" + data, null, handler);
       },
       testPost: function testPost(api, data, handler) {
         var tarUrl = "http://httpbin.org/post";
-        this.sendPost(tarUrl, data, handler);
+        this.sendPost(tarUrl, data, function(data) {
+          cc.log(data);
+        });
+      },
+      testGet: function testGet(api, data, handler) {
+        var tarUrl = "http://httpbin.org/get";
+        this.sendGet(tarUrl + "?" + data, null, function(data) {
+          cc.log(data);
+        });
       },
       sendPost: function sendPost(url, data, handler) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
           if (4 == xhr.readyState && xhr.status >= 200 && xhr.status < 400) if (xhr.status >= 200 && xhr.status < 400) {
-            cc.log(xhr.responseText);
             var response = JSON.parse(xhr.responseText);
             var set_cookie = xhr.getResponseHeader("Content-Type");
             null != set_cookie && (HttpManager.cookie = set_cookie);
             handler(response);
-          } else cc.log(xhr.status);
+          } else cc.log("http error" + xhr.status);
         };
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -890,7 +925,6 @@ require = function e(t, n, r) {
           } else cc.log(xhr.status);
         };
         xhr.open("GET", url, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.withCredentials = true;
         xhr.send(data);
       }
@@ -924,12 +958,69 @@ require = function e(t, n, r) {
           cc.log("test");
           cc.log(getAddress());
         });
+        var addr = "1234567";
+        try {
+          addr = getAddress();
+        } catch (err) {}
+        cc.sys.localStorage.setItem("username", addr);
+        cc.director.loadScene("main");
       },
       start: function start() {}
     });
     cc._RF.pop();
   }, {
     PlayerData: "PlayerData"
+  } ],
+  MsgData: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "bd000MrgfxG5aWxsQmMp09Q", "MsgData");
+    "use strict";
+    var MsgData = {
+      MsgList: [],
+      ReadIndex: 0
+    };
+    module.exports = MsgData;
+    cc._RF.pop();
+  }, {} ],
+  NewMsgView: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "e1eecCS90NBcra0yGY+g2hT", "NewMsgView");
+    "use strict";
+    var MsgData = require("MsgData");
+    cc.Class({
+      extends: cc.Component,
+      properties: {
+        state: 0,
+        msgLabel: cc.Node,
+        fromX: 0,
+        toX: 0
+      },
+      onLoad: function onLoad() {
+        this.node.getChildByName("msgNode").active = false;
+      },
+      start: function start() {},
+      update: function update(dt) {
+        if (0 == this.state) {
+          if (MsgData.MsgList.length > MsgData.ReadIndex) {
+            this.node.getChildByName("msgNode").active = true;
+            var msg = MsgData.MsgList[MsgData.ReadIndex];
+            MsgData.ReadIndex++;
+            this.msgLabel.getComponent(cc.Label).string = msg.msg;
+            var w = this.msgLabel.width;
+            this.fromX = 500;
+            this.toX = -500 - w;
+            this.msgLabel.x = this.fromX;
+            this.state = 1;
+          }
+        } else if (this.msgLabel.position.x > this.toX) this.msgLabel.x -= 3; else {
+          this.state = 0;
+          MsgData.MsgList.length <= MsgData.ReadIndex && (this.node.getChildByName("msgNode").active = false);
+        }
+      }
+    });
+    cc._RF.pop();
+  }, {
+    MsgData: "MsgData"
   } ],
   PlayerData: [ function(require, module, exports) {
     "use strict";
@@ -941,7 +1032,7 @@ require = function e(t, n, r) {
       heroes: [],
       getTotalHeroPower: function getTotalHeroPower() {
         var ret = 0;
-        if (null != PlayerData.heroes) for (var i, len = PlayerData.heroes.length; i < len; ++i) ret += HeroConfig[PlayerData.heroes[i]].power;
+        if (null != PlayerData.heroes) for (var i = 0, len = PlayerData.heroes.length; i < len; ++i) ret += PlayerData.heroes[i].score;
         return ret;
       }
     };
@@ -959,7 +1050,7 @@ require = function e(t, n, r) {
       extends: cc.Component,
       properties: {},
       init: function init() {
-        this.node.getChildByName("nameLabel").getComponent(cc.Label).string = PlayerData.address;
+        null != PlayerData.address && PlayerData.address.length > 6 && (this.node.getChildByName("nameLabel").getComponent(cc.Label).string = PlayerData.address.substr(-6));
         this.node.getChildByName("cityNumLabel").getComponent(cc.Label).string = PlayerData.cities.length;
         this.node.getChildByName("heroNumLabel").getComponent(cc.Label).string = PlayerData.heroes.length;
         this.node.getChildByName("heroPowerLabel").getComponent(cc.Label).string = PlayerData.getTotalHeroPower();
@@ -981,9 +1072,10 @@ require = function e(t, n, r) {
       fixY: function fixY(y) {
         return 30 * (y - 20);
       },
-      CityShift: [ [ 0, 0 ], [ 12, 15 ], [ 0, 0 ], [ 5, 0 ], [ 0, 5 ], [ 5, 0 ], [ 5, 10 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, -10 ], [ 5, 10 ], [ 20, -20 ], [ 0, -10 ], [ 0, -20 ], [ 0, -10 ], [ -5, -10 ], [ 0, 0 ], [ 0, 20 ], [ 0, 0 ], [ -10, -15 ], [ 0, -15 ], [ 0, 10 ], [ 0, -15 ], [ 10, -15 ], [ 0, 10 ], [ 0, -20 ], [ 0, -20 ], [ 0, -10 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ] ]
+      CityShift: [ [ 0, 0 ], [ 12, 15 ], [ 0, 0 ], [ 5, 0 ], [ 0, 5 ], [ 5, 0 ], [ 5, 10 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, -10 ], [ 5, 10 ], [ 20, -20 ], [ 0, -10 ], [ 0, -20 ], [ 0, -10 ], [ -5, -10 ], [ 0, 0 ], [ 0, 20 ], [ 0, 0 ], [ -10, -15 ], [ 0, -15 ], [ 0, 10 ], [ 0, -15 ], [ 10, -15 ], [ 0, 10 ], [ 0, -20 ], [ 0, -20 ], [ 0, -10 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ], [ 0, 0 ] ],
+      CityName: [ "", "襄平", "北平", "蓟", "晋阳", "上党", "南皮", "兒", "北海", "陈留", "洛阳", "弘农", "长安", "天水", "武威", "酒泉", "下堰", "许昌", "寿春", "南阳", "襄阳", "长沙", "桂阳", "零陵", "建业", "会稽", "建安", "阜阳", "柴桑", "汉中", "武都", "永安", "江州", "成都", "朱提", "永昌", "建宁", "南海", "苍梧", "合浦", "郁林", "交趾" ]
     };
     module.exports = Utils;
     cc._RF.pop();
   }, {} ]
-}, {}, [ "Game", "Login", "HttpAction", "HttpManager", "Utils", "CityConfig", "HeroConfig", "CityData", "PlayerData", "City", "CityCenter", "CityNameItem", "BlackLayer", "CityInfo", "CityListView", "PlayerInfo" ]);
+}, {}, [ "Game", "Login", "HttpAction", "HttpManager", "Utils", "CityConfig", "HeroConfig", "CityData", "MsgData", "PlayerData", "City", "CityCenter", "CityNameItem", "BlackLayer", "CityInfo", "CityListView", "NewMsgView", "PlayerInfo" ]);
