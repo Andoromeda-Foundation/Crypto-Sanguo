@@ -27,7 +27,7 @@
             v-for="(hero,index) in heros"
             :key="index">
           <td>
-            <router-link :to="{ name: 'HeroDetail', params:{id: hero.id}}">{{hero.姓名}} </router-link>
+            <router-link :to="{ name: 'Item', params:{id: hero.id}}">{{hero.姓名}} </router-link>
           </td>
           <td>{{hero.综合}}</td>
           <td>{{hero.统御}}</td>
@@ -45,8 +45,6 @@
 </template>
 
 <script>
-import { buyItem } from '@/api';
-
 export default {
   name: 'HeroListView',
   data() {
