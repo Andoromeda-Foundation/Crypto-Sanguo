@@ -5,14 +5,15 @@
         <div class="column
            is-full-mobile">
           <div class="box columns">
-            <div class="column">
+            <div class="column is-6">
               <img class="item-image"
                    :src="item.imageUrl" />
             </div>
-            <div class="column">
+            <div class="column is-6">
               <div ref="itemChartWrapper"
                    class="item-chartWrapper">
                 <ECharts class="item-chart"
+                         ref="itemChart"
                          :options="radarEChartOptions"
                          :init-options="radarEChartInitOptions"
                          auto-resize />
@@ -195,9 +196,17 @@ export default {
       if (key) this.activeTab = key;
     },
     handleResize() {
-      this.$refs.itemChartWrapper.style.height = `${
-        this.$refs.itemChartWrapper.clientWidth
-      }px`;
+      const ratio = 1;
+      const wrapperWidth = this.$refs.itemChartWrapper.clientWidth;
+      const width = Math.max(wrapperWidth, 340);
+      const height = width * ratio;
+
+      const chartStyle = this.$refs.itemChart.$el.style;
+      chartStyle.height = `${height}px`;
+      chartStyle.width = `${width}px`;
+
+      const scale = Math.min(wrapperWidth / width, 1);
+      chartStyle.transform = `scale(${scale},${scale})`;
     },
     onBuy(rate) {
       if (this.$store.state.signInError) {
@@ -250,11 +259,11 @@ export default {
  <style scoped>
 .item-chartWrapper {
   width: 100%;
-  /* min-width: 330px; */
 }
 .item-chart {
   width: 100%;
   height: 100%;
+  transform-origin: top left;
 }
 .item-image {
   width: 100%;
