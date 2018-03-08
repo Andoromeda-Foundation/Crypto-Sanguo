@@ -23,10 +23,11 @@
       </thead>
       <tbody>
 
-        <tr class="row" v-for="(hero,index) in heros"
+        <tr class="row"
+            v-for="(hero,index) in heros"
             :key="index">
           <td>
-            <router-link :to="{ name: 'HeroDetail', params:{id: hero.id}}">{{hero.姓名}} </router-link>
+            <router-link :to="{ name: 'Item', params:{id: hero.id}}">{{hero.姓名}} </router-link>
           </td>
           <td>{{hero.综合}}</td>
           <td>{{hero.统御}}</td>
@@ -44,8 +45,6 @@
 </template>
 
 <script>
-import { buyItem } from '@/api';
-
 export default {
   name: 'HeroListView',
   data() {
@@ -64,7 +63,6 @@ export default {
         this.isAsc ? 'asc' : 'desc',
       );
       this.allHeros = this.heros;
-      window.xyz = this;
     });
   },
   methods: {
@@ -107,7 +105,7 @@ input {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out 0.15s,
-  -webkit-box-shadow ease-in-out 0.15s;
+    -webkit-box-shadow ease-in-out 0.15s;
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
@@ -120,13 +118,13 @@ input:focus {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
     0 0 8px rgba(102, 175, 233, 0.6);
 }
-.row { 
-  background: LightGray; 
+.row {
+  background: LightGray;
 }
-.row:nth-child(odd) { 
-  background: white; 
+.row:nth-child(odd) {
+  background: white;
 }
-.row:hover { 
-  background: gray; 
+.row:hover {
+  background: gray;
 }
 </style>

@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import itemsData from '../../static/heroes.json';
 
 export const network = {
   1: {
@@ -48,3 +49,4 @@ export const i18n = [
   },
 ];
 
+export const items = itemsData;

@@ -11,7 +11,14 @@ export default {
       game: 'Game',
       myPage: 'Cabinet',
       Transactions: 'Events',
-      herolist: 'General List',      
+      herolist: 'General List',
+    },
+  },
+  itemView: {
+    tabs: {
+      bio: 'Bio',
+      transactions: 'Transactions',
+      attributes: 'Attributes',
     },
   },
   'My Cards': 'My Cards',
