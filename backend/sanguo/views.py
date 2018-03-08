@@ -328,4 +328,4 @@ def get_user_latest_n_message(address, number, msg_id):
     """
     msg_list = BattleMessage.objects.filter(address=address, pk__gt=msg_id).order_by('-ctime')[:number]
     msg_list = [{"msg": msg.message, "msg_id": msg.pk, "timestamp": msg.ctime.timestamp()} for msg in msg_list]
-    return JsonResponse({"err_code": 0, "msg_list": msg_list})
+    return msg_list
