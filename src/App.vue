@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Header />
-
     <router-view class="container view"
                  :key="key"></router-view>
 
@@ -33,5 +32,11 @@ export default {
 .view {
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+@media screen and (max-width: 768px) {
+  .view {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }
 </style>
