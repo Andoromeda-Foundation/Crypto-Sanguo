@@ -208,7 +208,7 @@ def attack_view(request):
 
     city_id = int(request.POST.get("city_id"))
     target_city_id = int(request.POST.get("target_city_id"))
-    original_attack_soldier_number = attack_soldier_number = int(request.POST.get("attack_soldier_number"))
+    original_attack_soldier_number = attack_soldier_number = int(request.POST.get("soldier"))
 
     if get_current_battle_state() != BattleState.battle:
         return JsonResponse({"err_code": -1, "msg": "当前不是战斗阶段"})

@@ -11,6 +11,7 @@ import LoginView from '@/views/LoginView';
 import RecentView from '@/views/RecentView';
 import TransactionView from '@/views/TransactionView';
 import HeroListView from '@/views/HeroListView';
+import HeroDetailView from '@/views/HeroDetailView';
 
 Vue.use(Router);
 
@@ -66,6 +67,11 @@ export default new Router({
       name: 'Transaction',
       path: '/transaction',
       component: TransactionView,
+    },
+    {
+      name: 'HeroDetail',
+      path: '/herodetail/:id',
+      component: HeroDetailView,
     },
   ],
 });
