@@ -222,15 +222,9 @@ export const setPrice = (id, price) =>
   });
 
 export const getItem = async (id) => {
-  const exist = await Promise.promisify(sponsorTokenContract.tokenExists)(id);
-  if (!exist) return null;
   const item = config.items[id] || {};
-  item.id = id;
-
-  [item.owner, item.creator, item.price, item.nextPrice] =
-    await Promise.promisify(sponsorTokenContract.allOf)(id);
-
   // format
+  item.id = id;
   item.imageUrl = `http://static.togetthere.cn/${item.image_name}`;
   item.title = item.姓名;
   item.attributes = ['特技', '势力', '统御', '武力', '智力', '政治', '魅力', '统武和', '统武智和', '综合', '性别', '性格', '出生', '死亡', '枪兵', '戬兵', '弩兵', '骑兵', '武器', '水军', '出身']
@@ -239,6 +233,13 @@ export const getItem = async (id) => {
       value: item[v],
     }));
   item.bio = item.生平;
+
+  item.tokenExist = await Promise.promisify(sponsorTokenContract.tokenExists)(id);
+  if (!item.tokenExist) return item;
+
+  [item.owner, item.creator, item.price, item.nextPrice] =
+    await Promise.promisify(sponsorTokenContract.allOf)(id);
+
   return item;
 };
 

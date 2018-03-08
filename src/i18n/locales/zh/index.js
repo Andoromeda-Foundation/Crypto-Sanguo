@@ -19,6 +19,7 @@ export default {
       attributes: '武将属性',
       transactions: '交易记录',
     },
+    tokenNotExist: '武将尚未出场',
   },
   'My Cards': '我的卡牌',
   'Sign In': '登录游戏',

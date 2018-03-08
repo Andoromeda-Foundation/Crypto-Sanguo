@@ -22,44 +22,50 @@
         </div>
         <div class="column
            is-full-mobile">
-          <div class="content">
-            <h2>{{item.title}}</h2>
-            <div class="content">
-              <ul class="item-infoList">
-                <li>{{$t('Owner')}}：
-                  <router-link :to="{ name: 'User', params:{address: item.owner}}">
-                    {{item.owner.slice(-6).toUpperCase()}}
-                  </router-link>
-                </li>
-                <li>{{$t('Current Price')}}：{{toDisplayedPrice(item.price)}}</li>
-              </ul>
-            </div>
-          </div>
-          <template v-if="item.owner !== me.address">
-            <div class="buttons">
-              <p>
-                <button class="button is-danger is-outlined"
-                        @click="onBuy(1)">{{ $t('BUY_BTN') }}</button>
-                <button class="button is-danger is-outlined"
-                        @click="onBuy(1.1)">{{ $t('PREMIUM_BUY_BTN', { rate: '10%' }) }}</button>
-                <button class="button is-danger is-outlined"
-                        @click="onBuy(1.3)">{{ $t('PREMIUM_BUY_BTN', { rate: '30%' }) }}</button>
-                <button class="button is-danger is-outlined"
-                        @click="onBuy(1.5)">{{ $t('PREMIUM_BUY_BTN', { rate: '50%' }) }}</button>
-                <button class="button is-danger is-outlined"
-                        @click="onBuy(2)">{{ $t('PREMIUM_BUY_BTN', { rate: '100%' }) }}</button>
-              </p>
+          <h1 class="title">{{item.title}}</h1>
+          <template v-if="item.tokenExist">
+            <ul>
+              <li>{{$t('Owner')}}：
+                <router-link :to="{ name: 'User', params:{address: item.owner}}">
+                  {{item.owner.slice(-6).toUpperCase()}}
+                </router-link>
+              </li>
+              <li>{{$t('Current Price')}}：{{toDisplayedPrice(item.price)}}</li>
+            </ul>
+            <br/>
+            <template v-if="item.owner !== me.address">
+              <div class="buttons">
+                <p>
+                  <button class="button is-danger is-outlined"
+                          @click="onBuy(1)">{{ $t('BUY_BTN') }}</button>
+                  <button class="button is-danger is-outlined"
+                          @click="onBuy(1.1)">{{ $t('PREMIUM_BUY_BTN', { rate: '10%' }) }}</button>
+                  <button class="button is-danger is-outlined"
+                          @click="onBuy(1.3)">{{ $t('PREMIUM_BUY_BTN', { rate: '30%' }) }}</button>
+                  <button class="button is-danger is-outlined"
+                          @click="onBuy(1.5)">{{ $t('PREMIUM_BUY_BTN', { rate: '50%' }) }}</button>
+                  <button class="button is-danger is-outlined"
+                          @click="onBuy(2)">{{ $t('PREMIUM_BUY_BTN', { rate: '100%' }) }}</button>
+                </p>
 
-            </div>
-            <article class="message is-danger">
-              <div class="message-body">
-                {{$t('BUY_PRICE_TIP')}}
               </div>
-            </article>
+              <article class="message is-danger">
+                <div class="message-body">
+                  {{$t('BUY_PRICE_TIP')}}
+                </div>
+              </article>
+            </template>
+            <template v-else>
+              <button class="button is-warning"
+                      @click="onUpdatePrice">{{$t('CHANGE_PRICE_BTN')}}</button>
+            </template>
           </template>
           <template v-else>
-            <button class="button is-warning"
-                    @click="onUpdatePrice">{{$t('CHANGE_PRICE_BTN')}}</button>
+            <article class="message is-danger">
+              <div class="message-body">
+                {{$t('itemView.tokenNotExist')}}
+              </div>
+            </article>
           </template>
         </div>
       </div>
@@ -97,7 +103,7 @@
     </div>
 
     <div v-else-if="item === null">
-      Token doesn't exist
+      Item doesn't exist
     </div>
   </div>
 </template>
@@ -254,20 +260,5 @@ export default {
   width: 100%;
   border-radius: 5px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-}
-.item-infoList {
-  margin-left: 0;
-  list-style-type: none;
-  font-size: 0.9em;
-}
-.item-metaList {
-  margin-left: 0;
-  list-style-type: none;
-  font-size: 0.9em;
-}
-.item-metaName {
-  color: #666666;
-}
-.item-metaValue {
 }
 </style>
