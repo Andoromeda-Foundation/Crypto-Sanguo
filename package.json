@@ -17,6 +17,7 @@
     "echarts": "^4.0.4",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.5",
+    "postcss-cssnext": "^3.1.0",
     "superagent": "^3.8.2",
     "timeout-then": "^1.1.0",
     "vue": "^2.5.2",
@@ -32,7 +33,6 @@
     "web3": "0.20.4"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
