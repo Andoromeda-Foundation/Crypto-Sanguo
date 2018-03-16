@@ -2,14 +2,14 @@
   <div class="PackView is-marginless is-clipped">
 
     <section class="KJ-position-relative has-text-centered">
-      <img src="../assets/img/packBg.png" />
+      <img src="@/assets/img/packBg.png" />
       <div class="KJ-position-absolute-horizontal-center"
            style="bottom:5%">
         <div class="remainingCards-msg mainTextColor
         KJ-position-relative">卡包剩余：8张卡牌</div>
         <div class="KJ-position-relative KJ-cursor-pointer">
           <img style="width:82%"
-               src="../assets/img/button_chouka.png" />
+               src="@/assets/img/button_chouka.png" />
           <span class="drawCard-btn-text mainTextColor
            KJ-position-absolute-horizontal-center has-text-weight-bold">
             立即抽卡</span>
