@@ -50,7 +50,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/Crypto-Sanguo',
+    assetsPublicPath: '/Crypto-Sanguo/',
 
     /**
      * Source Maps
