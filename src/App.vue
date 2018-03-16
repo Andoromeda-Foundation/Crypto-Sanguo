@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <router-view class="container view"
+    <router-view class="view"
                  :key="key"></router-view>
 
     <Footer />
@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .view {
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -38,5 +38,61 @@ export default {
     margin-left: 1rem;
     margin-right: 1rem;
   }
+}
+
+/* KJ CSS Utilities */
+
+.KJ-position-absolute-horizontal-center {
+  position: absolute !important;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.KJ-position-relative {
+  position: relative !important;
+}
+.KJ-position-absolute {
+  position: absolute !important;
+}
+.KJ-left-0 {
+  left: 0;
+}
+.KJ-right-0 {
+  right: 0;
+}
+.KJ-margin-auto {
+  margin: auto;
+}
+.KJ-cursor-pointer {
+  cursor: pointer;
+}
+
+/* Overwrite PackView tabs style */
+
+.PackView-tabs .tabs {
+  display: flex;
+}
+.PackView-tabs .tabs ul {
+  border: none;
+}
+.PackView-tabs .tabs li {
+  background-image: url("./assets/img/button_def.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex-grow: 1;
+}
+.PackView-tabs .tabs a {
+  border: none !important;
+}
+.PackView-tabs .tabs li.is-active {
+  background-image: url("./assets/img/button_seleted.png");
+}
+.PackView-tabs .tabs {
+  font-size: inherit;
+}
+.PackView-tabs .tabs li span {
+  font-size: 1.9em;
+  color: white;
+  font-weight: 600;
+  line-height: 2em;
 }
 </style>

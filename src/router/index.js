@@ -11,6 +11,7 @@ import LoginView from '@/views/LoginView';
 import RecentView from '@/views/RecentView';
 import TransactionView from '@/views/TransactionView';
 import HeroListView from '@/views/HeroListView';
+import PackView from '@/views/PackView';
 
 Vue.use(Router);
 
@@ -66,6 +67,11 @@ export default new Router({
       name: 'Transaction',
       path: '/transaction',
       component: TransactionView,
+    },
+    {
+      name: 'Pack',
+      path: '/pack',
+      component: PackView,
     },
   ],
 });
