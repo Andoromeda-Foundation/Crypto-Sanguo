@@ -286,6 +286,16 @@ export const createToken = async ({ price, frozen1, frozen2, parentId }) =>
     (err, result) => (err ? reject(err) : resolve(result)));
   });
 
+export const getPackTx = async () => {
+  const mockData = Array.from(Array(10), () => ({
+    txHash: '0x290f7f294cdbfba103d491903218dadc97c4ba148615d31ffbeceac7a47879fb',
+    from: '0x23jfsdfj87371fdsxd',
+    date: new Date().getTime(),
+    status: 'PENDING',
+  }));
+  return mockData;
+};
+
 export const getLocale = async () => (
   Cookie.get('locale') ||
   (

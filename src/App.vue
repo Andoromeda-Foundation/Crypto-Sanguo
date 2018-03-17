@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="postcss">
 .view {
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -38,6 +38,27 @@ export default {
     margin-left: 1rem;
     margin-right: 1rem;
   }
+}
+
+.is-sg-btn-primary {
+  --color: #fbb800;
+
+  background-image: url("./assets/img/gb_seleted.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none !important;
+  color: var(--color) !important;
+  box-shadow: none !important;
+}
+.is-sg-btn-dark {
+  --color: #919191;
+
+  background-image: url("./assets/img/gb_def.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none !important;
+  color: var(--color) !important;
+  box-shadow: none !important;
 }
 
 /* KJ CSS Utilities */
@@ -110,5 +131,36 @@ export default {
   /* height: 100vh; */
   /* overflow: scroll; */
   border: 1px solid #8c9399;
+}
+
+.PackView {
+  & .txTable {
+    & table {
+      background: none !important;
+    }
+    & th {
+      border: none;
+      color: #fbb800 !important;
+      background: none !important;
+      font-weight: 700;
+      font-size: 1.2em !important;
+      & .icon {
+        font-size: 1.5em !important;
+      }
+    }
+    & td {
+      border: none !important;
+      color: #fff !important;
+      & a {
+        color: #fbb800 !important;
+      }
+    }
+    & tbody tr:not(.is-selected):nth-child(even) {
+      background: none !important;
+    }
+    & tbody tr:not(.is-selected):nth-child(odd) {
+      background: none !important;
+    }
+  }
 }
 </style>
