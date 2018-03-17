@@ -21,7 +21,7 @@ export default new Router({
     {
       name: 'Home',
       path: '/',
-      component: HomeView,
+      component: PackView,
     },
     {
       name: 'Explore',
