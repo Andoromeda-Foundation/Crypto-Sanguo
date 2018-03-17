@@ -27,7 +27,30 @@
       <b-tabs position="is-centered"
               class="block PackView-tabs">
         <b-tab-item label="所有卡牌">
-          所有卡牌
+          <div class="columns is-mobile is-multiline">
+            <div v-for="card in [1,2,3,4,5]"
+                 :key="card"
+                 class="column is-half-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
+              <router-link :to="{ name: 'Item', params:{id: card}}">
+                <div class="PackView-card-wrapper">
+                  <div class="KJ-position-relative">
+                    <img class="KJ-width-100"
+                         src="@/assets/img/cardBorder.png" />
+                    <img class="card-img"
+                         src="http://static.togetthere.cn/2-1.jpg" />
+                  </div>
+                  <div class="card-fooer columns is-mobile is-gapless has-text-centered has-text-weight-bold">
+                    <h5 class="column card-name is-4">黄盖
+                    </h5>
+                    <div class="column card-info">
+                      <span>中奖概率:100%</span>
+                      <span>当前价格:0.22 ETH</span>
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+          </div>
         </b-tab-item>
         <b-tab-item label="卡牌广播">
           卡牌广播
@@ -81,5 +104,33 @@ export default {
   font-size: 1.1em;
   color: #eed9b2;
   padding: 2em 1.4em;
+}
+.card-img {
+  position: absolute;
+  width: 85.9%;
+  left: 8.8%;
+  top: 6.6%;
+  height: 85%;
+}
+.card-fooer{
+  padding: 2% 7%;
+}
+.card-name {
+  background: #62546c;
+  color: #fff;
+  border: 3px solid #150e33;
+  line-height: 2.7em;
+  font-size: 1.6em;
+}
+.card-info {
+  background: #80848d;
+  color: #fff;
+  border: 3px solid #150e33;
+  border-left: none;
+  & span {
+    display: block;
+    padding: 2.5%;
+    font-size: 1em;
+  }
 }
 </style>

@@ -47,6 +47,11 @@ export default {
   left: 50%;
   transform: translateX(-50%);
 }
+.KJ-position-absolute-vertical-center {
+  position: absolute !important;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .KJ-position-relative {
   position: relative !important;
 }
@@ -64,6 +69,9 @@ export default {
 }
 .KJ-cursor-pointer {
   cursor: pointer;
+}
+.KJ-width-100 {
+  width: 100%;
 }
 
 /* Overwrite PackView tabs style */
@@ -94,5 +102,13 @@ export default {
   color: white;
   font-weight: 600;
   line-height: 2em;
+}
+.PackView-tabs .tab-content {
+  margin-top: 20px;
+  background-image: url("./assets/img/packViewTabContentBg.jpg");
+  background-size: cover;
+  /* height: 100vh; */
+  /* overflow: scroll; */
+  border: 1px solid #8c9399;
 }
 </style>
