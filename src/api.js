@@ -239,7 +239,8 @@ export const getItem = async (id) => {
 
   [item.owner, item.creator, item.price, item.nextPrice] =
     await Promise.promisify(sponsorTokenContract.allOf)(id);
-
+  // format to ETH
+  item.price = web3.fromWei(item.price, 'ether').toFixed(2);
   return item;
 };
 
