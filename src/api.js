@@ -239,7 +239,8 @@ export const getItem = async (id) => {
 
   [item.owner, item.creator, item.price, item.nextPrice] =
     await Promise.promisify(sponsorTokenContract.allOf)(id);
-
+  // format to ETH
+  item.price = web3.fromWei(item.price, 'ether').toFixed(2);
   return item;
 };
 
@@ -284,6 +285,16 @@ export const createToken = async ({ price, frozen1, frozen2, parentId }) =>
     },
     (err, result) => (err ? reject(err) : resolve(result)));
   });
+
+export const getPackTx = async () => {
+  const mockData = Array.from(Array(10), () => ({
+    txHash: '0x290f7f294cdbfba103d491903218dadc97c4ba148615d31ffbeceac7a47879fb',
+    from: '0x23jfsdfj87371fdsxd',
+    date: new Date().getTime(),
+    status: 'PENDING',
+  }));
+  return mockData;
+};
 
 export const getLocale = async () => (
   Cookie.get('locale') ||

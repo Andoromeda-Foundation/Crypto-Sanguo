@@ -21,6 +21,16 @@ export default {
     },
     tokenNotExist: '武将尚未出场',
   },
+  PackView: {
+    tabs: {
+      tx: {
+        txHash: 'TX',
+        date: '日期',
+        from: '用户',
+        status: '状态',
+      },
+    },
+  },
   'My Cards': '我的卡牌',
   'Sign In': '登录游戏',
   Home: '首页',
