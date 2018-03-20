@@ -38,17 +38,21 @@ alert_percent = 10
 total_check_point = len(common_app_list) * len(dap_compare_items)
 bad_check_point = 0
 bad_check_list = []
+big_count = 0
 for title in common_app_list:
     for index in range(len(dap_compare_items)):
         item1 = float(dap_dict[title][dap_compare_items[index]])
         item2 = float(radar_dict[title][radar_compare_items[index]])
         if item1 == item2 == 0:
             continue
-        diff_percent = (item1-item2)*100.0/max(item1, item2)
-        if diff_percent > 10:
+        if item2 > item1:
+            big_count += 1
+        diff_percent = abs(item1-item2)*100.0/max(item1, item2)
+        if diff_percent > 10 and item1 < item2:
             bad_check_list.append({"title": title, "prop": dap_compare_items[index], "dap_value": item1, "radar_value": item2, "diff_percent": int(diff_percent)})
             bad_check_point += 1
 
+print("radar_big", big_count)
 print("共有check_point: %s, 不一致check_point: %s" % (total_check_point, bad_check_point))
 print("详情:")
 for check_info in bad_check_list:
