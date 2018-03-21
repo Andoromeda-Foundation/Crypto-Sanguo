@@ -150,16 +150,18 @@ export default {
     }
     & td {
       border: none !important;
+      margin: 2px 0;
+
       color: #fff !important;
       & a {
         color: #fbb800 !important;
       }
     }
     & tbody tr:not(.is-selected):nth-child(even) {
-      background: none !important;
+      background: rgba(255, 255, 255, 0.2) !important;
     }
     & tbody tr:not(.is-selected):nth-child(odd) {
-      background: none !important;
+      background: rgba(255, 255, 255, 0.3) !important;
     }
   }
 }

@@ -11,7 +11,8 @@
       <h5 class="column card-name is-4">{{item.title}}
       </h5>
       <div class="column card-info">
-        <span>中奖概率:100%</span>
+        <span v-if="item.ratio !== undefined">中奖概率:{{item.ratio}}</span>
+        <span v-else>拥有者: {{ item.owner.slice(-6).toUpperCase() }}</span>
         <span>当前价格:{{item.price}} ETH</span>
       </div>
     </div>
@@ -19,14 +20,13 @@
 </template>
 
 <script>
-import { getItem } from '@/api';
 
 export default {
   name: 'item-preview',
-  props: ['itemId'],
+  props: ['itemId', 'item'],
 
   data: () => ({
-    item: null,
+    // item: null,
   }),
 
   computed: {},
@@ -34,7 +34,7 @@ export default {
   methods: {},
 
   async created() {
-    this.item = await getItem(this.itemId);
+    // this.item = await getItem(this.itemId);
   },
 
   watch: {},

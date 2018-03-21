@@ -105,6 +105,25 @@
         "type": "function"
     },
     {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "queryRatio",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "constant": false,
         "inputs": [
             {
@@ -171,28 +190,6 @@
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_tokenIds",
-                "type": "uint256[]"
-            },
-            {
-                "name": "_price",
-                "type": "uint256"
-            },
-            {
-                "name": "_owner",
-                "type": "address"
-            }
-        ],
-        "name": "listMultipleTokens",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -277,6 +274,20 @@
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "packageSize",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -390,54 +401,6 @@
     },
     {
         "constant": false,
-        "inputs": [
-            {
-                "name": "_tokenId",
-                "type": "uint256"
-            },
-            {
-                "name": "_price",
-                "type": "uint256"
-            },
-            {
-                "name": "_owner",
-                "type": "address"
-            }
-        ],
-        "name": "listToken",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_addr",
-                "type": "address"
-            },
-            {
-                "name": "_tokenId",
-                "type": "uint256"
-            },
-            {
-                "name": "_price",
-                "type": "uint256"
-            },
-            {
-                "name": "_tokenRatio",
-                "type": "uint256"
-            }
-        ],
-        "name": "luckyIssue",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
         "inputs": [],
         "name": "withdrawAll",
         "outputs": [],
@@ -478,6 +441,20 @@
         "type": "function"
     },
     {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "rollDice",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "constant": true,
         "inputs": [
             {
@@ -509,6 +486,33 @@
             {
                 "name": "_price",
                 "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_len",
+                "type": "uint256"
+            }
+        ],
+        "name": "getAllPackage",
+        "outputs": [
+            {
+                "name": "_id",
+                "type": "uint256[]"
+            },
+            {
+                "name": "_ratio",
+                "type": "uint256[]"
+            },
+            {
+                "name": "_addr",
+                "type": "address[]"
             }
         ],
         "payable": false,
@@ -565,6 +569,28 @@
         ],
         "payable": false,
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_tokenId",
+                "type": "uint256"
+            },
+            {
+                "name": "_ratio",
+                "type": "uint256"
+            },
+            {
+                "name": "_addr",
+                "type": "address"
+            }
+        ],
+        "name": "putIntoPackage",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
