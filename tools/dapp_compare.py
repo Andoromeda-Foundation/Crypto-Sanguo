@@ -56,6 +56,6 @@ print("radar_big", big_count)
 print("共有check_point: %s, 不一致check_point: %s" % (total_check_point, bad_check_point))
 print("详情:")
 for check_info in bad_check_list:
-    print("%s => %s 误差%s(dap: %s, radar: %s)" % (check_info['title'], check_info['prop'], check_info['diff_percent'], check_info['dap_value'], check_info['radar_value']))
+    print("%s => %s 误差%s%%(dap: %s, radar: %s)" % (check_info['title'], check_info['prop'], check_info['diff_percent'], check_info['dap_value'], check_info['radar_value']))
 
 
