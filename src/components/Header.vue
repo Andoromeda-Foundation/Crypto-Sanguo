@@ -1,5 +1,5 @@
 <template>
-  <header :class="[$route.name === 'Home' ? 'sig-home-header' : '']">
+  <header v-if="false" :class="[$route.name === 'Home' ? 'sig-home-header' : '']">
     <nav class="navbar">
       <div class="navbar-brand">
         <router-link class="navbar-item"

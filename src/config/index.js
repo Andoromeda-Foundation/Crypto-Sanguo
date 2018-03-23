@@ -3,7 +3,6 @@ import itemsData from '../../static/heroes.json';
 
 export const network = {
   1: {
-    default: true, // It will be used when no metaMask
     name: 'Main Ethereum Network',
     contract: '',
     rpc: 'https://mainnet.infura.io/lTETGFVyQX99UKQ98BN4',
@@ -13,8 +12,9 @@ export const network = {
     contract: '',
   },
   3: {
+    default: true, // It will be used when no metaMask
     name: 'Ropsten Test Network',
-    contract: '0xddb903baf5fffab0223423acb51faf3d287e4e3e',
+    contract: '0x545ef6db327e0861f199222c0c2d162a0f63e723',
     rpc: 'https://ropsten.infura.io/lTETGFVyQX99UKQ98BN4',
   },
   4: {

@@ -5,11 +5,16 @@ import * as config from '@/config';
 import request from 'superagent';
 import timeout from 'timeout-then';
 import sponsorTokenABI from './abi/sponsorToken.json';
+import sanguoABI from './abi/sanguoToken.json';
 
 // Sometimes, web3.version.network might be undefined,
 // as a workaround, use defaultNetwork in that case.
 const network = config.network[web3.version.network] || config.defaultNetwork;
 const sponsorTokenContract = web3.eth.contract(sponsorTokenABI).at(network.contract);
+
+
+const sanguoTokenContract = web3.eth.contract(sanguoABI).at('0x4e0dd3c194fa720dc4a89f92a7627ac4a3b04f7d');
+
 
 let store = [];
 let isInit = false;
@@ -260,16 +265,18 @@ export const getItemIds = async (offset, limit) => {
   return ids.sort((a, b) => a - b);
 };
 
-export const isItemMaster = async (id) => {
-  const me = await getMe();
-  const item = await getItem(id);
-
-  return me && me.address && item && item.owner && me.address === item.owner;
+export const getItemsOf = async (address) => {
+  const ids = await Promise.promisify(sponsorTokenContract.tokensOf)(address);
+  const items = await Promise.all(ids.map(id => getItem(id)));
+  return items;
 };
 
-export const getItemsOf = async address => Promise.promisify(
-  sponsorTokenContract.tokensOf)(address)
-  ;
+export const getItems = async () => {
+  const total = await Promise.promisify(sponsorTokenContract.totalSupply)();
+  const ids = await Promise.promisify(sponsorTokenContract.TokensForSaleLimit)(0, total);
+  const items = await Promise.all(ids.map(id => getItem(id)));
+  return items;
+};
 
 export const getNetwork = async () => {
   const netId = await Promise.promisify(web3.version.getNetwork)();
@@ -307,4 +314,66 @@ export const getLocale = async () => (
 
 export const setLocale = async (locale) => {
   Cookie.set('locale', locale, { expires: 365 });
+};
+
+export const getLuckyToken = async (id) => {
+  const item = { id: Number(id) };
+  [item.owner, item.price, item.nextPrice, item.free1, item.free2] =
+    await Promise.promisify(sanguoTokenContract.allOf)(id);
+  // format to ETH
+  item.priceInETH = web3.fromWei(item.price, 'ether').toFixed(2);
+  return item;
+};
+
+export const getLuckTokensOf = async (address) => {
+  const ids = await Promise.promisify(sanguoTokenContract.tokensOf)(address);
+  const luckyTokens = await Promise.all(ids.map(id => getLuckyToken(id)));
+  return luckyTokens;
+};
+
+export const getAllLuckyTokens = async () => {
+  const total = await Promise.promisify(sanguoTokenContract.totalSupply)();
+  const ids = await Promise.promisify(sanguoTokenContract.TokensForSaleLimit)(0, total - 1);
+  const tokens = await Promise.all(ids.map(id => getLuckyToken(id)));
+  return tokens;
+};
+
+export const buyLuckyToken = (id, price) => new Promise((resolve, reject) => {
+  sanguoTokenContract.buy(id, {
+    value: price, // web3.toWei(Number(price), 'ether'),
+    gas: 220000,
+    gasPrice: 1000000000 * 100,
+  },
+  (err, result) => (err ? reject(err) : resolve(result)));
+});
+
+export const rollDice = luckyTokenId => new Promise((resolve, reject) => {
+  sanguoTokenContract.rollDice(luckyTokenId, {
+    value: 0,
+    gas: 220000,
+    gasPrice: 1000000000 * 100,
+  },
+  (err, result) => (err ? reject(err) : resolve(result)));
+});
+
+export const getPackage = async () => {
+  let ids,
+    ratios,
+    addrs;
+
+  [ids, ratios, addrs] = await Promise.promisify(sanguoTokenContract.getAllPackage)(100000);
+  // ids = [1, 2, 3];
+  // ratios = [1.1, 2.2, 3.3];
+  const items = await Promise.all(ids.map(id => getItem(id)));
+
+  items.forEach((element, index) => {
+    element.ratio = ratios[index];
+  });
+
+  return items;
+};
+
+export const getPackageSize = async () => {
+  const size = await Promise.promisify(sanguoTokenContract.packageSize)();
+  return Number(size);
 };
