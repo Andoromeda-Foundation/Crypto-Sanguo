@@ -21,5 +21,13 @@ npm run build --report
 npm run deploy
 ```
 
+## Deploy
+
+```bash
+ssh root@47.75.74.227 ⇒ 登录不上找lucky917
+cd /root/Crypto-Sanguo
+git pull
+npm run build
+```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
