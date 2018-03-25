@@ -11,7 +11,7 @@
       <h5 class="column card-name is-4">{{item.title}}
       </h5>
       <div class="column card-info">
-        <span v-if="item.ratio !== undefined">中奖概率:{{item.ratio}}</span>
+        <span v-if="item.ratio !== undefined">中奖概率:{{(item.ratio / item.sigmaRatio * 100).toFixed(2) + "%"}}</span>
         <span v-else>拥有者: {{ item.owner.slice(-6).toUpperCase() }}</span>
         <span>当前价格:{{item.price}} ETH</span>
       </div>
