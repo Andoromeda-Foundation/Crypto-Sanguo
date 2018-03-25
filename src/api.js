@@ -370,8 +370,20 @@ export const getPackage = async () => {
     element.ratio = ratios[index];
   });
 
+  var z = 0;
+  items.forEach((element, index) => {
+    z += parseInt(ratios[index]);
+  });
+
+  items.forEach((element, index) => {
+    element.sigmaRatio = z;
+  });
+  s
   return items;
 };
+
+
+
 
 export const getPackageSize = async () => {
   const size = await Promise.promisify(sanguoTokenContract.packageSize)();
