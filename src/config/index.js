@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import itemsData from '../../static/heroes.json';
+import itemsData from '../../static/new_heroes.json';
 
 export const network = {
   1: {
