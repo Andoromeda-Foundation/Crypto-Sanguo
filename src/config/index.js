@@ -14,7 +14,8 @@ export const network = {
   3: {
     default: true, // It will be used when no metaMask
     name: 'Ropsten Test Network',
-    contract: '0x545ef6db327e0861f199222c0c2d162a0f63e723',
+    contract: '0x855e524b92d9af11adf91c8ee1cedec0ba02d2ea',
+    package_contract: '0xa8f2a32e871996179c770ce8d7a3740528d6e990',
     rpc: 'https://ropsten.infura.io/lTETGFVyQX99UKQ98BN4',
   },
   4: {

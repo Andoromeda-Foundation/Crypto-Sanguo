@@ -13,7 +13,7 @@ const network = config.network[web3.version.network] || config.defaultNetwork;
 const sponsorTokenContract = web3.eth.contract(sponsorTokenABI).at(network.contract);
 
 
-const sanguoTokenContract = web3.eth.contract(sanguoABI).at('0x4e0dd3c194fa720dc4a89f92a7627ac4a3b04f7d');
+const sanguoTokenContract = web3.eth.contract(sanguoABI).at(network.package_contract);
 
 
 let store = [];
@@ -239,13 +239,13 @@ export const getItem = async (id) => {
     }));
   item.bio = item.生平;
 
-  item.tokenExist = await Promise.promisify(sponsorTokenContract.tokenExists)(id);
-  if (!item.tokenExist) return item;
+  // item.tokenExist = await Promise.promisify(sponsorTokenContract.tokenExists)(id);
+  // if (!item.tokenExist) return item;
 
-  [item.owner, item.creator, item.price, item.nextPrice] =
-    await Promise.promisify(sponsorTokenContract.allOf)(id);
+  item.owner =
+    await Promise.promisify(sponsorTokenContract.ownerOf)(id);
   // format to ETH
-  item.price = web3.fromWei(item.price, 'ether').toFixed(2);
+  // item.price = web3.fromWei(item.price, 'ether').toFixed(2);
   return item;
 };
 
@@ -272,8 +272,7 @@ export const getItemsOf = async (address) => {
 };
 
 export const getItems = async () => {
-  const total = await Promise.promisify(sponsorTokenContract.totalSupply)();
-  const ids = await Promise.promisify(sponsorTokenContract.TokensForSaleLimit)(0, total);
+  const ids = await Promise.promisify(sponsorTokenContract.getListedTokens)();
   const items = await Promise.all(ids.map(id => getItem(id)));
   return items;
 };
