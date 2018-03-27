@@ -28,11 +28,11 @@ export default new Router({
     //   path: '/explore',
     //   component: ExploreView,
     // },
-    // {
-    //   name: 'Item',
-    //   path: '/item/:id(\\d+)',
-    //   component: ItemView,
-    // },
+    {
+      name: 'Item',
+      path: '/item/:id(\\d+)',
+      component: ItemView,
+    },
     // {
     //   name: 'User',
     //   path: '/user/:address',

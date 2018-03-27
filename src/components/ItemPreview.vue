@@ -1,11 +1,11 @@
 <template>
   <router-link v-if="item"
-               :to="{ name: 'Item', params:{id: this.itemId}}">
+               :to="{ name: 'Item', params:{id: item.id}}">
     <div class="KJ-position-relative">
       <img class="KJ-width-100"
            src="@/assets/img/cardBorder.png" />
       <img class="card-img"
-           :src="item.imageUrl" @click=""/>
+           :src="item.imageUrl"/>
     </div>
     <div class="card-fooer columns is-mobile is-gapless has-text-centered has-text-weight-bold">
       <h5 class="column card-name is-4">{{item.title}}
