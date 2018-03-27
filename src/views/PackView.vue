@@ -204,16 +204,15 @@
                   </a>
                 </template>
                 <template v-else>
-                  <template v-if="Date.parse(new Date())/1000>props.row.free2">
+                  <template v-if="(props.row.free1 < Date.parse(new Date())/1000 && Date.parse(new Date())/1000 < props.row.free2)">
                     <a @click="onBuyLuckyToken(props.row)">
                       {{$t('PackView.tabs.luckyToken.buy')}}
                     </a>
                   </template>
                   <template v-else>
-                    <a @click="onWatch()">
-                      {{$t('PackView.tabs.luckyToken.watch')}}
-                    </a>
+                    {{$t('PackView.tabs.luckyToken.buy')}}
                   </template>
+
                 </template>
               </b-table-column>
             </template>
