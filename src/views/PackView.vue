@@ -169,7 +169,9 @@
               <b-table-column field="price"
                               :label="$t('PackView.tabs.luckyToken.owner')"
                               centered>
-                {{ props.row.owner }}
+                <a :href="'https://ropsten.etherscan.io/address/' + props.row.owner">
+                  {{ props.row.owner.substr(36,42) }}
+                </a>
               </b-table-column>
 
               <b-table-column field="price"
@@ -177,6 +179,20 @@
                               centered
                               sortable>
                 {{ props.row.priceInETH }} ETH
+              </b-table-column>
+
+              <b-table-column field="free1"
+                              :label="$t('PackView.tabs.luckyToken.free1')"
+                              centered
+                              sortable>
+                {{ (new Date(props.row.free1 * 1000)).toLocaleString()}}
+              </b-table-column>
+
+              <b-table-column field="free2"
+                              :label="$t('PackView.tabs.luckyToken.free2')"
+                              centered
+                              sortable>
+                {{ (new Date(props.row.free2 * 1000)).toLocaleString() }}
               </b-table-column>
 
               <b-table-column field="id"
@@ -216,6 +232,7 @@ import {
   getPackageSize,
   getItems
 } from "@/api";
+import BTableColumn from "buefy/src/components/table/TableColumn";
 
 // const API_MAP = {
 //   'getLuckyTokens': {
@@ -227,6 +244,7 @@ import {
 export default {
   name: "PackView",
   components: {
+    BTableColumn,
     ItemPreview
   },
   data() {
@@ -283,7 +301,7 @@ export default {
         };
       }
 
-      this.$dialog.alert(alertCfg);
+      //this.$dialog.alert(alertCfg);
     },
     async onRollDice(luckyTokenId) {
       if (!this.checkLogin()) {
@@ -369,8 +387,9 @@ export default {
       } catch (e) {}
       this.isLoadingItems = false;
     }
-  }
+  },
 };
+
 </script>
 <style lang="postcss" scoped>
 .PackView {

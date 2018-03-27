@@ -49,6 +49,8 @@ export default {
         owner: '拥有者',
         price: '价格',
         action: '',
+        free1: '展示期截止时间',
+        free2: '冷冻期截止时间',
         buy: '购买',
         rollDice: '使用这个幸运币来抽卡',
       },
