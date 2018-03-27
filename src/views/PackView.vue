@@ -204,12 +204,18 @@
                   </a>
                 </template>
                 <template v-else>
-                  <a @click="onBuyLuckyToken(props.row)">
-                    {{$t('PackView.tabs.luckyToken.buy')}}
-                  </a>
+                  <template v-if="Date.parse(new Date())/1000>props.row.free2">
+                    <a @click="onBuyLuckyToken(props.row)">
+                      {{$t('PackView.tabs.luckyToken.buy')}}
+                    </a>
+                  </template>
+                  <template v-else>
+                    <a @click="onWatch()">
+                      {{$t('PackView.tabs.luckyToken.watch')}}
+                    </a>
+                  </template>
                 </template>
               </b-table-column>
-
             </template>
           </b-table>
         </b-tab-item>
