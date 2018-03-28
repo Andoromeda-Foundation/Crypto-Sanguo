@@ -245,7 +245,9 @@ export const getItem = async (id) => {
   item.owner =
     await Promise.promisify(sponsorTokenContract.ownerOf)(id);
   // format to ETH
-  // item.price = web3.fromWei(item.price, 'ether').toFixed(2);
+  item.price = 999*1e+18
+  item.priceInETH = 999
+  //todo：后面读取交易合约里面的价格
   return item;
 };
 

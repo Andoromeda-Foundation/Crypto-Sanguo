@@ -24,7 +24,7 @@
         <div class="column
            is-full-mobile">
           <h1 class="title">{{item.title}}</h1>
-          <template v-if="item.tokenExist">
+          <template >
             <ul>
               <li>{{$t('Owner')}}：
                 <router-link :to="{ name: 'User', params:{address: item.owner}}">
@@ -61,13 +61,13 @@
                       @click="onUpdatePrice">{{$t('CHANGE_PRICE_BTN')}}</button>
             </template>
           </template>
-          <template v-else>
+          <!-- <template v-else>
             <article class="message is-danger">
               <div class="message-body">
                 {{$t('itemView.tokenNotExist')}}
               </div>
             </article>
-          </template>
+          </template> -->
         </div>
       </div>
 
@@ -112,7 +112,7 @@
 <script>
 import TransactionList from '@/components/TransactionList';
 import 'echarts/lib/chart/radar';
-import { buyItem, setPrice } from '@/api';
+import { buyItem, setPrice,getItem,getMe } from '@/api';
 import { toReadablePrice } from '@/util';
 import web3 from '@/web3';
 

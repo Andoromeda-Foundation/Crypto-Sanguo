@@ -33,11 +33,11 @@ export default new Router({
       path: '/item/:id(\\d+)',
       component: ItemView,
     },
-    // {
-    //   name: 'User',
-    //   path: '/user/:address',
-    //   component: UserView,
-    // },
+    {
+      name: 'User',
+      path: '/user/:address',
+      component: UserView,
+    },
     // {
     //   name: 'Game',
     //   path: '/game',
