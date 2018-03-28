@@ -377,7 +377,7 @@ export const getPackage = async () => {
   items.forEach((element, index) => {
     element.sigmaRatio = z;
   });
-  s
+  
   return items;
 };
 
