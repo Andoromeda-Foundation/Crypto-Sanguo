@@ -199,9 +199,15 @@
                               :label="$t('PackView.tabs.luckyToken.action')"
                               centered>
                 <template v-if="props.row.owner === me.address">
-                  <a @click="onRollDice(props.row.id)">
+                  <template v-if="Date.parse(new Date())/1000 > props.row.free2">
+                      <a @click="onRollDice(props.row.id)">
+                        {{$t('PackView.tabs.luckyToken.rollDice')}}
+                      </a>
+                  </template>
+                  <template v-else>
                     {{$t('PackView.tabs.luckyToken.rollDice')}}
-                  </a>
+                  </template>
+
                 </template>
                 <template v-else>
                   <template v-if="(props.row.free1 < Date.parse(new Date())/1000 && Date.parse(new Date())/1000 < props.row.free2)">
@@ -392,9 +398,8 @@ export default {
       } catch (e) {}
       this.isLoadingItems = false;
     }
-  },
+  }
 };
-
 </script>
 <style lang="postcss" scoped>
 .PackView {

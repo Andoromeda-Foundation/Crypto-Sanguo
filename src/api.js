@@ -332,7 +332,7 @@ export const getLuckTokensOf = async (address) => {
 
 export const getAllLuckyTokens = async () => {
   const total = await Promise.promisify(sanguoTokenContract.totalSupply)();
-  const ids = await Promise.promisify(sanguoTokenContract.TokensForSaleLimit)(0, total - 1);
+  const ids = await Promise.promisify(sanguoTokenContract.TokensForSaleLimit)(0, total);
   const tokens = await Promise.all(ids.map(id => getLuckyToken(id)));
   return tokens;
 };
@@ -377,7 +377,7 @@ export const getPackage = async () => {
   items.forEach((element, index) => {
     element.sigmaRatio = z;
   });
-  
+
   return items;
 };
 
