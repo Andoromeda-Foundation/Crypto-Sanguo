@@ -4,16 +4,16 @@ import web3 from '@/web3';
 import * as config from '@/config';
 import request from 'superagent';
 import timeout from 'timeout-then';
-import sponsorTokenABI from './abi/sponsorToken.json';
-import sanguoABI from './abi/sanguoToken.json';
+import contractABI from './abi/contract.json';
+import DecentralizedExchangeHotPotatoABI from './abi/DecentralizedExchangeHotPotato.json';
+import LuckyPackageABI from './abi/LuckyPackage.json';
 
 // Sometimes, web3.version.network might be undefined,
 // as a workaround, use defaultNetwork in that case.
 const network = config.network[web3.version.network] || config.defaultNetwork;
-const sponsorTokenContract = web3.eth.contract(sponsorTokenABI).at(network.contract);
-
-
-const sanguoTokenContract = web3.eth.contract(sanguoABI).at(network.package_contract);
+const sponsorTokenContract = web3.eth.contract(contractABI).at(network.contract);
+const DecentralizedExchangeHotPotatoContract = web3.eth.contract(DecentralizedExchangeHotPotatoABI).at(network.DecentralizedExchangeHotPotato);
+const LuckyPackageContract = web3.eth.contract(LuckyPackageABI).at(network.LuckyPackage);
 
 
 let store = [];

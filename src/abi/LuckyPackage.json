@@ -70,16 +70,13 @@
 }, {
   "constant": false,
   "inputs": [{
-    "name": "l",
+    "name": "_count",
     "type": "uint256"
   }, {
-    "name": "r",
-    "type": "uint256"
-  }, {
-    "name": "target",
+    "name": "to",
     "type": "address"
   }],
-  "name": "issueTokenAndTransfer",
+  "name": "issueTokenAndApprove",
   "outputs": [],
   "payable": false,
   "stateMutability": "nonpayable",
@@ -131,11 +128,14 @@
   "type": "function"
 }, {
   "constant": true,
-  "inputs": [],
-  "name": "getListedTokens",
+  "inputs": [{
+    "name": "_tokenId",
+    "type": "uint256"
+  }],
+  "name": "allOf",
   "outputs": [{
-    "name": "_Tokens",
-    "type": "uint256[]"
+    "name": "_owner",
+    "type": "address"
   }],
   "payable": false,
   "stateMutability": "view",
@@ -169,6 +169,23 @@
   "stateMutability": "view",
   "type": "function"
 }, {
+  "constant": true,
+  "inputs": [],
+  "name": "getAllPackage",
+  "outputs": [{
+    "name": "_id",
+    "type": "uint256[]"
+  }, {
+    "name": "_ratio",
+    "type": "uint256[]"
+  }, {
+    "name": "_issuer",
+    "type": "address[]"
+  }],
+  "payable": false,
+  "stateMutability": "view",
+  "type": "function"
+}, {
   "constant": false,
   "inputs": [{
     "name": "_admin",
@@ -195,6 +212,20 @@
   "type": "function"
 }, {
   "constant": false,
+  "inputs": [{
+    "name": "_count",
+    "type": "uint256"
+  }, {
+    "name": "to",
+    "type": "address"
+  }],
+  "name": "issueTokenAndTransfer",
+  "outputs": [],
+  "payable": false,
+  "stateMutability": "nonpayable",
+  "type": "function"
+}, {
+  "constant": false,
   "inputs": [],
   "name": "withdrawAll",
   "outputs": [],
@@ -215,20 +246,6 @@
 }, {
   "constant": false,
   "inputs": [{
-    "name": "l",
-    "type": "uint256"
-  }, {
-    "name": "r",
-    "type": "uint256"
-  }],
-  "name": "issueToken",
-  "outputs": [],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
-}, {
-  "constant": false,
-  "inputs": [{
     "name": "_to",
     "type": "address"
   }, {
@@ -243,19 +260,38 @@
 }, {
   "constant": false,
   "inputs": [{
-    "name": "l",
+    "name": "_tokenId",
+    "type": "uint256"
+  }],
+  "name": "rollDice",
+  "outputs": [],
+  "payable": false,
+  "stateMutability": "nonpayable",
+  "type": "function"
+}, {
+  "constant": false,
+  "inputs": [{
+    "name": "_count",
+    "type": "uint256"
+  }],
+  "name": "issueToken",
+  "outputs": [],
+  "payable": false,
+  "stateMutability": "nonpayable",
+  "type": "function"
+}, {
+  "constant": false,
+  "inputs": [{
+    "name": "_tokenId",
     "type": "uint256"
   }, {
-    "name": "r",
+    "name": "_ratio",
     "type": "uint256"
   }, {
-    "name": "ratio",
-    "type": "uint256"
-  }, {
-    "name": "target",
+    "name": "_issuer",
     "type": "address"
   }],
-  "name": "issueTokenAndTransferAndPutIntoPackage",
+  "name": "putIntoPackage",
   "outputs": [],
   "payable": false,
   "stateMutability": "nonpayable",
