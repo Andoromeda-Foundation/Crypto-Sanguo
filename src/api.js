@@ -319,28 +319,28 @@ export const setLocale = async (locale) => {
 
 export const getLuckyToken = async (id) => {
   const item = { id: Number(id) };
-  [item.owner, item.price, item.nextPrice, item.free1, item.free2] =
-    await Promise.promisify(sanguoTokenContract.allOf)(id);
+  item.owner = await Promise.promisify(LuckyPackageContract.allOf)(id);
   // format to ETH
-  item.priceInETH = web3.fromWei(item.price, 'ether').toFixed(2);
+  // item.priceInETH = web3.fromWei(item.price, 'ether').toFixed(2);
   return item;
 };
 
 export const getLuckTokensOf = async (address) => {
-  const ids = await Promise.promisify(sanguoTokenContract.tokensOf)(address);
+  const ids = await Promise.promisify(LuckyPackageContract.tokensOf)(address);
   const luckyTokens = await Promise.all(ids.map(id => getLuckyToken(id)));
   return luckyTokens;
 };
 
 export const getAllLuckyTokens = async () => {
-  const total = await Promise.promisify(sanguoTokenContract.totalSupply)();
-  const ids = await Promise.promisify(sanguoTokenContract.TokensForSaleLimit)(0, total);
+  let rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start)
+  const total = await Promise.promisify(LuckyPackageContract.totalSupply)();
+  const ids = rangeArray(1,total)
   const tokens = await Promise.all(ids.map(id => getLuckyToken(id)));
   return tokens;
 };
 
 export const buyLuckyToken = (id, price) => new Promise((resolve, reject) => {
-  sanguoTokenContract.buy(id, {
+  LuckyPackageContract.buy(id, {
     value: price, // web3.toWei(Number(price), 'ether'),
     gas: 220000,
     gasPrice: 1000000000 * 100,
@@ -349,7 +349,7 @@ export const buyLuckyToken = (id, price) => new Promise((resolve, reject) => {
 });
 
 export const rollDice = luckyTokenId => new Promise((resolve, reject) => {
-  sanguoTokenContract.rollDice(luckyTokenId, {
+  LuckyPackageContract.rollDice(luckyTokenId, {
     value: 0,
     gas: 220000,
     gasPrice: 1000000000 * 100,
@@ -362,7 +362,7 @@ export const getPackage = async () => {
     ratios,
     addrs;
 
-  [ids, ratios, addrs] = await Promise.promisify(sanguoTokenContract.getAllPackage)(100000);
+  [ids, ratios, addrs] = await Promise.promisify(LuckyPackageContract.getAllPackage)();
   // ids = [1, 2, 3];
   // ratios = [1.1, 2.2, 3.3];
   const items = await Promise.all(ids.map(id => getItem(id)));
@@ -387,6 +387,6 @@ export const getPackage = async () => {
 
 
 export const getPackageSize = async () => {
-  const size = await Promise.promisify(sanguoTokenContract.packageSize)();
-  return Number(size);
+  const size = await Promise.promisify(LuckyPackageContract.getAllPackage)();
+  return Number(size.length);
 };
