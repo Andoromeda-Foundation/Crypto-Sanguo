@@ -410,5 +410,5 @@ export const getPackage = async () => {
 
 export const getPackageSize = async () => {
   const size = await Promise.promisify(LuckyPackageContract.getAllPackage)();
-  return Number(size.length);
+  return Number(size[0].length);
 };
