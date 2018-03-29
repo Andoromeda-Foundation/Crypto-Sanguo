@@ -318,13 +318,35 @@ export const setLocale = async (locale) => {
 };
 
 export const getLuckyToken = async (id) => {
-  const item = { id: Number(id) };
+  const item = await allOfHotPotatoExchange(id,network.LuckyPackage);
+  item.id = Number(id);
   item.owner = await Promise.promisify(LuckyPackageContract.allOf)(id);
+
   // format to ETH
   // item.priceInETH = web3.fromWei(item.price, 'ether').toFixed(2);
   return item;
 };
 
+export const allOfHotPotatoExchange = async (id,contractAddress) => {
+  const total = await Promise.promisify(DecentralizedExchangeHotPotatoContract.totalOrder)();
+  let rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
+  const ids = rangeArray(0,Number(total)-1);
+  const items = await Promise.all(ids.map(id => getHotPotatoExchange(id)));
+  for(var i = 0; i < items.length; i++) {
+    if (items[i].issuer == contractAddress && items[i].tokenid == id){
+      return items[i];
+    }
+  };
+  return {};
+
+}
+
+export const getHotPotatoExchange = async (id) => {
+  const item = {};
+  [item.creator,item.owner,item.issuer,
+    item.tokenid,item.price,item.free1,item.free2] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id)
+  return item
+}
 export const getLuckTokensOf = async (address) => {
   const ids = await Promise.promisify(LuckyPackageContract.tokensOf)(address);
   const luckyTokens = await Promise.all(ids.map(id => getLuckyToken(id)));
