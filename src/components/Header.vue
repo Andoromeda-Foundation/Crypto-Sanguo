@@ -1,5 +1,5 @@
 <template>
-  <header v-if="false" :class="[$route.name === 'Home' ? 'sig-home-header' : '']">
+  <header class="[$route.name === 'Home' ? 'sig-home-header' : '']">
     <nav class="navbar">
       <div class="navbar-brand">
         <router-link class="navbar-item"
@@ -14,25 +14,25 @@
         </router-link>
 
         <template v-else>
-          <router-link class="navbar-item"
+          <!-- <router-link class="navbar-item"
                        :to="{ name: 'Game' }">
             {{$t('header.nav.game')}}
-          </router-link>
+          </router-link> -->
 
           <router-link class="navbar-item"
                        :to="{ name: 'User', params:{address: me.address}}">
             {{$t('header.nav.myPage')}}
           </router-link>
 
-          <router-link class="navbar-item"
+          <!-- <router-link class="navbar-item"
                        :to="{ name: 'Transaction', params:{address: me.address}}">
             {{$t('header.nav.Transactions')}}
-          </router-link>
+          </router-link> -->
 
-          <router-link class="navbar-item"
+          <!-- <router-link class="navbar-item"
                        :to="{ name: 'Explore' }">
             {{$t('header.nav.explore')}}
-          </router-link>
+          </router-link> -->
 
           <router-link class="navbar-item"
                        :to="{ name: 'HeroList' }">

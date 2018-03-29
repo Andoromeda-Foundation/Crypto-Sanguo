@@ -48,11 +48,11 @@ export default new Router({
     //   path: '/item/create',
     //   component: CreateItemView,
     // },
-    // {
-    //   name: 'HeroList',
-    //   path: '/herolist',
-    //   component: HeroListView,
-    // },
+    {
+      name: 'HeroList',
+      path: '/herolist',
+      component: HeroListView,
+    },
     // {
     //   name: 'Login',
     //   path: '/Login',
