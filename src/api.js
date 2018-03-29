@@ -15,7 +15,6 @@ const sponsorTokenContract = web3.eth.contract(contractABI).at(network.contract)
 const DecentralizedExchangeHotPotatoContract = web3.eth.contract(DecentralizedExchangeHotPotatoABI).at(network.DecentralizedExchangeHotPotato);
 const LuckyPackageContract = web3.eth.contract(LuckyPackageABI).at(network.LuckyPackage);
 
-
 let store = [];
 let isInit = false;
 
@@ -245,9 +244,9 @@ export const getItem = async (id) => {
   item.owner =
     await Promise.promisify(sponsorTokenContract.ownerOf)(id);
   // format to ETH
-  item.price = 999*1e+18
-  item.priceInETH = 999
-  //todo：后面读取交易合约里面的价格
+  item.price = 999 * 1e+18;
+  item.priceInETH = ' --';// 999;
+  // todo：后面读取交易合约里面的价格
   return item;
 };
 
@@ -317,59 +316,91 @@ export const setLocale = async (locale) => {
   Cookie.set('locale', locale, { expires: 365 });
 };
 
-export const getLuckyToken = async (id) => {
-  const item = await allOfHotPotatoExchange(id,network.LuckyPackage);
-  item.id = Number(id);
-  item.owner = await Promise.promisify(LuckyPackageContract.allOf)(id);
 
-  // format to ETH
-  // item.priceInETH = web3.fromWei(item.price, 'ether').toFixed(2);
-  return item;
-};
-
-export const allOfHotPotatoExchange = async (id,contractAddress) => {
+export const allOfHotPotatoExchange = async (id, contractAddress) => {
   const total = await Promise.promisify(DecentralizedExchangeHotPotatoContract.totalOrder)();
-  let rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
-  const ids = rangeArray(0,Number(total)-1);
+  const rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
+  const ids = rangeArray(0, Number(total) - 1);
   const items = await Promise.all(ids.map(id => getHotPotatoExchange(id)));
-  for(var i = 0; i < items.length; i++) {
-    if (items[i].issuer == contractAddress && items[i].tokenid == id){
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].issuer == contractAddress && items[i].tokenid == id) {
       return items[i];
     }
-  };
+  }
   return {};
-
-}
+};
 
 export const getHotPotatoExchange = async (id) => {
   const item = {};
-  [item.creator,item.owner,item.issuer,
-    item.tokenid,item.price,item.free1,item.free2] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id)
-  return item
-}
+  [item.creator, item.owner, item.issuer,
+    item.tokenid, item.price, item.free1, item.free2] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
+  return item;
+};
+
+export const getLuckyToken = async (id) => {
+  const item = {};
+  item.id = Number(id);
+  item.owner = (await Promise.promisify(LuckyPackageContract.allOf)(id))[0];
+  return item;
+};
+
+// 获取某人所拥有的LuckyToken
 export const getLuckTokensOf = async (address) => {
   const ids = await Promise.promisify(LuckyPackageContract.tokensOf)(address);
   const luckyTokens = await Promise.all(ids.map(id => getLuckyToken(id)));
+  // luckyTokens[0] = {
+  //   id: 1,
+  //   owner: '0xx9999999999',
+  // };
+  // luckyTokens[1] = {
+  //   id: 2,
+  //   owner: '91282121',
+  // };
   return luckyTokens;
 };
-
-export const getAllLuckyTokens = async () => {
-  let rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start)
-  const total = await Promise.promisify(LuckyPackageContract.totalSupply)();
-  const ids = rangeArray(1,total)
-  const tokens = await Promise.all(ids.map(id => getLuckyToken(id)));
-  return tokens;
+// 获取某个拍卖（auction）
+export const getLuckyTokenAuction = async (id) => {
+  id = Number(id);
+  const auction = { id };
+  [auction.creator,
+    auction.owner,
+    auction.issuer,
+    auction.tokenId,
+    auction.price,
+    auction.startTime,
+    auction.endTime] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
+  auction.tokenId = Number(auction.tokenId);
+  auction.startTime *= 1000;
+  auction.endTime *= 1000;
+  const now = new Date().getTime();
+  if (now < auction.startTime) {
+    auction.status = 'FROZEN'; // 未开始
+  } else if (now < auction.endTime) {
+    auction.status = 'SELLING';// 拍卖中
+  } else {
+    auction.status = 'EXPIRED';// 过期了
+  }
+  auction.priceInETH = web3.fromWei(auction.price, 'ether').toFixed(2);
+  return auction;
+};
+// 获取市场上（在售）的所有的拍卖
+export const getAllLuckyTokenAuctions = async () => {
+  const rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
+  const total = await Promise.promisify(DecentralizedExchangeHotPotatoContract.totalOrder)();
+  const ids = rangeArray(1, total);
+  console.log(ids);
+  const auctions = await Promise.all(ids.map(id => getLuckyTokenAuction(id)));
+  return auctions;
 };
 
 export const buyLuckyToken = (id, price) => new Promise((resolve, reject) => {
-  LuckyPackageContract.buy(id, {
+  DecentralizedExchangeHotPotatoContract.buy(id, {
     value: price, // web3.toWei(Number(price), 'ether'),
     gas: 220000,
     gasPrice: 1000000000 * 100,
   },
   (err, result) => (err ? reject(err) : resolve(result)));
 });
-
 export const rollDice = luckyTokenId => new Promise((resolve, reject) => {
   LuckyPackageContract.rollDice(luckyTokenId, {
     value: 0,
@@ -377,6 +408,19 @@ export const rollDice = luckyTokenId => new Promise((resolve, reject) => {
     gasPrice: 1000000000 * 100,
   },
   (err, result) => (err ? reject(err) : resolve(result)));
+});
+
+export const createAuction = ({
+  tokenId,
+  price,
+  startTime, endTime }) => new Promise((resolve, reject) => {
+  DecentralizedExchangeHotPotatoContract.put(network.LuckyPackage, tokenId, price,
+    startTime, endTime, {
+      value: 0,
+      gas: 220000,
+      gasPrice: 1000000000 * 100,
+    },
+    (err, result) => (err ? reject(err) : resolve(result)));
 });
 
 export const getPackage = async () => {
@@ -393,7 +437,7 @@ export const getPackage = async () => {
     element.ratio = ratios[index];
   });
 
-  var z = 0;
+  let z = 0;
   items.forEach((element, index) => {
     z += parseInt(ratios[index]);
   });
@@ -404,8 +448,6 @@ export const getPackage = async () => {
 
   return items;
 };
-
-
 
 
 export const getPackageSize = async () => {

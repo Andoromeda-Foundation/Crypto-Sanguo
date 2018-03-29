@@ -131,6 +131,7 @@
           </b-table>
 
         </b-tab-item>
+
         <b-tab-item :label="$t('PackView.tabs.luckyToken.title')">
           <div class="buttons is-centered">
             <button @click="onSwitchLuckyTokenType('ALL')"
@@ -150,79 +151,105 @@
               {{$t('PackView.tabs.luckyToken.my')}}
             </button>
           </div>
+          <div v-show="luckyTokenTableType === 'ALL'">
+            <b-table class="txTable"
+                     :data="luckyTokens"
+                     default-sort="price"
+                     default-sort-direction="asc"
+                     :striped="true"
+                     :loading="isLoadingLuckyTokens"
+                     :mobile-cards="false">
+              <template slot-scope="props">
 
-          <b-table class="txTable"
-                   :data="luckyTokens"
-                   default-sort="id"
-                   default-sort-direction="asc"
-                   :striped="true"
-                   :loading="isLoadingLuckyTokens"
-                   :mobile-cards="false">
-            <template slot-scope="props">
-
-              <b-table-column field="id"
-                              :label="$t('PackView.tabs.luckyToken.id')"
-                              sortable
-                              centered>
-                {{ props.row.id }}
-              </b-table-column>
-              <b-table-column field="price"
+                <b-table-column field="tokenId"
+                                :label="$t('PackView.tabs.luckyToken.id')"
+                                sortable
+                                centered>
+                  {{ props.row.tokenId }}
+                </b-table-column>
+                <!-- <b-table-column field="price"
                               :label="$t('PackView.tabs.luckyToken.owner')"
                               centered>
                 <a :href="'https://ropsten.etherscan.io/address/' + props.row.owner">
-                  {{ props.row.owner.substr(36,42) }}
+                  1 {{ props.row.owner.substr(36,42) }}
                 </a>
-              </b-table-column>
+              </b-table-column> -->
 
-              <b-table-column field="price"
-                              :label="$t('PackView.tabs.luckyToken.price')"
-                              centered
-                              sortable>
-                {{ props.row.priceInETH }} ETH
-              </b-table-column>
+                <b-table-column field="price"
+                                :label="$t('PackView.tabs.luckyToken.price')"
+                                centered
+                                sortable>
+                  {{ props.row.priceInETH }} ETH
+                </b-table-column>
 
-              <b-table-column field="free1"
-                              :label="$t('PackView.tabs.luckyToken.free1')"
-                              centered
-                              sortable>
-                {{ (new Date(props.row.free1 * 1000)).toLocaleString()}}
-              </b-table-column>
+                <b-table-column field="startTime"
+                                :label="$t('PackView.tabs.luckyToken.free1')"
+                                centered
+                                sortable>
+                  {{ (new Date(props.row.startTime)).toLocaleString() }}
+                </b-table-column>
 
-              <b-table-column field="free2"
-                              :label="$t('PackView.tabs.luckyToken.free2')"
-                              centered
-                              sortable>
-                {{ (new Date(props.row.free2 * 1000)).toLocaleString() }}
-              </b-table-column>
+                <b-table-column field="endTime"
+                                :label="$t('PackView.tabs.luckyToken.free2')"
+                                centered
+                                sortable>
+                  {{ (new Date(props.row.endTime)).toLocaleString() }}
+                </b-table-column>
 
-              <b-table-column field="id"
-                              :label="$t('PackView.tabs.luckyToken.action')"
-                              centered>
-                <template v-if="props.row.owner === me.address">
-                  <template v-if="Date.parse(new Date())/1000 > props.row.free2">
-                      <a @click="onRollDice(props.row.id)">
-                        {{$t('PackView.tabs.luckyToken.rollDice')}}
-                      </a>
-                  </template>
-                  <template v-else>
-                    {{$t('PackView.tabs.luckyToken.rollDice')}}
-                  </template>
-
-                </template>
-                <template v-else>
-                  <template v-if="(props.row.free1 < Date.parse(new Date())/1000 && Date.parse(new Date())/1000 < props.row.free2)">
-                    <a @click="onBuyLuckyToken(props.row)">
-                      {{$t('PackView.tabs.luckyToken.buy')}}
-                    </a>
-                  </template>
-                  <template v-else>
+                <b-table-column field="status"
+                                :label="$t('PackView.tabs.luckyToken.action')"
+                                centered>
+                  <a v-if="props.row.status === 'SELLING'"
+                     class="button is-small is-warning is-outlined"
+                     @click="onBuyLuckyToken(props.row)">
                     {{$t('PackView.tabs.luckyToken.buy')}}
-                  </template>
+                  </a>
+                  <button class="button is-small is-warning is-outlined"
+                          disabled
+                          v-else> {{$t('PackView.tabs.luckyToken.buy')}}</button>
+                </b-table-column>
+              </template>
+            </b-table>
+          </div>
+          <div v-show="luckyTokenTableType === 'MY'">
+            <b-table class="txTable"
+                     :data="luckyTokens"
+                     default-sort="id"
+                     default-sort-direction="asc"
+                     :striped="true"
+                     :loading="isLoadingLuckyTokens"
+                     :mobile-cards="false">
+              <template slot-scope="props">
+                <b-table-column field="id"
+                                :label="$t('PackView.tabs.luckyToken.id')"
+                                sortable
+                                centered>
+                  {{ props.row.id }}
+                </b-table-column>
 
-                </template>
-              </b-table-column>
-            </template>
-          </b-table>
+                <b-table-column field="id"
+                                :label="$t('PackView.tabs.luckyToken.rollDiceTitle')"
+                                centered>
+                  <a class="button is-small is-warning is-outlined"
+                     @click="onRollDice(props.row.id)">
+                    {{$t('PackView.tabs.luckyToken.rollDice')}}
+                  </a>
+
+                </b-table-column>
+
+                <b-table-column field="id"
+                                :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
+                                centered>
+                  <a class="button is-small is-warning is-outlined"
+                     @click="onCreateAuction(props.row.id)">
+                    {{$t('PackView.tabs.luckyToken.createAuction')}}
+                  </a>
+
+                </b-table-column>
+
+              </template>
+            </b-table>
+          </div>
         </b-tab-item>
       </b-tabs>
     </section>
@@ -230,53 +257,49 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import ItemPreview from "@/components/ItemPreview";
+import web3 from '@/web3';
+import { mapState } from 'vuex';
+import ItemPreview from '@/components/ItemPreview';
 import {
   getPackTx,
   getItemsOf,
   getPackage,
   getLuckTokensOf,
-  getAllLuckyTokens,
   buyLuckyToken,
   rollDice,
   getPackageSize,
-  getItems
-} from "@/api";
-import BTableColumn from "buefy/src/components/table/TableColumn";
-
-// const API_MAP = {
-//   'getLuckyTokens': {
-//     'MY': getLuckTokensOf,
-//     'ALL':
-//   }
-// };
+  getItems,
+  createAuction,
+  getAllLuckyTokenAuctions,
+} from '@/api';
+import BTableColumn from 'buefy/src/components/table/TableColumn';
 
 export default {
-  name: "PackView",
+  name: 'PackView',
   components: {
     BTableColumn,
-    ItemPreview
+    ItemPreview,
   },
   data() {
     return {
-      packageSize: "",
+      packageSize: '',
       luckyTokens: [],
       items: [],
-      txTableType: "ALL",
-      luckyTokenTableType: "",
-      itemTableType: "",
+      txTableType: 'ALL',
+      luckyTokenTableType: '',
+      itemTableType: '',
       isLoadingLuckyTokens: true,
       isLoadingItems: true,
-      txList: []
+      txList: [],
+      luckyTokenAuctions: [],
     };
   },
   computed: {
-    ...mapState(["me", "signInError"])
+    ...mapState(['me', 'signInError']),
   },
   async created() {
-    this.luckyTokenTableType = "ALL";
-    this.itemTableType = "PACK";
+    this.luckyTokenTableType = 'ALL';
+    this.itemTableType = 'PACK';
     this.packageSize = await getPackageSize();
     this.txList = await getPackTx();
   },
@@ -292,27 +315,28 @@ export default {
       if (!this.checkLogin()) {
         return;
       }
+      alert(luckyToken.price);
       let alertCfg;
 
       try {
         const txHash = await buyLuckyToken(luckyToken.id, luckyToken.price);
         // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
         alertCfg = {
-          type: "is-dark",
-          title: this.$t("alert.buyLuckyToken.success.title"),
-          message: this.$t("alert.buyLuckyToken.success.msg", { txHash }),
-          confirmText: this.$t("alert.buyLuckyToken.success.confirmText")
+          type: 'is-dark',
+          title: this.$t('alert.buyLuckyToken.success.title'),
+          message: this.$t('alert.buyLuckyToken.success.msg', { txHash }),
+          confirmText: this.$t('alert.buyLuckyToken.success.confirmText'),
         };
       } catch (e) {
+        console.log(e);
         alertCfg = {
-          type: "is-dark",
-          title: this.$t("alert.buyLuckyToken.fail.title"),
-          message: this.$t("alert.buyLuckyToken.fail.msg", { e }),
-          confirmText: this.$t("alert.buyLuckyToken.fail.confirmText")
+          type: 'is-dark',
+          title: this.$t('alert.buyLuckyToken.fail.title'),
+          message: this.$t('alert.buyLuckyToken.fail.msg', { e }),
+          confirmText: this.$t('alert.buyLuckyToken.fail.confirmText'),
         };
       }
-
-      //this.$dialog.alert(alertCfg);
+      this.$dialog.alert(alertCfg);
     },
     async onRollDice(luckyTokenId) {
       if (!this.checkLogin()) {
@@ -324,10 +348,10 @@ export default {
         // 没有幸运币
         if (myLuckyTokenIds.length === 0) {
           this.$dialog.alert({
-            type: "is-dark",
-            title: this.$t("alert.rollDice.noLuckyToken.title"),
-            message: this.$t("alert.rollDice.noLuckyToken.msg"),
-            confirmText: this.$t("alert.rollDice.noLuckyToken.confirmText")
+            type: 'is-dark',
+            title: this.$t('alert.rollDice.noLuckyToken.title'),
+            message: this.$t('alert.rollDice.noLuckyToken.msg'),
+            confirmText: this.$t('alert.rollDice.noLuckyToken.confirmText'),
           });
           return;
         }
@@ -342,20 +366,65 @@ export default {
         const txHash = await rollDice(luckyTokenId);
         // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
         alertCfg = {
-          type: "is-dark",
-          title: this.$t("alert.rollDice.success.title"),
-          message: this.$t("alert.rollDice.success.msg", { txHash }),
-          confirmText: this.$t("alert.rollDice.success.confirmText")
+          type: 'is-dark',
+          title: this.$t('alert.rollDice.success.title'),
+          message: this.$t('alert.rollDice.success.msg', { txHash }),
+          confirmText: this.$t('alert.rollDice.success.confirmText'),
         };
       } catch (e) {
         alertCfg = {
-          type: "is-dark",
-          title: this.$t("alert.rollDice.fail.title"),
-          message: this.$t("alert.rollDice.fail.msg", { e }),
-          confirmText: this.$t("alert.rollDice.fail.confirmText")
+          type: 'is-dark',
+          title: this.$t('alert.rollDice.fail.title'),
+          message: this.$t('alert.rollDice.fail.msg', { e }),
+          confirmText: this.$t('alert.rollDice.fail.confirmText'),
         };
       }
       this.$dialog.alert(alertCfg);
+    },
+    async toCreateAuction({ tokenId, priceInETH, startTime, endTime }) {
+      let alertCfg;
+      try {
+        const txHash = await createAuction({
+          price: web3.toWei(priceInETH, 'ether'),
+          tokenId,
+          startTime,
+          endTime,
+        });
+        // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
+        alertCfg = {
+          type: 'is-dark',
+          title: this.$t('alert.CreateAuction.success.title'),
+          message: this.$t('alert.CreateAuction.success.msg', { txHash }),
+          confirmText: this.$t('alert.CreateAuction.success.confirmText'),
+        };
+      } catch (e) {
+        alertCfg = {
+          type: 'is-dark',
+          title: this.$t('alert.CreateAuction.fail.title'),
+          message: this.$t('alert.CreateAuction.fail.msg', { e }),
+          confirmText: this.$t('alert.CreateAuction.fail.confirmText'),
+        };
+      }
+      this.$dialog.alert(alertCfg);
+    },
+    async onCreateAuction(luckyTokenId) {
+      const startTime = parseInt(new Date().getTime() / 1000);
+      const endTime = startTime + 24 * 60 * 60; // 1 day
+
+      this.$dialog.prompt({
+        message: '售卖价格(ETH)',
+        inputAttrs: {
+          value: 0,
+        },
+        onConfirm: (priceInETH) => {
+          this.toCreateAuction({
+            tokenId: luckyTokenId,
+            priceInETH,
+            startTime,
+            endTime,
+          });
+        },
+      });
     },
     onSwitchTxType(type) {
       this.txTableType = type;
@@ -365,16 +434,16 @@ export default {
     },
     onSwitchItemType(type) {
       this.itemTableType = type;
-    }
+    },
   },
   watch: {
     async luckyTokenTableType(toType, fromType) {
       this.isLoadingLuckyTokens = true;
       try {
-        if (toType === "ALL") {
-          this.luckyTokens = await getAllLuckyTokens();
+        if (toType === 'ALL') {
+          this.luckyTokens = await getAllLuckyTokenAuctions();
         }
-        if (toType === "MY") {
+        if (toType === 'MY') {
           this.checkLogin();
           this.luckyTokens = await getLuckTokensOf(this.me.address);
         }
@@ -385,20 +454,20 @@ export default {
       this.isLoadingItems = true;
       this.items = [];
       try {
-        if (toType === "PACK") {
+        if (toType === 'PACK') {
           this.items = await getPackage();
         }
-        if (toType === "ALL") {
+        if (toType === 'ALL') {
           this.items = await getItems();
         }
-        if (toType === "MY") {
+        if (toType === 'MY') {
           this.checkLogin();
           this.items = await getItemsOf(this.me.address);
         }
       } catch (e) {}
       this.isLoadingItems = false;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="postcss" scoped>

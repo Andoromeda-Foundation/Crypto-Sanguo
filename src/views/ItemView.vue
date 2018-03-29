@@ -31,9 +31,10 @@
                   {{item.owner.slice(-6).toUpperCase()}}
                 </router-link>
               </li>
-              <li>{{$t('Current Price')}}：{{toDisplayedPrice(item.price)}}</li>
+              <li v-if="false">{{$t('Current Price')}}：{{toDisplayedPrice(item.price)}}</li>
             </ul>
             <br/>
+            <div v-if="false">
             <template v-if="item.owner !== me.address">
               <div class="buttons">
                 <p>
@@ -60,6 +61,7 @@
               <button class="button is-warning"
                       @click="onUpdatePrice">{{$t('CHANGE_PRICE_BTN')}}</button>
             </template>
+            </div>
           </template>
           <!-- <template v-else>
             <article class="message is-danger">
@@ -112,7 +114,7 @@
 <script>
 import TransactionList from '@/components/TransactionList';
 import 'echarts/lib/chart/radar';
-import { buyItem, setPrice,getItem,getMe } from '@/api';
+import { buyItem, setPrice, getItem, getMe } from '@/api';
 import { toReadablePrice } from '@/util';
 import web3 from '@/web3';
 
@@ -130,7 +132,7 @@ export default {
   },
   computed: {
     tabs() {
-      return ['bio', 'attributes', 'transactions'];
+      return ['bio', 'attributes'];// , 'transactions'];
     },
     itemId() {
       return this.$route.params.id;

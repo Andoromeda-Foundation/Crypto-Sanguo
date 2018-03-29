@@ -16,7 +16,7 @@ export const network = {
     name: 'Ropsten Test Network',
     contract: '0xd17c1d983030970a8b55f2df647aa351f71430e6',
     LuckyPackage: '0xc5f73d596378ec0535cf0fdb16eb6fc13d966978',
-    DecentralizedExchangeHotPotato:'0x4a11d94715194d602f9ec570e446e33bf9e41fed',
+    DecentralizedExchangeHotPotato: '0x4a11d94715194d602f9ec570e446e33bf9e41fed',
     rpc: 'https://ropsten.infura.io/lTETGFVyQX99UKQ98BN4',
   },
   4: {
