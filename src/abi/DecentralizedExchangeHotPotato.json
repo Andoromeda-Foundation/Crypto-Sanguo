@@ -33,14 +33,6 @@
   "type": "function"
 }, {
   "constant": false,
-  "inputs": [],
-  "name": "DecentralizedExchange",
-  "outputs": [],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
-}, {
-  "constant": false,
   "inputs": [{
     "name": "_admin",
     "type": "address"
@@ -75,6 +67,20 @@
 }, {
   "constant": true,
   "inputs": [{
+    "name": "_admin",
+    "type": "address"
+  }],
+  "name": "isAdmin",
+  "outputs": [{
+    "name": "_isAdmin",
+    "type": "bool"
+  }],
+  "payable": false,
+  "stateMutability": "view",
+  "type": "function"
+}, {
+  "constant": true,
+  "inputs": [{
     "name": "_id",
     "type": "uint256"
   }],
@@ -100,20 +106,6 @@
   }, {
     "name": "_endTime",
     "type": "uint256"
-  }],
-  "payable": false,
-  "stateMutability": "view",
-  "type": "function"
-}, {
-  "constant": true,
-  "inputs": [{
-    "name": "",
-    "type": "address"
-  }],
-  "name": "admins",
-  "outputs": [{
-    "name": "",
-    "type": "bool"
   }],
   "payable": false,
   "stateMutability": "view",
@@ -162,17 +154,6 @@
   "type": "function"
 }, {
   "constant": true,
-  "inputs": [],
-  "name": "owner",
-  "outputs": [{
-    "name": "",
-    "type": "address"
-  }],
-  "payable": false,
-  "stateMutability": "view",
-  "type": "function"
-}, {
-  "constant": true,
   "inputs": [{
     "name": "_price",
     "type": "uint256"
@@ -186,38 +167,6 @@
   "stateMutability": "pure",
   "type": "function"
 }, {
-  "constant": true,
-  "inputs": [{
-    "name": "",
-    "type": "uint256"
-  }],
-  "name": "orderBook",
-  "outputs": [{
-    "name": "creator",
-    "type": "address"
-  }, {
-    "name": "owner",
-    "type": "address"
-  }, {
-    "name": "issuer",
-    "type": "address"
-  }, {
-    "name": "tokenId",
-    "type": "uint256"
-  }, {
-    "name": "price",
-    "type": "uint256"
-  }, {
-    "name": "startTime",
-    "type": "uint256"
-  }, {
-    "name": "endTime",
-    "type": "uint256"
-  }],
-  "payable": false,
-  "stateMutability": "view",
-  "type": "function"
-}, {
   "constant": false,
   "inputs": [{
     "name": "_id",
@@ -228,4 +177,9 @@
   "payable": true,
   "stateMutability": "payable",
   "type": "function"
+}, {
+  "inputs": [],
+  "payable": false,
+  "stateMutability": "nonpayable",
+  "type": "constructor"
 }]
