@@ -387,8 +387,7 @@ export const getLuckyTokenAuction = async (id) => {
 export const getAllLuckyTokenAuctions = async () => {
   const rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
   const total = await Promise.promisify(DecentralizedExchangeHotPotatoContract.totalOrder)();
-  const ids = rangeArray(1, total);
-  console.log(ids);
+  const ids = rangeArray(0, total-1);
   const auctions = await Promise.all(ids.map(id => getLuckyTokenAuction(id)));
   return auctions;
 };
