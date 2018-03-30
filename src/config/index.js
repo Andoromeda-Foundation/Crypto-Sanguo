@@ -29,12 +29,19 @@ export const network = {
     contract: '',
     rpc: 'https://kovan.infura.io/lTETGFVyQX99UKQ98BN4',
   },
+  5: {
+    // default: true,
+    name: 'Private Network',
+    contract: '0x828a929fc03cacf7e5ff09771d8ae9d5ca17344d',
+    LuckyPackage: '0x58a84ee22f8e6f371db58393b9d65420cf068573',
+    // DecentralizedExchangeHotPotato: '0xcb5f7224dd08e4d37a350637185b8a1be17359a1',
+    rpc: 'http://127.0.0.1:7546',
+  }
 };
 
 export const defaultNetwork = Object.values(network).find(net => net.default);
 
-export const i18n = [
-  {
+export const i18n = [{
     langDisplay: '中文',
     locale: 'zh',
     aliases: ['zh', 'zh-cn', 'zh-hk', 'zh-sg', 'zh-tw'],
