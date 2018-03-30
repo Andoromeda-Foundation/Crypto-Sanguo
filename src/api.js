@@ -341,6 +341,7 @@ export const getLuckyToken = async (id) => {
   const item = {};
   item.id = Number(id);
   item.owner = (await Promise.promisify(LuckyPackageContract.allOf)(id))[0];
+  item.approved = await isApproved(id);
   return item;
 };
 
@@ -453,3 +454,21 @@ export const getPackageSize = async () => {
   const size = await Promise.promisify(LuckyPackageContract.getAllPackage)();
   return Number(size[0].length);
 };
+
+export const isApproved = async (id) => {
+  const t = await Promise.promisify(LuckyPackageContract.approvedFor)(id);
+  if (t != '0x0000000000000000000000000000000000000000') {
+    return true
+  } else {
+    return false
+  }
+}
+
+export const approveD = luckyTokenId => new Promise((resolve, reject) => {
+  LuckyPackageContract.approve(network.DecentralizedExchangeHotPotato,luckyTokenId, {
+    value: 0,
+    gas: 220000,
+    gasPrice: 1000000000 * 100,
+  },
+  (err, result) => (err ? reject(err) : resolve(result)));
+});

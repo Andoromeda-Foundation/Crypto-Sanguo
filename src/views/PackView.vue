@@ -236,7 +236,7 @@
                   </a>
 
                 </b-table-column>
-
+                <template v-if="props.row.approved">
                 <b-table-column field="id"
                                 :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
                                 centered>
@@ -244,8 +244,18 @@
                      @click="onCreateAuction(props.row.id)">
                     {{$t('PackView.tabs.luckyToken.createAuction')}}
                   </a>
-
                 </b-table-column>
+                </template>
+                <template v-else>
+                  <b-table-column field="id"
+                                :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
+                                centered>
+                  <a class="button is-small is-warning is-outlined"
+                     @click="onAppprove(props.row.id)">
+                    {{$t('PackView.tabs.luckyToken.approved')}}
+                  </a>
+                </b-table-column>
+                </template>
 
               </template>
             </b-table>
@@ -271,6 +281,7 @@ import {
   getItems,
   createAuction,
   getAllLuckyTokenAuctions,
+  approveD,
 } from '@/api';
 import BTableColumn from 'buefy/src/components/table/TableColumn';
 
@@ -406,6 +417,9 @@ export default {
         };
       }
       this.$dialog.alert(alertCfg);
+    },
+    async onAppprove(luckyTokenId) {
+      await approveD(luckyTokenId);
     },
     async onCreateAuction(luckyTokenId) {
       const startTime = parseInt(new Date().getTime() / 1000);
