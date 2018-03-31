@@ -388,7 +388,7 @@ export const getLuckyTokenAuction = async (id) => {
 export const getAllLuckyTokenAuctions = async () => {
   const rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
   const total = await Promise.promisify(DecentralizedExchangeHotPotatoContract.totalOrder)();
-  const ids = rangeArray(0, total-1);
+  const ids = rangeArray(0, total - 1);
   const auctions = await Promise.all(ids.map(id => getLuckyTokenAuction(id)));
   return auctions;
 };
@@ -421,6 +421,15 @@ export const createAuction = ({
       gasPrice: 1000000000 * 100,
     },
     (err, result) => (err ? reject(err) : resolve(result)));
+});
+
+export const revokeAuction = id => new Promise((resolve, reject) => {
+  DecentralizedExchangeHotPotatoContract.revoke(id, {
+    value: 0,
+    gas: 220000,
+    gasPrice: 1000000000 * 100,
+  },
+  (err, result) => (err ? reject(err) : resolve(result)));
 });
 
 export const getPackage = async () => {
@@ -459,13 +468,13 @@ export const isApproved = async (id) => {
   const t = await Promise.promisify(LuckyPackageContract.approvedFor)(id);
   if (t != '0x0000000000000000000000000000000000000000') {
     return true
-  } else {
+  } 
     return false
-  }
-}
+  
+};
 
 export const approveD = luckyTokenId => new Promise((resolve, reject) => {
-  LuckyPackageContract.approve(network.DecentralizedExchangeHotPotato,luckyTokenId, {
+  LuckyPackageContract.approve(network.DecentralizedExchangeHotPotato, luckyTokenId, {
     value: 0,
     gas: 650000,
     gasPrice: 1000000000 * 100,

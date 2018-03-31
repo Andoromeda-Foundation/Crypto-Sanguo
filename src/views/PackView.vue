@@ -207,6 +207,10 @@
                   <button class="button is-small is-warning is-outlined"
                           disabled
                           v-else> {{$t('PackView.tabs.luckyToken.buy')}}</button>
+                  <button v-if="me && props.row.owner === me.address"
+                          class="button is-small is-warning is-outlined"
+                          @click="onRevokeAuction(props.row.tokenId)">
+                    {{$t('PackView.tabs.luckyToken.revokeAuction')}}</button>
                 </b-table-column>
               </template>
             </b-table>
@@ -237,24 +241,24 @@
 
                 </b-table-column>
                 <template v-if="props.row.approved">
-                <b-table-column field="id"
-                                :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
-                                centered>
-                  <a class="button is-small is-warning is-outlined"
-                     @click="onCreateAuction(props.row.id)">
-                    {{$t('PackView.tabs.luckyToken.createAuction')}}
-                  </a>
-                </b-table-column>
+                  <b-table-column field="id"
+                                  :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
+                                  centered>
+                    <a class="button is-small is-warning is-outlined"
+                       @click="onCreateAuction(props.row.id)">
+                      {{$t('PackView.tabs.luckyToken.createAuction')}}
+                    </a>
+                  </b-table-column>
                 </template>
                 <template v-else>
                   <b-table-column field="id"
-                                :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
-                                centered>
-                  <a class="button is-small is-warning is-outlined"
-                     @click="onAppprove(props.row.id)">
-                    {{$t('PackView.tabs.luckyToken.approved')}}
-                  </a>
-                </b-table-column>
+                                  :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
+                                  centered>
+                    <a class="button is-small is-warning is-outlined"
+                       @click="onAppprove(props.row.id)">
+                      {{$t('PackView.tabs.luckyToken.approved')}}
+                    </a>
+                  </b-table-column>
                 </template>
 
               </template>
@@ -280,6 +284,7 @@ import {
   getPackageSize,
   getItems,
   createAuction,
+  revokeAuction,
   getAllLuckyTokenAuctions,
   approveD,
 } from '@/api';
@@ -326,7 +331,6 @@ export default {
       if (!this.checkLogin()) {
         return;
       }
-      alert(luckyToken.price);
       let alertCfg;
 
       try {
@@ -414,6 +418,26 @@ export default {
           title: this.$t('alert.CreateAuction.fail.title'),
           message: this.$t('alert.CreateAuction.fail.msg', { e }),
           confirmText: this.$t('alert.CreateAuction.fail.confirmText'),
+        };
+      }
+      this.$dialog.alert(alertCfg);
+    },
+    async onRevokeAuction(id) {
+      let alertCfg;
+      try {
+        const txHash = await revokeAuction(id);
+        alertCfg = {
+          type: 'is-dark',
+          title: this.$t('alert.revokeAuction.success.title'),
+          message: this.$t('alert.revokeAuction.success.msg', { txHash }),
+          confirmText: this.$t('alert.revokeAuction.success.confirmText'),
+        };
+      } catch (e) {
+        alertCfg = {
+          type: 'is-dark',
+          title: this.$t('alert.revokeAuction.fail.title'),
+          message: this.$t('alert.revokeAuction.fail.msg', { e }),
+          confirmText: this.$t('alert.revokeAuction.fail.confirmText'),
         };
       }
       this.$dialog.alert(alertCfg);
