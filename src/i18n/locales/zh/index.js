@@ -20,6 +20,15 @@ export default {
       transactions: '交易记录',
     },
     tokenNotExist: '武将尚未出场',
+    drawCards: '立即抽卡',
+    remainCards: '卡包剩余：',
+    remainCardsNum: '张卡牌',
+  },
+  itemContent:{
+    help: '帮助:',
+    content1: '以太三国创新推出全新的区块链抽卡玩法。',
+    content2: '通过抽卡方法获得武将卡，将会是唯一的官方卡牌发售渠道。',
+    content3: '智能卡包中当前包含的卡牌和中奖概率完全公开透明。',
   },
   PackView: {
     tabs: {
@@ -28,6 +37,9 @@ export default {
         pack: '卡包卡牌',
         all: '卡牌市场',
         my: '我的卡牌',
+        title1: '卡牌广播',
+        all1: '所有广播',
+        my1: '我的广播',
         id: '编号',
         owner: '拥有者',
         price: '价格',

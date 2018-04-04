@@ -6,23 +6,23 @@
       <div class="KJ-position-absolute-horizontal-center"
            style="bottom:5%">
         <div class="remainingCards-msg mainTextColor
-        KJ-position-relative">卡包剩余：{{packageSize}} 张卡牌</div>
+        KJ-position-relative">{{ $t('itemView.remainCards') }}{{packageSize}} {{ $t('itemView.remainCardsNum') }}</div>
         <div @click="onRollDice()"
              class="KJ-position-relative KJ-cursor-pointer">
           <img style="width:82%"
                src="@/assets/img/button_chouka.png" />
           <span class="drawCard-btn-text mainTextColor
            KJ-position-absolute-horizontal-center has-text-weight-bold">
-            立即抽卡</span>
+            {{ $t('itemView.drawCards') }}</span>
         </div>
       </div>
     </section>
 
     <section class="help-msg">
-      <h3>帮助:</h3>
-      <p>以太三国创新推出全新的区块链抽卡玩法。</p>
-      <p>通过抽卡方法获得武将卡，将会是唯一的官方卡牌发售渠道。</p>
-      <p>智能卡包中当前包含的卡牌和中奖概率完全公开透明。</p>
+      <h3>{{ $t('itemContent.help') }}</h3>
+      <p>{{ $t('itemContent.content1') }}</p>
+      <p>{{ $t('itemContent.content2') }}</p>
+      <p>{{ $t('itemContent.content3') }}</p>
     </section>
 
     <section>
@@ -67,7 +67,7 @@
           </div>
         </b-tab-item>
 
-        <b-tab-item label="卡牌广播">
+        <b-tab-item :label="$t('PackView.tabs.item.title1')">
           <div class="buttons is-centered">
             <button @click="onSwitchTxType('ALL')"
                     :class="{
@@ -75,7 +75,7 @@
                        'is-sg-btn-dark': txTableType !== 'ALL',
                     }"
                     class='button is-medium has-text-weight-bold'>
-              所有广播
+              {{ $t('PackView.tabs.item.all1') }}
             </button>
             <button @click="onSwitchTxType('MY')"
                     :class="{
@@ -83,7 +83,7 @@
                        'is-sg-btn-dark': txTableType !== 'MY',
                     }"
                     class='button is-medium has-text-weight-bold'>
-              我的广播
+              {{ $t('PackView.tabs.item.my1') }}
             </button>
           </div>
 
