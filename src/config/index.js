@@ -12,7 +12,7 @@ export const network = {
     contract: '',
   },
   3: {
-    default: true, // It will be used when no metaMask
+    // default: true, // It will be used when no metaMask
     name: 'Ropsten Test Network',
     contract: '0xd17c1d983030970a8b55f2df647aa351f71430e6',
     LuckyPackage: '0xc5f73d596378ec0535cf0fdb16eb6fc13d966978',
@@ -25,6 +25,7 @@ export const network = {
     rpc: 'https://rinkeby.infura.io/lTETGFVyQX99UKQ98BN4',
   },
   42: {
+    default: true,
     name: 'Kovan Test Network',
     contract: '0xa50b0eb34d3ed582f9e3a691bec970be10065193',
     LuckyPackage: '0x5fdb566562a41203221a82bd50767fa25ae4edae',
