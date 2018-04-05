@@ -31,6 +31,7 @@ export const network = {
     LuckyPackage: '0x4313855d52bda18b29cdd4a04c7dcb8c47b8a322',
     DecentralizedExchangeHotPotato: '0xd36b2fe3d8ac6e784dc4bba9c40c360a43890050',
     rpc: 'https://kovan.infura.io/lTETGFVyQX99UKQ98BN4',
+    getPackTxApi: 'https://kovan.etherscan.io/api?module=logs&action=getLogs&fromBlock=4000&toBlock=latest&address=0x4313855d52bda18b29cdd4a04c7dcb8c47b8a322&topic0=0xebc21f7ae0551d3f1d93229ed6d5faf563c7d5829ce068426ac87e428328bb23&apikey=YourApiKeyToken',
   },
   5: {
     // default: true,

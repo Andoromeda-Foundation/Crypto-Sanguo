@@ -12,6 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bignumber.js": "^6.0.0",
     "bluebird": "^3.5.1",
     "buefy": "^0.6.3",

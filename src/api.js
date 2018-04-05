@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
 import Cookie from 'js-cookie';
+import axios from 'axios';
 import web3 from '@/web3';
 import * as config from '@/config';
 import request from 'superagent';
@@ -290,14 +291,31 @@ export const createToken = async ({ price, frozen1, frozen2, parentId }) =>
     (err, result) => (err ? reject(err) : resolve(result)));
   });
 
-export const getPackTx = async () => {
-  const mockData = Array.from(Array(10), () => ({
-    txHash: '0x290f7f294cdbfba103d491903218dadc97c4ba148615d31ffbeceac7a47879fb',
-    from: '0x23jfsdfj87371fdsxd',
-    date: new Date().getTime(),
-    status: 'PENDING',
-  }));
-  return mockData;
+export const getPackTx = async (from) => {
+  let api = network.getPackTxApi;
+  if (from) {
+    const full64From = from.replace(/^0x/i, `0x${'0'.repeat(66 - from.length)}`);
+    api += `&topic0_1_opr=and&topic1=${full64From}`;
+  }
+  console.log(api);
+  const response = await axios.get(api);
+  const result = response.data.result;
+  if (!Array.isArray(result)) {
+    return [];
+  }
+  return result.map(({ transactionHash, data, timeStamp, topics }) => {
+    const prizeId = parseInt(data, 16);
+    const item = config.items[prizeId] || {};
+    return {
+      txHash: transactionHash,
+      from: topics[1].replace(/0x0+/i, '0x'),
+      date: new Date(parseInt(timeStamp, 16) * 1000),
+      prize: {
+        id: prizeId,
+        title: item.姓名,
+      },
+    };
+  });
 };
 
 export const getLocale = async () => (

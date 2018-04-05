@@ -37,7 +37,7 @@ export default {
         pack: '卡包卡牌',
         all: '卡牌市场',
         my: '我的卡牌',
-        title1: '卡牌广播',
+        title1: '抽卡广播',
         all1: '所有广播',
         my1: '我的广播',
         id: '编号',
@@ -51,7 +51,7 @@ export default {
         txHash: 'TX',
         date: '日期',
         from: '用户',
-        status: '状态',
+        status: '抽中卡牌',
       },
       luckyToken: {
         title: '幸运币',

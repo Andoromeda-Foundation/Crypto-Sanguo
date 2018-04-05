@@ -91,6 +91,7 @@
                    :data="txList"
                    default-sort="date"
                    default-sort-direction="desc"
+                   :loading="isLoadingPackTxs"
                    :striped="true"
                    :mobile-cards="false">
             <template slot-scope="props">
@@ -121,10 +122,14 @@
                 </router-link>
               </b-table-column>
 
-              <b-table-column field="status"
+              <b-table-column field="prize"
                               :label="$t('PackView.tabs.tx.status')"
                               centered>
-                {{ props.row.status }}
+                <router-link :to="{
+                  name: 'Item',
+                  params:{id: props.row.prize.id }}">
+                   {{ props.row.prize.title }}
+                </router-link>
               </b-table-column>
 
             </template>
@@ -304,11 +309,12 @@ export default {
       packageSize: '',
       luckyTokens: [],
       items: [],
-      txTableType: 'ALL',
+      txTableType: '',
       luckyTokenTableType: '',
       itemTableType: '',
       isLoadingLuckyTokens: true,
       isLoadingItems: true,
+      isLoadingPackTxs: true,
       txList: [],
       luckyTokenAuctions: [],
       luckyLength: '',
@@ -320,8 +326,8 @@ export default {
   async created() {
     this.luckyTokenTableType = 'ALL';
     this.itemTableType = 'PACK';
+    this.txTableType = 'ALL';
     this.packageSize = await getPackageSize();
-    this.txList = await getPackTx();
     this.luckyLength = await getLuckTokensOfLength(this.me.address);
     eventRollDice.watch(async (error, result) => {
       // console.log({ error, result });
@@ -528,6 +534,19 @@ export default {
         }
       } catch (e) {}
       this.isLoadingItems = false;
+    },
+    async txTableType(toType, fromType) {
+      this.isLoadingPackTxs = true;
+      try {
+        if (toType === 'ALL') {
+          this.txList = await getPackTx();
+        }
+        if (toType === 'MY') {
+          this.checkLogin();
+          this.txList = await getPackTx(this.me.address);
+        }
+      } catch (e) {}
+      this.isLoadingPackTxs = false;
     },
   },
 };
