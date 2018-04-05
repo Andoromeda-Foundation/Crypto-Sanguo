@@ -28,7 +28,7 @@ export const network = {
     default: true,
     name: 'Kovan Test Network',
     contract: '0x88b194b61bb0c2f84ba7acad53b54f2cbe05a425',
-    LuckyPackage: '0x4313855d52bda18b29cdd4a04c7dcb8c47b8a322',
+    LuckyPackage: '0xb760ada4f12e5d29eff2d9eef3bca94b574a1f2f',
     DecentralizedExchangeHotPotato: '0xd36b2fe3d8ac6e784dc4bba9c40c360a43890050',
     rpc: 'https://kovan.infura.io/lTETGFVyQX99UKQ98BN4',
   },
