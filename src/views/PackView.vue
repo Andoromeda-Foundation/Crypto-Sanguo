@@ -13,7 +13,7 @@
                src="@/assets/img/button_chouka.png" />
           <span class="drawCard-btn-text mainTextColor
            KJ-position-absolute-horizontal-center has-text-weight-bold">
-            {{ $t('itemView.drawCards') }}</span>
+            {{ $t('itemView.drawCards') }}({{luckyLength}})</span>
         </div>
       </div>
     </section>
@@ -288,6 +288,7 @@ import {
   getAllLuckyTokenAuctions,
   approveD,
   eventRollDice,
+  getLuckTokensOfLength,
 } from '@/api';
 import BTableColumn from 'buefy/src/components/table/TableColumn';
 
@@ -311,6 +312,7 @@ export default {
       isLoadingItems: true,
       txList: [],
       luckyTokenAuctions: [],
+      luckyLength: '',
     };
   },
   computed: {
@@ -321,6 +323,7 @@ export default {
     this.itemTableType = 'PACK';
     this.packageSize = await getPackageSize();
     this.txList = await getPackTx();
+    this.luckyLength = await getLuckTokensOfLength(this.me.address);
   },
   methods: {
     checkLogin() {
