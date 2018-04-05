@@ -481,3 +481,14 @@ export const approveD = luckyTokenId => new Promise((resolve, reject) => {
   },
   (err, result) => (err ? reject(err) : resolve(result)));
 });
+
+export const eventRollDice = async () =>{
+  var event = LuckyPackageContract.RollDice();
+  event.watch(function(error, result){
+    // result will contain various information
+    // including the argumets given to the `Deposit`
+    // call.
+    if (!error)
+        console.log(result);
+});
+}

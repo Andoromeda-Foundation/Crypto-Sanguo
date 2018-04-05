@@ -287,8 +287,11 @@ import {
   revokeAuction,
   getAllLuckyTokenAuctions,
   approveD,
+  eventRollDice,
 } from '@/api';
 import BTableColumn from 'buefy/src/components/table/TableColumn';
+
+eventRollDice()
 
 export default {
   name: 'PackView',
