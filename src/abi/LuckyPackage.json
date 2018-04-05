@@ -369,4 +369,21 @@
   }],
   "name": "Approval",
   "type": "event"
+}, {
+  "anonymous": false,
+  "inputs": [{
+    "indexed": true,
+    "name": "playerAddr",
+    "type": "address"
+  }, {
+    "indexed": true,
+    "name": "prizeIssuer",
+    "type": "address"
+  }, {
+    "indexed": false,
+    "name": "prizeId",
+    "type": "uint256"
+  }],
+  "name": "RollDice",
+  "type": "event"
 }]
