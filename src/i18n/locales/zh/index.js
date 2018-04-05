@@ -80,6 +80,7 @@ export default {
   FAQs: '常见问题',
   Owner: '拥有者',
   'Current Price': '当前价格',
+  odds:'中奖概率',
   Buy: '购买',
   BirthdayGift: '智取生辰纲(HOT)',
   'Terms of Service': '使用条款',
