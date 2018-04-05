@@ -340,7 +340,7 @@ export default {
       if (this.me && this.me.address.toUpperCase() === playerName) {
         playerName = '你';
       }
-      const message = `恭喜${playerName}刚刚抽中了 ${item.title} 卡 ${prizeId}`;
+      const message = `恭喜${playerName}刚刚抽中了 ${item.title} 卡`;
       this.$toast.open({
         duration: 5000,
         message,
