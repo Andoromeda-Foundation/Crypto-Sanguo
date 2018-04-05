@@ -209,7 +209,7 @@
                           v-else> {{$t('PackView.tabs.luckyToken.buy')}}</button>
                   <button v-if="me && props.row.owner === me.address && props.row.status=== 'EXPIRED'"
                           class="button is-small is-warning is-outlined"
-                          @click="onRevokeAuction(props.row.tokenId)">
+                          @click="onRevokeAuction(props.row.Exchangeid)">
                     {{$t('PackView.tabs.luckyToken.revokeAuction')}}</button>
                 </b-table-column>
               </template>

@@ -334,6 +334,7 @@ export const getHotPotatoExchange = async (id) => {
   const item = {};
   [item.creator, item.owner, item.issuer,
     item.tokenid, item.price, item.free1, item.free2] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
+  item.Exchangeid = id;
   return item;
 };
 
@@ -375,6 +376,7 @@ export const getLuckyTokenAuction = async (id) => {
     auction.price,
     auction.startTime,
     auction.endTime] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
+    auction.Exchangeid = Number(id);
   auction.tokenId = Number(auction.tokenId);
   auction.startTime *= 1000;
   auction.endTime *= 1000;
@@ -431,7 +433,7 @@ export const createAuction = ({
 export const revokeAuction = id => new Promise((resolve, reject) => {
   DecentralizedExchangeHotPotatoContract.revoke(id, {
     value: 0,
-    gas: 220000,
+    gas: 650000,
     gasPrice: 1000000000 * 100,
   },
   (err, result) => (err ? reject(err) : resolve(result)));
