@@ -70,7 +70,7 @@ export default {
         createAuctionTitle: '售卖这个幸运币',
         approved: '委托这个幸运币给交易所售卖',
         createAuction: '售卖',
-        revokeAuction: '撤销售卖',
+        revokeAuction: '取回',
       },
     },
   },
