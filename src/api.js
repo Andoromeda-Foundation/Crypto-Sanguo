@@ -218,7 +218,6 @@ export const setPrice = (id, price) =>
       price,
       {
         value: 0,
-        gas: 650000,
         gasPrice: 1000000000 * 66, // be nice
       },
       (err, result) => (err ? reject(err) : resolve(result)),
@@ -253,7 +252,6 @@ export const getItem = async (id) => {
 export const buyItem = (id, price) => new Promise((resolve, reject) => {
   sponsorTokenContract.buy(id, {
     value: price, // web3.toWei(Number(price), 'ether'),
-    gas: 650000,
     gasPrice: 1000000000 * 100,
   },
   (err, result) => (err ? reject(err) : resolve(result)));
@@ -287,7 +285,6 @@ export const createToken = async ({ price, frozen1, frozen2, parentId }) =>
   new Promise((resolve, reject) => {
     sponsorTokenContract.issueToken(web3.toWei(Number(price), 'ether'), frozen1, frozen2, parentId, {
       // value: price, // web3.toWei(Number(price), 'ether'),
-      gas: 650000,
       gasPrice: 1000000000 * 100,
     },
     (err, result) => (err ? reject(err) : resolve(result)));
@@ -403,7 +400,6 @@ export const getAllLuckyTokenAuctions = async () => {
 export const buyLuckyToken = (id, price) => new Promise((resolve, reject) => {
   DecentralizedExchangeHotPotatoContract.buy(id, {
     value: price, // web3.toWei(Number(price), 'ether'),
-    gas: 650000,
     gasPrice: 1000000000 * 100,
   },
   (err, result) => (err ? reject(err) : resolve(result)));
@@ -411,7 +407,6 @@ export const buyLuckyToken = (id, price) => new Promise((resolve, reject) => {
 export const rollDice = luckyTokenId => new Promise((resolve, reject) => {
   LuckyPackageContract.rollDice(luckyTokenId, {
     value: 0,
-    gas: 650000,
     gasPrice: 1000000000 * 100,
   },
   (err, result) => (err ? reject(err) : resolve(result)));
@@ -424,7 +419,6 @@ export const createAuction = ({
   DecentralizedExchangeHotPotatoContract.put(network.LuckyPackage, tokenId, price,
     startTime, endTime, {
       value: 0,
-      gas: 650000,
       gasPrice: 1000000000 * 100,
     },
     (err, result) => (err ? reject(err) : resolve(result)));
@@ -433,7 +427,6 @@ export const createAuction = ({
 export const revokeAuction = id => new Promise((resolve, reject) => {
   DecentralizedExchangeHotPotatoContract.revoke(id, {
     value: 0,
-    gas: 650000,
     gasPrice: 1000000000 * 100,
   },
   (err, result) => (err ? reject(err) : resolve(result)));
@@ -483,7 +476,6 @@ export const isApproved = async (id) => {
 export const approveD = luckyTokenId => new Promise((resolve, reject) => {
   LuckyPackageContract.approve(network.DecentralizedExchangeHotPotato, luckyTokenId, {
     value: 0,
-    gas: 650000,
     gasPrice: 1000000000 * 100,
   },
   (err, result) => (err ? reject(err) : resolve(result)));
@@ -499,3 +491,5 @@ export const eventRollDice = async () =>{
         console.log(result);
 });
 }
+
+
