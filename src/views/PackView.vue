@@ -282,6 +282,7 @@ import {
   buyLuckyToken,
   rollDice,
   getPackageSize,
+  getItem,
   getItems,
   createAuction,
   revokeAuction,
@@ -291,8 +292,6 @@ import {
   getLuckTokensOfLength,
 } from '@/api';
 import BTableColumn from 'buefy/src/components/table/TableColumn';
-
-eventRollDice()
 
 export default {
   name: 'PackView',
@@ -324,6 +323,25 @@ export default {
     this.packageSize = await getPackageSize();
     this.txList = await getPackTx();
     this.luckyLength = await getLuckTokensOfLength(this.me.address);
+    eventRollDice.watch(async (error, result) => {
+      // console.log({ error, result });
+      if (error) return;
+      const playerAddr = result.args.playerAddr;
+      const prizeId = result.args.prizeId;
+      const item = await getItem(prizeId);
+      // console.log(playerAddr, prizeId.toString(),item);
+      let playerName = playerAddr.toUpperCase();
+      if (this.me && this.me.address.toUpperCase() === playerName) {
+        playerName = '你';
+      }
+      const message = `恭喜${playerName}刚刚抽中了 ${item.title} 卡 ${prizeId}`;
+      this.$toast.open({
+        duration: 5000,
+        message,
+        position: 'is-top',
+        type: 'is-warning',
+      });
+    });
   },
   methods: {
     checkLogin() {
