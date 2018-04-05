@@ -24,7 +24,7 @@ export default {
     remainCards: '卡包剩余：',
     remainCardsNum: '张卡牌',
   },
-  itemContent:{
+  itemContent: {
     help: '帮助:',
     content1: '以太三国创新推出全新的区块链抽卡玩法。',
     content2: '通过抽卡方法获得武将卡，将会是唯一的官方卡牌发售渠道。',
@@ -101,4 +101,60 @@ export default {
   FAQ_CONTENT,
   PRIVACY_CONTENT,
   TERMS_CONTENT,
+  alert: {
+    rollDice: {
+      success: {
+        title: '抽卡',
+        msg: '抽卡成功',
+        confirmText: '确认',
+      },
+      fail: {
+        title: '抽卡',
+        msg: '取消抽卡',
+        confirmText: '确认',
+      },
+      noLuckyToken: {
+        title: '抽卡',
+        msg: '不好意思，你目前没有幸运币，请去幸运币市场购买',
+        confirmText: '确认',
+      }
+    },
+    CreateAuction: {
+      success: {
+        title: '售出幸运币',
+        msg: '售出幸运币成功',
+        confirmText: '确认',
+      },
+      fail: {
+        title: '售出幸运币',
+        msg: '取消售出幸运币',
+        confirmText: '确认',
+      }
+    },
+    revokeAuction: {
+      success: {
+        title: '取回幸运币',
+        msg: '取出幸运币成功',
+        confirmText: '确认',
+      },
+      fail: {
+        title: '取回幸运币',
+        msg: '取消取回幸运币',
+        confirmText: '确认',
+      }
+    },
+    buyLuckyToken: {
+      success: {
+        title: '购买幸运币',
+        msg: '购买幸运币成功',
+        confirmText: '确认',
+      },
+      fail: {
+        title: '购买幸运币',
+        msg: '取消购买幸运币',
+        confirmText: '确认',
+      }
+    }
+
+  }
 };
