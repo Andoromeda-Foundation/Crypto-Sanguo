@@ -359,6 +359,11 @@ export const getLuckTokensOf = async (address) => {
   // };
   return luckyTokens;
 };
+// 获取某人所拥有的LuckyToken张数
+export const getLuckTokensOfLength = async (address) => {
+  const ids = await Promise.promisify(LuckyPackageContract.tokensOf)(address);
+  return ids.length;
+};
 // 获取某个拍卖（auction）
 export const getLuckyTokenAuction = async (id) => {
   id = Number(id);
