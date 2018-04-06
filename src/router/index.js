@@ -28,16 +28,16 @@ export default new Router({
     //   path: '/explore',
     //   component: ExploreView,
     // },
-    {
-      name: 'Item',
-      path: '/item/:id(\\d+)',
-      component: ItemView,
-    },
-    {
-      name: 'User',
-      path: '/user/:address',
-      component: UserView,
-    },
+    // {
+    //   name: 'Item',
+    //   path: '/item/:id(\\d+)',
+    //   component: ItemView,
+    // },
+    // {
+    //   name: 'User',
+    //   path: '/user/:address',
+    //   component: UserView,
+    // },
     // {
     //   name: 'Game',
     //   path: '/game',
@@ -48,11 +48,11 @@ export default new Router({
     //   path: '/item/create',
     //   component: CreateItemView,
     // },
-    {
-      name: 'HeroList',
-      path: '/herolist',
-      component: HeroListView,
-    },
+    // {
+    //   name: 'HeroList',
+    //   path: '/herolist',
+    //   component: HeroListView,
+    // },
     // {
     //   name: 'Login',
     //   path: '/Login',

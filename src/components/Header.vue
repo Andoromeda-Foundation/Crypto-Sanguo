@@ -7,22 +7,22 @@
           {{$t('header.nav.siteName')}}
         </router-link>
 
-        <router-link v-if="!me"
+        <!-- <router-link v-if="!me"
                      class="navbar-item"
                      :to="{ name: 'Login'}">
           {{$t('header.nav.SignIn')}}
-        </router-link>
+        </router-link> -->
 
-        <template v-else>
+        <!-- <template v-else> -->
           <!-- <router-link class="navbar-item"
                        :to="{ name: 'Game' }">
             {{$t('header.nav.game')}}
           </router-link> -->
 
-          <router-link class="navbar-item"
+          <!-- <router-link class="navbar-item"
                        :to="{ name: 'User', params:{address: me.address}}">
             {{$t('header.nav.myPage')}}
-          </router-link>
+          </router-link> -->
 
           <!-- <router-link class="navbar-item"
                        :to="{ name: 'Transaction', params:{address: me.address}}">
@@ -34,11 +34,11 @@
             {{$t('header.nav.explore')}}
           </router-link> -->
 
-          <router-link class="navbar-item"
+          <!-- <router-link class="navbar-item"
                        :to="{ name: 'HeroList' }">
             {{$t('header.nav.herolist')}}
-          </router-link>
-        </template>
+          </router-link> -->
+        <!-- </template> -->
 
       </div>
 
