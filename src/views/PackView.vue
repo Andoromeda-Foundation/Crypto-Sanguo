@@ -577,8 +577,8 @@ export default {
   bottom: -1.7em;
 }
 .drawCard-btn-text {
-  font-size: 2em;
-  bottom: 33%;
+  font-size: 1.5em;
+  bottom: 36%;
 }
 .help-msg {
   font-size: 1.1em;
