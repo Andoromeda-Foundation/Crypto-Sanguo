@@ -24,7 +24,7 @@ export default {
     remainCards: 'Left cards: ',
     remainCardsNum: 'cards in the bag',
   },
-  itemContent:{
+  itemContent: {
     help: 'help:',
     content1: 'Crypto Sanguo innovates to launch a new blockchain game of drawing cards.',
     content2: 'To get a hero card by drawing a card will be the only official card release channel.',
@@ -37,7 +37,7 @@ export default {
         pack: 'Token Package',
         all: 'Token Market',
         my: 'My Cards',
-        title1: 'Card Broadcast',
+        title1: 'Draw Card Broadcast',
         all1: 'All Broadcast',
         my1: 'My Broadcast',
         id: 'Number',
@@ -51,7 +51,7 @@ export default {
         txHash: 'TX',
         date: 'date',
         from: 'user',
-        status: 'status',
+        status: 'Successfully Drew',
       },
       luckyToken: {
         title: 'LuckyToken',
@@ -65,7 +65,12 @@ export default {
         free2: 'The End Time',
         buy: 'buy',
         watch: 'watch',
-        rollDice: 'Use the luckyToken to draw cards!',
+        rollDiceTitle: 'Use the luckyToken to draw cards!',
+        rollDice: 'Draw Card',
+        createAuctionTitle: 'Sell the luckyToken',
+        approved: 'Delegate the luckyToken to exchange market to sell.',
+        createAuction: 'Sell',
+        revokeAuction: 'Withdraw',
       },
     },
   },
@@ -75,6 +80,7 @@ export default {
   FAQs: 'FAQs',
   Owner: 'Owner',
   'Current Price': 'Current Price',
+  odds: 'Wining Percent',
   Buy: 'Buy',
   BirthdayGift: 'BirthdayGift(HOT)',
   'Terms of Service': 'Terms of Service',
@@ -96,4 +102,59 @@ export default {
   FAQ_CONTENT,
   PRIVACY_CONTENT,
   TERMS_CONTENT,
+  alert: {
+    rollDice: {
+      success: {
+        title: 'Draw Card',
+        msg: 'Successfully drew a card.',
+        confirmText: 'Confirm',
+      },
+      fail: {
+        title: 'Draw Card',
+        msg: 'Cancelled drawing.',
+        confirmText: 'Confirm',
+      },
+      noLuckyToken: {
+        title: 'Draw Card',
+        msg: 'Sorry, you currently not have any luckyToken, please go to The LuckyToken Market and buy.',
+        confirmText: 'Confirm',
+      }
+    },
+    CreateAuction: {
+      success: {
+        title: 'Sell LuckyToken',
+        msg: 'Successfully sold luckyToken.',
+        confirmText: 'Confirm',
+      },
+      fail: {
+        title: 'Sell LuckyToken',
+        msg: 'Cancelled selling luckyToken.',
+        confirmText: 'Confirm',
+      }
+    },
+    revokeAuction: {
+      success: {
+        title: 'Withdraw LuckyToken',
+        msg: 'Successfully withdrew luckyToken.',
+        confirmText: 'Confirm',
+      },
+      fail: {
+        title: 'Withdraw LuckyToken',
+        msg: 'Cancelled withdrawing luckyToken.',
+        confirmText: 'Confirm',
+      }
+    },
+    buyLuckyToken: {
+      success: {
+        title: 'Buy LuckyToken',
+        msg: 'Successfully bought luckyToken.',
+        confirmText: 'Confirm',
+      },
+      fail: {
+        title: 'Buy LuckyToken',
+        msg: 'Cancelled buying luckyToken.',
+        confirmText: 'Confirm',
+      }
+    }
+  }
 };
