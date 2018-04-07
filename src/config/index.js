@@ -9,7 +9,7 @@ export const network = {
     LuckyPackage: '0x8b481c5af4734501ea8b6a0c3502e001dd883d3d',
     DecentralizedExchangeHotPotato: '0x46cefba4dd7512b2449e1ac4b730bfb7f77d1407',
     rpc: 'https://mainnet.infura.io/lTETGFVyQX99UKQ98BN4',
-    getPackTxApi: 'https://etherscan.io/api?module=logs&action=getLogs&fromBlock=4000&toBlock=latest&address=0x8b481c5af4734501ea8b6a0c3502e001dd883d3d&topic0=0xebc21f7ae0551d3f1d93229ed6d5faf563c7d5829ce068426ac87e428328bb23&apikey=YourApiKeyToken',
+    getPackTxApi: 'https://api.etherscan.io/api?module=logs&action=getLogs&fromBlock=4000&toBlock=latest&address=0x8b481c5af4734501ea8b6a0c3502e001dd883d3d&topic0=0xebc21f7ae0551d3f1d93229ed6d5faf563c7d5829ce068426ac87e428328bb23&apikey=YourApiKeyToken',
 
   },
   2: {
