@@ -67,7 +67,7 @@
           </div>
         </b-tab-item>
 
-        <b-tab-item :label="$t('PackView.tabs.item.title1')">
+        <!-- <b-tab-item :label="$t('PackView.tabs.item.title1')">
           <div class="buttons is-centered">
             <button @click="onSwitchTxType('ALL')"
                     :class="{
@@ -135,7 +135,7 @@
             </template>
           </b-table>
 
-        </b-tab-item>
+        </b-tab-item> -->
 
         <b-tab-item :label="$t('PackView.tabs.luckyToken.title')">
           <div class="buttons is-centered">
@@ -329,25 +329,25 @@ export default {
     this.txTableType = 'ALL';
     this.packageSize = await getPackageSize();
     this.luckyLength = await getLuckTokensOfLength(this.me.address);
-    eventRollDice.watch(async (error, result) => {
-      // console.log({ error, result });
-      if (error) return;
-      const playerAddr = result.args.playerAddr;
-      const prizeId = result.args.prizeId;
-      const item = await getItem(prizeId);
-      // console.log(playerAddr, prizeId.toString(),item);
-      let playerName = playerAddr.toUpperCase();
-      if (this.me && this.me.address.toUpperCase() === playerName) {
-        playerName = '你';
-      }
-      const message = `恭喜${playerName}刚刚抽中了 ${item.title} 卡`;
-      this.$toast.open({
-        duration: 5000,
-        message,
-        position: 'is-top',
-        type: 'is-warning',
-      });
-    });
+    // eventRollDice.watch(async (error, result) => {
+    //   // console.log({ error, result });
+    //   if (error) return;
+    //   const playerAddr = result.args.playerAddr;
+    //   const prizeId = result.args.prizeId;
+    //   const item = await getItem(prizeId);
+    //   // console.log(playerAddr, prizeId.toString(),item);
+    //   let playerName = playerAddr.toUpperCase();
+    //   if (this.me && this.me.address.toUpperCase() === playerName) {
+    //     playerName = '你';
+    //   }
+    //   const message = `恭喜${playerName}刚刚抽中了 ${item.title} 卡`;
+    //   this.$toast.open({
+    //     duration: 5000,
+    //     message,
+    //     position: 'is-top',
+    //     type: 'is-warning',
+    //   });
+    // });
   },
   methods: {
     checkLogin() {
