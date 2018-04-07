@@ -3,6 +3,7 @@ import itemsData from '../../static/new_heroes.json';
 
 export const network = {
   1: {
+    default: true,
     name: 'Main Ethereum Network',
     contract: '0x9f87c89d4b96628f3f5bc6ab981bab71997d99bb',
     LuckyPackage: '0x8b481c5af4734501ea8b6a0c3502e001dd883d3d',
