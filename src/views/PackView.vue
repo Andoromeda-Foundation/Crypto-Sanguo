@@ -476,20 +476,26 @@ export default {
       await approveD(luckyTokenId);
     },
     async onCreateAuction(luckyTokenId) {
-      const startTime = parseInt(new Date().getTime() / 1000);
-      const endTime = startTime + 24 * 60 * 60; // 1 day
-
       this.$dialog.prompt({
         message: '售卖价格(ETH)',
-        inputAttrs: {
-          value: 0,
-        },
+        inputAttrs: {},
         onConfirm: (priceInETH) => {
-          this.toCreateAuction({
-            tokenId: luckyTokenId,
-            priceInETH,
-            startTime,
-            endTime,
+          this.$dialog.prompt({
+            message: '挂单时长(小时)',
+            inputAttrs: {
+              value: 1, // default 1 hour
+            },
+            onConfirm: (durationInHour) => {
+              const startTime = parseInt(new Date().getTime() / 1000);
+              // const endTime = startTime + 24 * 60 * 60; // 1 day
+              const endTime = startTime + Number(durationInHour) * 60 * 60;
+              this.toCreateAuction({
+                tokenId: luckyTokenId,
+                priceInETH,
+                startTime,
+                endTime,
+              });
+            },
           });
         },
       });
