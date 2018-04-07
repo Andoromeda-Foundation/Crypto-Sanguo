@@ -4,8 +4,12 @@ import itemsData from '../../static/new_heroes.json';
 export const network = {
   1: {
     name: 'Main Ethereum Network',
-    contract: '',
+    contract: '0x9f87c89d4b96628f3f5bc6ab981bab71997d99bb',
+    LuckyPackage: '0x8b481c5af4734501ea8b6a0c3502e001dd883d3d',
+    DecentralizedExchangeHotPotato: '0x46cefba4dd7512b2449e1ac4b730bfb7f77d1407',
     rpc: 'https://mainnet.infura.io/lTETGFVyQX99UKQ98BN4',
+    getPackTxApi: 'https://etherscan.io/api?module=logs&action=getLogs&fromBlock=4000&toBlock=latest&address=0x8b481c5af4734501ea8b6a0c3502e001dd883d3d&topic0=0xebc21f7ae0551d3f1d93229ed6d5faf563c7d5829ce068426ac87e428328bb23&apikey=YourApiKeyToken',
+
   },
   2: {
     name: 'Morden Test Network',
@@ -25,7 +29,7 @@ export const network = {
     rpc: 'https://rinkeby.infura.io/lTETGFVyQX99UKQ98BN4',
   },
   42: {
-    default: true,
+    // default: true,
     name: 'Kovan Test Network',
     contract: '0x88b194b61bb0c2f84ba7acad53b54f2cbe05a425',
     LuckyPackage: '0xb760ada4f12e5d29eff2d9eef3bca94b574a1f2f',
