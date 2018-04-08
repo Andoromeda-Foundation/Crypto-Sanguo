@@ -67,7 +67,7 @@
           </div>
         </b-tab-item>
 
-        <!-- <b-tab-item :label="$t('PackView.tabs.item.title1')">
+        <b-tab-item :label="$t('PackView.tabs.item.title1')">
           <div class="buttons is-centered">
             <button @click="onSwitchTxType('ALL')"
                     :class="{
@@ -135,7 +135,7 @@
             </template>
           </b-table>
 
-        </b-tab-item> -->
+        </b-tab-item>
 
         <b-tab-item :label="$t('PackView.tabs.luckyToken.title')">
           <div class="buttons is-centered">

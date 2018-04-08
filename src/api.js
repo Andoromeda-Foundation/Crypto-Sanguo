@@ -295,7 +295,7 @@ export const getPackTx = async (from) => {
   let api = network.getPackTxApi;
   if (from) {
     const full64From = from.replace(/^0x/i, `0x${'0'.repeat(66 - from.length)}`);
-    api += `&topic0_1_opr=and&topic1=${full64From}`;
+    api += `&topic0_2_opr=and&topic2=${full64From}`;
   }
   console.log(api);
   const response = await axios.get(api);
