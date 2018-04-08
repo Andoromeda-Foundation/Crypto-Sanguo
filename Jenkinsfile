@@ -1,21 +1,24 @@
 node {
-  def GCP_PROJECT = 'andoromeda-198508'
-  def GCP_CLUSTER = 'cluster-1'
-  def GCP_ZONE = 'asia-east1-c'
-  def GCP_SERVICE_ACCOUNT_CREDENTIALID = 'GCP Service Account Andoromeda'
-  def APP_NAME = 'crypto-sanguo-web'
-  def IMAGE_TAG = "gcr.io/${GCP_PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
-  def NAMESPACE;
+  def GCP_PROJECT
+  def GCP_CLUSTER
+  def GCP_ZONE
+  def GCP_SERVICE_ACCOUNT_CREDENTIALID = 'GCPServiceAccount'
+  def APP_NAME
+  def IMAGE_TAG
+  def NAMESPACE
+  def cfg
 
   stage('Init parameters') {
-    if (env.BRANCH_NAME == 'master') {
-      NAMESPACE = 'default' // It's production
-    } else if (env.BRANCH_NAME == 'testing') {
-      NAMESPACE = 'testing'
-    } else {
-      echo "Only works on master/testing branches"
-      sh 'exit 1'
+    configFileProvider(
+      [configFile(fileId: 'CI_CONFIG', variable: 'CI_CONFIG_FILE')]) {
+        cfg = readJSON file: "$CI_CONFIG_FILE"
     }
+
+    GCP_PROJECT = cfg.gcp.project
+    GCP_CLUSTER = cfg.gcp.cluster
+    GCP_ZONE = cfg.gcp.zone
+    APP_NAME = cfg.appName
+    IMAGE_TAG = "gcr.io/${GCP_PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
   }
 
   stage('Clone repository') {
@@ -29,11 +32,22 @@ node {
     }
   }
 
-  stage('Build image') {
-    docker.build("${IMAGE_TAG}")
+  if (env.BRANCH_NAME == cfg.production.branch) {
+    NAMESPACE = cfg.production.namespace
+  } else if (env.BRANCH_NAME == cfg.testing.branch) {
+    NAMESPACE = cfg.testing.namespace
+  } else {
+    echo "Skip deployment on branch: ${env.BRANCH_NAME}"
+    echo "Deployment only works on ${cfg.production.branch}/${cfg.testing.branch} branches"
+    return
   }
 
   stage('Sign in GCP') {
+
+    stage('Build image') {
+      docker.build("${IMAGE_TAG}")
+    }
+
     withCredentials([file(credentialsId: "${GCP_SERVICE_ACCOUNT_CREDENTIALID}", variable: 'KEY_FILE')]) {
         docker.image('google/cloud-sdk:latest').inside {
             sh "gcloud auth activate-service-account --key-file=$KEY_FILE"
@@ -48,7 +62,7 @@ node {
               sh "sed -i.bak 's#IMAGE_TAG#${IMAGE_TAG}#' ./k8s/deployment.yaml"
               sh "sed -i.bak 's#NAMESPACE#${NAMESPACE}#' ./k8s/deployment.yaml"
 
-              sh 'cat ./k8s/deployment.yaml';
+              sh 'cat ./k8s/deployment.yaml'
 
               // Create namespace if it doesn't exist
               sh "kubectl get ns ${NAMESPACE} || kubectl create ns ${NAMESPACE}"
