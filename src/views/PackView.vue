@@ -329,25 +329,31 @@ export default {
     this.txTableType = 'ALL';
     this.packageSize = await getPackageSize();
     this.luckyLength = await getLuckTokensOfLength(this.me.address);
-    // eventRollDice.watch(async (error, result) => {
-    //   // console.log({ error, result });
-    //   if (error) return;
-    //   const playerAddr = result.args.playerAddr;
-    //   const prizeId = result.args.prizeId;
-    //   const item = await getItem(prizeId);
-    //   // console.log(playerAddr, prizeId.toString(),item);
-    //   let playerName = playerAddr.toUpperCase();
-    //   if (this.me && this.me.address.toUpperCase() === playerName) {
-    //     playerName = '你';
-    //   }
-    //   const message = `恭喜${playerName}刚刚抽中了 ${item.title} 卡`;
-    //   this.$toast.open({
-    //     duration: 5000,
-    //     message,
-    //     position: 'is-top',
-    //     type: 'is-warning',
-    //   });
-    // });
+    eventRollDice.watch(async (error, result) => {
+      // console.log({ error, result });
+      if (error) return;
+      const _from = result.args._from;
+      const _to = result.args._to;
+      const _tokenId = result.args._tokenId.toString();
+      const item = await getItem(_tokenId);
+      const luckyContract = '0x8b481c5af4734501ea8b6a0c3502e001dd883d3d'
+      // console.log(_from,_to,_tokenId,item);
+      if (_from.toUpperCase() === luckyContract.toUpperCase()){
+             
+        let playerName = _to.toUpperCase();
+        if (this.me && this.me.address.toUpperCase() === playerName) {
+          playerName = '你';
+        }
+        const message = `恭喜${playerName}刚刚抽中了 ${item.title} 卡`;
+        this.$toast.open({
+          duration: 5000,
+          message,
+          position: 'is-top',
+          type: 'is-warning',
+        });
+      }
+
+    });
   },
   methods: {
     checkLogin() {

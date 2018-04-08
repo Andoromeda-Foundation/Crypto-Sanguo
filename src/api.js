@@ -308,7 +308,7 @@ export const getPackTx = async (from) => {
     const item = config.items[prizeId] || {};
     return {
       txHash: transactionHash,
-      from: topics[1].replace(/0x0+/i, '0x'),
+      from: topics[2].replace(/0x0+/i, '0x'),
       date: new Date(parseInt(timeStamp, 16) * 1000),
       prize: {
         id: prizeId,
@@ -499,4 +499,4 @@ export const approveD = luckyTokenId => new Promise((resolve, reject) => {
   (err, result) => (err ? reject(err) : resolve(result)));
 });
 
-export const eventRollDice = LuckyPackageContract.RollDice();
+export const eventRollDice = sponsorTokenContract.Transfer();
