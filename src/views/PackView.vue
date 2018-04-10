@@ -354,6 +354,12 @@ export default {
       }
 
     });
+    setInterval(async () => {
+      if (this.luckyTokenTableType === 'ALL') {
+        console.log(1);
+        this.luckyTokens = await getAllLuckyTokenAuctions();
+      }
+    }, 5000);
   },
   methods: {
     checkLogin() {
