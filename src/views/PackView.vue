@@ -204,7 +204,7 @@
                 <b-table-column field="status"
                                 :label="$t('PackView.tabs.luckyToken.action')"
                                 centered>
-                  <a v-if="props.row.status === 'SELLING' && props.row.owner != me.address"
+                  <a v-if="props.row.status === 'SELLING' && me && props.row.owner != me.address"
                      class="button is-small is-warning is-outlined"
                      @click="onBuyLuckyToken(props.row)">
                     {{$t('PackView.tabs.luckyToken.buy')}}
