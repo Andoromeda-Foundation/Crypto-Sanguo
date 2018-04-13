@@ -23,55 +23,57 @@ export default new Router({
       path: '/',
       component: PackView,
     },
-    // {
-    //   name: 'Explore',
-    //   path: '/explore',
-    //   component: ExploreView,
-    // },
-    // {
-    //   name: 'Item',
-    //   path: '/item/:id(\\d+)',
-    //   component: ItemView,
-    // },
-    // {
-    //   name: 'User',
-    //   path: '/user/:address',
-    //   component: UserView,
-    // },
-    // {
-    //   name: 'Game',
-    //   path: '/game',
-    //   component: GameView,
-    // },
-    // {
-    //   name: 'CreateItem',
-    //   path: '/item/create',
-    //   component: CreateItemView,
-    // },
-    // {
-    //   name: 'HeroList',
-    //   path: '/herolist',
-    //   component: HeroListView,
-    // },
-    // {
-    //   name: 'Login',
-    //   path: '/Login',
-    //   component: LoginView,
-    // },
-    // {
-    //   name: 'Recent',
-    //   path: '/Recent',
-    //   component: RecentView,
-    // },
-    // {
-    //   name: 'Transaction',
-    //   path: '/transaction',
-    //   component: TransactionView,
-    // },
-    // {
-    //   name: 'Pack',
-    //   path: '/pack',
-    //   component: PackView,
-    // },
+    //hawi
+    {
+      name: 'Explore',
+      path: '/explore',
+      component: ExploreView,
+    },
+    {
+      name: 'Item',
+      path: '/item/:id(\\d+)',
+      component: ItemView,
+    },
+    {
+      name: 'User',
+      path: '/user/:address',
+      component: UserView,
+    },
+    {
+      name: 'Game',
+      path: '/game',
+      component: GameView,
+    },
+    {
+      name: 'CreateItem',
+      path: '/item/create',
+      component: CreateItemView,
+    },
+    {
+      name: 'HeroList',
+      path: '/herolist',
+      component: HeroListView,
+    },
+    {
+      name: 'Login',
+      path: '/Login',
+      component: LoginView,
+    },
+    {
+      name: 'Recent',
+      path: '/Recent',
+      component: RecentView,
+    },
+    {
+      name: 'Transaction',
+      path: '/transaction',
+      component: TransactionView,
+    },
+    {
+      name: 'Pack',
+      path: '/pack',
+      component: PackView,
+    },
+    //hawi
   ],
 });

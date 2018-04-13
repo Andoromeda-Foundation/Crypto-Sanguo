@@ -19,6 +19,7 @@
     "echarts": "^4.0.4",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.5",
+    "npm": "^5.8.0",
     "postcss-cssnext": "^3.1.0",
     "superagent": "^3.8.2",
     "timeout-then": "^1.1.0",
