@@ -23,6 +23,7 @@
     "postcss-cssnext": "^3.1.0",
     "superagent": "^3.8.2",
     "timeout-then": "^1.1.0",
+    "v-charts": "^1.16.8",
     "vue": "^2.5.2",
     "vue-config": "^1.0.0",
     "vue-echarts": "^3.0.3",
