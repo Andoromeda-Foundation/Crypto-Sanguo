@@ -139,8 +139,7 @@ header {
   position: relative;
 }
 .navbar {
-  background-color: #000000;
-  /*background: none;*/
+  background: none;
   position: absolute;
   top: 0;
   left: 0;
