@@ -10,14 +10,14 @@
                    :src="item.imageUrl" />
             </div>
             <div class="column is-6">
-              <div ref="itemChartWrapper"
-                   class="item-chartWrapper">
+              <!-- <div ref="itemChartWrapper"
+                   class="item-chartWrapper"> -->
                 <ECharts class="item-chart"
                          ref="itemChart"
                          :options="radarEChartOptions"
                          :init-options="radarEChartInitOptions"
                          auto-resize />
-              </div>
+              <!-- </div> -->
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ export default {
 }
 </style>-->
 
-<template>
+<template> 
   <div class="game-view">
     <div class="columns">
       <div class="column">
