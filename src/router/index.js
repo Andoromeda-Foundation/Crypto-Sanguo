@@ -23,7 +23,7 @@ export default new Router({
       path: '/',
       component: PackView,
     },
-    //hawi
+
     {
       name: 'Explore',
       path: '/explore',
@@ -74,6 +74,6 @@ export default new Router({
       path: '/pack',
       component: PackView,
     },
-    //hawi
+
   ],
 });
