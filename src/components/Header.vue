@@ -140,8 +140,8 @@ header {
 }
 .navbar {
   background-color: #000000;
-  /*background: none;*/
-  position: absolute;
+  /*background: none;
+  position: absolute;*/
   top: 0;
   left: 0;
   right: 0;
