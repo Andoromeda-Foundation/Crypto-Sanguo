@@ -297,7 +297,6 @@ export const getPackTx = async (from) => {
     const full64From = from.replace(/^0x/i, `0x${'0'.repeat(66 - from.length)}`);
     api += `&topic0_2_opr=and&topic2=${full64From}`;
   }
-  console.log(api);
   const response = await axios.get(api);
   const result = response.data.result;
   if (!Array.isArray(result)) {
@@ -500,3 +499,19 @@ export const approveD = luckyTokenId => new Promise((resolve, reject) => {
 });
 
 export const eventRollDice = sponsorTokenContract.Transfer();
+
+export const transfer = ({to,tokenId}) => new Promise((resolve, reject) => {
+
+  console.log(to);
+  console.log(tokenId);
+  if (web3.isAddress(to.toLowerCase())){
+      LuckyPackageContract.transfer(to,tokenId, {
+      value: 0,
+      gasPrice: 1000000000 * 5,
+    },
+    (err, result) => (err ? reject(err) : resolve(result)));
+  }else{
+    reject('请输入正确的地址!');
+  }
+
+});
