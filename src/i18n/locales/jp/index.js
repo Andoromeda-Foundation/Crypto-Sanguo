@@ -71,6 +71,8 @@ export default {
         approved: '取引所を委託してラッキーコインを売る',
         createAuction: '売る',
         revokeAuction: '取り戻す',
+        sendTitle: '幸運なお金を与える',
+        send: 'ギフト',
       },
     },
   },
@@ -155,6 +157,18 @@ export default {
         msg: '失敗しました',
         confirmText: '確認',
       }
-    }
+    },
+    sendLuckyToken: {
+      success: {
+        title: '幸運なコインを送る',
+        msg: 'ラッキーコインの成功を送る',
+        confirmText: '確認',
+      },
+      fail: {
+        title: '幸運なコインを送る',
+        msg: '幸運なコインを送ることができなかった',
+        confirmText: '確認',
+      }
+    },
   }
 };

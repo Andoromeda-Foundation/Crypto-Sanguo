@@ -71,7 +71,10 @@ export default {
         approved: '委托这个幸运币给交易所售卖',
         createAuction: '售卖',
         revokeAuction: '取回',
+        sendTitle: '赠送幸运币',
+        send: '赠送',
       },
+
     },
   },
   'My Cards': '我的卡牌',
@@ -153,6 +156,18 @@ export default {
       fail: {
         title: '购买幸运币',
         msg: '取消购买幸运币',
+        confirmText: '确认',
+      }
+    },    
+    sendLuckyToken: {
+      success: {
+        title: '赠送幸运币',
+        msg: '赠送幸运币成功',
+        confirmText: '确认',
+      },
+      fail: {
+        title: '赠送幸运币',
+        msg: '取消赠送幸运币',
         confirmText: '确认',
       }
     }
