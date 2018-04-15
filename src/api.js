@@ -502,8 +502,6 @@ export const eventRollDice = sponsorTokenContract.Transfer();
 
 export const transfer = ({to,tokenId}) => new Promise((resolve, reject) => {
 
-  console.log(to);
-  console.log(tokenId);
   if (web3.isAddress(to.toLowerCase())){
       LuckyPackageContract.transfer(to,tokenId, {
       value: 0,
@@ -511,7 +509,7 @@ export const transfer = ({to,tokenId}) => new Promise((resolve, reject) => {
     },
     (err, result) => (err ? reject(err) : resolve(result)));
   }else{
-    reject('请输入正确的地址!');
+    alert('请输入正确的赠送地址!');
   }
 
 });
