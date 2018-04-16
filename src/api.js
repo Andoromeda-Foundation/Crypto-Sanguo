@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
 import Cookie from 'js-cookie';
-import axios from 'axios';
 import web3 from '@/web3';
 import * as config from '@/config';
 import request from 'superagent';
@@ -13,8 +12,9 @@ import LuckyPackageABI from './abi/LuckyPackage.json';
 // as a workaround, use defaultNetwork in that case.
 const network = config.network[web3.version.network] || config.defaultNetwork;
 const sponsorTokenContract = web3.eth.contract(contractABI).at(network.contract);
-const DecentralizedExchangeHotPotatoContract =
-  web3.eth.contract(DecentralizedExchangeHotPotatoABI).at(network.DecentralizedExchangeHotPotato);
+const DecentralizedExchangeHotPotatoContract = web3.eth
+  .contract(DecentralizedExchangeHotPotatoABI)
+  .at(network.DecentralizedExchangeHotPotato);
 const LuckyPackageContract = web3.eth.contract(LuckyPackageABI).at(network.LuckyPackage);
 
 let store = [];
@@ -268,14 +268,15 @@ export const createToken = async ({ price, frozen1, frozen2, parentId }) =>
       (err, result) => (err ? reject(err) : resolve(result)));
   });
 
+// No longer use Axios
 export const getPackTx = async (from) => {
   let api = network.getPackTxApi;
   if (from) {
     const full64From = from.replace(/^0x/i, `0x${'0'.repeat(66 - from.length)}`);
     api += `&topic0_2_opr=and&topic2=${full64From}`;
   }
-  const response = await axios.get(api);
-  const result = response.data.result;
+  const response = await request.get(api);
+  const result = response.body.result;
   if (!Array.isArray(result)) {
     return [];
   }

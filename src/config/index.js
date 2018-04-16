@@ -72,4 +72,4 @@ export const items = itemsData;
 export const leanCloudKey = {
   'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
   'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB'
-}
+};
