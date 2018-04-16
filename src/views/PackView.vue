@@ -245,6 +245,17 @@
                   </a>
 
                 </b-table-column>
+
+              <b-table-column field="id"
+                                :label="$t('PackView.tabs.luckyToken.sendTitle')"
+                                centered>
+                  <a class="button is-small is-warning is-outlined"
+                     @click="onTrasfer(props.row.id)">
+                    {{$t('PackView.tabs.luckyToken.send')}}
+                  </a>
+
+                </b-table-column>
+
                 <template v-if="props.row.approved">
                   <b-table-column field="id"
                                   :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
@@ -295,6 +306,7 @@ import {
   approveD,
   eventRollDice,
   getLuckTokensOfLength,
+  transfer,
 } from '@/api';
 import BTableColumn from 'buefy/src/components/table/TableColumn';
 
@@ -356,7 +368,6 @@ export default {
     });
     setInterval(async () => {
       if (this.luckyTokenTableType === 'ALL') {
-        console.log(1);
         this.luckyTokens = await getAllLuckyTokenAuctions();
       }
     }, 5000);
@@ -464,6 +475,29 @@ export default {
       }
       this.$dialog.alert(alertCfg);
     },
+    async toTrasfer({ to, tokenId}) {
+      let alertCfg;
+      try {
+        const txHash = await transfer(
+          {to,
+          tokenId});
+        // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
+        alertCfg = {
+          type: 'is-dark',
+          title: this.$t('alert.sendLuckyToken.success.title'),
+          message: this.$t('alert.sendLuckyToken.success.msg', { txHash }),
+          confirmText: this.$t('alert.sendLuckyToken.success.confirmText'),
+        };
+      } catch (e) {
+        alertCfg = {
+          type: 'is-dark',
+          title: this.$t('alert.sendLuckyToken.fail.title'),
+          message: this.$t('alert.sendLuckyToken.fail.msg', { e }),
+          confirmText: this.$t('alert.sendLuckyToken.fail.confirmText'),
+        };
+      }
+      this.$dialog.alert(alertCfg);
+    },
     async onRevokeAuction(id) {
       let alertCfg;
       try {
@@ -508,6 +542,18 @@ export default {
                 endTime,
               });
             },
+          });
+        },
+      });
+    },
+    async onTrasfer(tokenId) {
+      this.$dialog.prompt({
+        message: '送给谁(address)',
+        inputAttrs: {},
+        onConfirm: (to) => {
+          this.toTrasfer({
+            to,
+            tokenId
           });
         },
       });

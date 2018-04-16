@@ -71,6 +71,8 @@ export default {
         approved: 'Delegate the luckyToken to exchange market to sell.',
         createAuction: 'Sell',
         revokeAuction: 'Withdraw',
+        sendTitle: 'Send LuckyToken',
+        send: 'Send',
       },
     },
   },
@@ -155,6 +157,18 @@ export default {
         msg: 'Cancelled buying luckyToken.',
         confirmText: 'Confirm',
       }
-    }
+    },
+    sendLuckyToken: {
+      success: {
+        title: 'Send LuckyToken',
+        msg: 'Successfully Sending luckyToken.',
+        confirmText: 'Confirm',
+      },
+      fail: {
+        title: 'Send LuckyToken',
+        msg: 'Cancelled Sending luckyToken.',
+        confirmText: 'Confirm',
+      }
+    },
   }
 };
