@@ -172,7 +172,7 @@
                                 :label="$t('PackView.tabs.luckyToken.id')"
                                 sortable
                                 centered>
-                 <router-link :to="{name: 'LuckyTokenView', params: {id: props.row.id}}">
+                 <router-link :to="{name: 'LuckyTokenView', params: {id: props.row.tokenId}}">
                   {{ props.row.tokenId }}
                  </router-link>
                 </b-table-column>
@@ -222,7 +222,7 @@
                     {{$t('PackView.tabs.luckyToken.revokeAuction')}}</button>
                     <!-- @ need add i18n!!! -->
                   <router-link class="button is-small is-warning is-outlined"
-                   :to="{name: 'LuckyTokenView', params: {id: props.row.id}}">
+                   :to="{name: 'LuckyTokenView', params: {id: props.row.tokenId}}">
                     查看幸运币详情
                   </router-link>
                 </b-table-column>
