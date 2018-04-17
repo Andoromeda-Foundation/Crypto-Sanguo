@@ -10,25 +10,25 @@ export default {
       game: 'Current Political Situation',
       myPage: 'Power',
       Transactions: 'Current Event',
-      herolist: 'Encyclopedia',
-    },
+      herolist: 'Encyclopedia'
+    }
   },
   itemView: {
     tabs: {
       bio: 'Hero Introduce',
       attributes: 'Hero Property',
-      transactions: 'Transaction Record',
+      transactions: 'Transaction Record'
     },
     tokenNotExist: 'The heroes have not yet appeared!',
     drawCards: 'Draw Cards',
     remainCards: 'Left cards: ',
-    remainCardsNum: 'cards in the bag',
+    remainCardsNum: 'cards in the bag'
   },
   itemContent: {
     help: 'help:',
     content1: 'Crypto Sanguo innovates to launch a new blockchain game of drawing cards.',
     content2: 'To get a hero card by drawing a card will be the only official card release channel.',
-    content3: 'The current cards and ratio of winning in the smart cardBag are full open and transparent.',
+    content3: 'The current cards and ratio of winning in the smart cardBag are full open and transparent.'
   },
   PackView: {
     tabs: {
@@ -45,13 +45,13 @@ export default {
         price: 'Price',
         action: '',
         buy: 'buy',
-        rollDice: 'Use the luckyToken to draw cards!',
+        rollDice: 'Use the luckyToken to draw cards!'
       },
       tx: {
         txHash: 'TX',
         date: 'date',
         from: 'user',
-        status: 'Successfully Drew',
+        status: 'Successfully Drew'
       },
       luckyToken: {
         title: 'LuckyToken',
@@ -71,8 +71,10 @@ export default {
         approved: 'Delegate the luckyToken to exchange market to sell.',
         createAuction: 'Sell',
         revokeAuction: 'Withdraw',
-      },
-    },
+        sendTitle: 'Send LuckyToken',
+        send: 'Send'
+      }
+    }
   },
   'My Cards': 'My Cards',
   'Sign In': 'Sign In',
@@ -107,53 +109,65 @@ export default {
       success: {
         title: 'Draw Card',
         msg: 'Successfully drew a card.',
-        confirmText: 'Confirm',
+        confirmText: 'Confirm'
       },
       fail: {
         title: 'Draw Card',
         msg: 'Cancelled drawing.',
-        confirmText: 'Confirm',
+        confirmText: 'Confirm'
       },
       noLuckyToken: {
         title: 'Draw Card',
         msg: 'Sorry, you currently not have any luckyToken, please go to The LuckyToken Market and buy.',
-        confirmText: 'Confirm',
+        confirmText: 'Confirm'
       }
     },
     CreateAuction: {
       success: {
         title: 'Sell LuckyToken',
         msg: 'Successfully sold luckyToken.',
-        confirmText: 'Confirm',
+        confirmText: 'Confirm'
       },
       fail: {
         title: 'Sell LuckyToken',
         msg: 'Cancelled selling luckyToken.',
-        confirmText: 'Confirm',
+        confirmText: 'Confirm'
       }
     },
     revokeAuction: {
       success: {
         title: 'Withdraw LuckyToken',
         msg: 'Successfully withdrew luckyToken.',
-        confirmText: 'Confirm',
+        confirmText: 'Confirm'
       },
       fail: {
         title: 'Withdraw LuckyToken',
         msg: 'Cancelled withdrawing luckyToken.',
-        confirmText: 'Confirm',
+        confirmText: 'Confirm'
       }
     },
     buyLuckyToken: {
       success: {
         title: 'Buy LuckyToken',
         msg: 'Successfully bought luckyToken.',
-        confirmText: 'Confirm',
+        confirmText: 'Confirm'
       },
       fail: {
         title: 'Buy LuckyToken',
         msg: 'Cancelled buying luckyToken.',
-        confirmText: 'Confirm',
+        confirmText: 'Confirm'
+      }
+    },
+    sendLuckyToken: {
+      success: {
+        title: 'Send LuckyToken',
+        msg: 'Successfully Sending luckyToken.',
+        confirmText: 'Confirm'
+      },
+      fail: {
+        title: 'Send LuckyToken',
+        msg: 'Cancelled Sending luckyToken.',
+        confirmText: 'Confirm'
       }
     }
   }
