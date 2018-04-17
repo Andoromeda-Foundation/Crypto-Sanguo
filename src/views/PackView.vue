@@ -6,7 +6,9 @@
       <div class="KJ-position-absolute-horizontal-center"
            style="bottom:5%">
         <div class="remainingCards-msg mainTextColor
-        KJ-position-relative">{{ $t('itemView.remainCards') }}{{packageSize}} {{ $t('itemView.remainCardsNum') }}</div>
+        KJ-position-relative">
+          {{ $t('itemView.remainCards') }}{{packageSize}} {{ $t('itemView.remainCardsNum') }}
+        </div>
         <div @click="onRollDice()"
              class="KJ-position-relative KJ-cursor-pointer">
           <img style="width:82%"
@@ -170,7 +172,9 @@
                                 :label="$t('PackView.tabs.luckyToken.id')"
                                 sortable
                                 centered>
+                 <router-link :to="{name: 'LuckyTokenView', params: {id: props.row.id}}">
                   {{ props.row.tokenId }}
+                 </router-link>
                 </b-table-column>
                 <!-- <b-table-column field="price"
                               :label="$t('PackView.tabs.luckyToken.owner')"
@@ -216,6 +220,11 @@
                           class="button is-small is-warning is-outlined"
                           @click="onRevokeAuction(props.row.Exchangeid)">
                     {{$t('PackView.tabs.luckyToken.revokeAuction')}}</button>
+                    <!-- @ need add i18n!!! -->
+                  <router-link class="button is-small is-warning is-outlined"
+                   :to="{name: 'LuckyTokenView', params: {id: props.row.id}}">
+                    查看幸运币详情
+                  </router-link>
                 </b-table-column>
               </template>
             </b-table>
@@ -233,7 +242,9 @@
                                 :label="$t('PackView.tabs.luckyToken.id')"
                                 sortable
                                 centered>
-                  {{ props.row.id }}
+                  <router-link :to="{name: 'LuckyTokenView', params: {id: props.row.id}}">
+                    {{ props.row.id }}
+                  </router-link>
                 </b-table-column>
 
                 <b-table-column field="id"
@@ -246,7 +257,7 @@
 
                 </b-table-column>
 
-              <b-table-column field="id"
+          <b-table-column field="id"
                                 :label="$t('PackView.tabs.luckyToken.sendTitle')"
                                 centered>
                   <a class="button is-small is-warning is-outlined"
@@ -254,7 +265,7 @@
                     {{$t('PackView.tabs.luckyToken.send')}}
                   </a>
 
-                </b-table-column>
+          </b-table-column>
 
                 <template v-if="props.row.approved">
                   <b-table-column field="id"
@@ -306,7 +317,7 @@ import {
   approveD,
   eventRollDice,
   getLuckTokensOfLength,
-  transfer,
+  transfer
 } from '@/api';
 import BTableColumn from 'buefy/src/components/table/TableColumn';
 
@@ -314,7 +325,7 @@ export default {
   name: 'PackView',
   components: {
     BTableColumn,
-    ItemPreview,
+    ItemPreview
   },
   data() {
     return {
@@ -329,11 +340,11 @@ export default {
       isLoadingPackTxs: true,
       txList: [],
       luckyTokenAuctions: [],
-      luckyLength: '',
+      luckyLength: ''
     };
   },
   computed: {
-    ...mapState(['me', 'signInError']),
+    ...mapState(['me', 'signInError'])
   },
   async created() {
     this.luckyTokenTableType = 'ALL';
@@ -348,10 +359,9 @@ export default {
       const _to = result.args._to;
       const _tokenId = result.args._tokenId.toString();
       const item = await getItem(_tokenId);
-      const luckyContract = '0x8b481c5af4734501ea8b6a0c3502e001dd883d3d'
+      const luckyContract = '0x8b481c5af4734501ea8b6a0c3502e001dd883d3d';
       // console.log(_from,_to,_tokenId,item);
-      if (_from.toUpperCase() === luckyContract.toUpperCase()){
-             
+      if (_from.toUpperCase() === luckyContract.toUpperCase()) {
         let playerName = _to.toUpperCase();
         if (this.me && this.me.address.toUpperCase() === playerName) {
           playerName = '你';
@@ -361,10 +371,9 @@ export default {
           duration: 5000,
           message,
           position: 'is-top',
-          type: 'is-warning',
+          type: 'is-warning'
         });
       }
-
     });
     setInterval(async () => {
       if (this.luckyTokenTableType === 'ALL') {
@@ -393,7 +402,7 @@ export default {
           type: 'is-dark',
           title: this.$t('alert.buyLuckyToken.success.title'),
           message: this.$t('alert.buyLuckyToken.success.msg', { txHash }),
-          confirmText: this.$t('alert.buyLuckyToken.success.confirmText'),
+          confirmText: this.$t('alert.buyLuckyToken.success.confirmText')
         };
       } catch (e) {
         console.log(e);
@@ -401,7 +410,7 @@ export default {
           type: 'is-dark',
           title: this.$t('alert.buyLuckyToken.fail.title'),
           message: this.$t('alert.buyLuckyToken.fail.msg', { e }),
-          confirmText: this.$t('alert.buyLuckyToken.fail.confirmText'),
+          confirmText: this.$t('alert.buyLuckyToken.fail.confirmText')
         };
       }
       this.$dialog.alert(alertCfg);
@@ -419,7 +428,7 @@ export default {
             type: 'is-dark',
             title: this.$t('alert.rollDice.noLuckyToken.title'),
             message: this.$t('alert.rollDice.noLuckyToken.msg'),
-            confirmText: this.$t('alert.rollDice.noLuckyToken.confirmText'),
+            confirmText: this.$t('alert.rollDice.noLuckyToken.confirmText')
           });
           return;
         }
@@ -437,14 +446,14 @@ export default {
           type: 'is-dark',
           title: this.$t('alert.rollDice.success.title'),
           message: this.$t('alert.rollDice.success.msg', { txHash }),
-          confirmText: this.$t('alert.rollDice.success.confirmText'),
+          confirmText: this.$t('alert.rollDice.success.confirmText')
         };
       } catch (e) {
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.rollDice.fail.title'),
           message: this.$t('alert.rollDice.fail.msg', { e }),
-          confirmText: this.$t('alert.rollDice.fail.confirmText'),
+          confirmText: this.$t('alert.rollDice.fail.confirmText')
         };
       }
       this.$dialog.alert(alertCfg);
@@ -456,44 +465,44 @@ export default {
           price: web3.toWei(priceInETH, 'ether'),
           tokenId,
           startTime,
-          endTime,
+          endTime
         });
         // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.CreateAuction.success.title'),
           message: this.$t('alert.CreateAuction.success.msg', { txHash }),
-          confirmText: this.$t('alert.CreateAuction.success.confirmText'),
+          confirmText: this.$t('alert.CreateAuction.success.confirmText')
         };
       } catch (e) {
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.CreateAuction.fail.title'),
           message: this.$t('alert.CreateAuction.fail.msg', { e }),
-          confirmText: this.$t('alert.CreateAuction.fail.confirmText'),
+          confirmText: this.$t('alert.CreateAuction.fail.confirmText')
         };
       }
       this.$dialog.alert(alertCfg);
     },
-    async toTrasfer({ to, tokenId}) {
+    async toTrasfer({ to, tokenId }) {
       let alertCfg;
       try {
         const txHash = await transfer(
-          {to,
-          tokenId});
+          { to,
+            tokenId });
         // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.sendLuckyToken.success.title'),
           message: this.$t('alert.sendLuckyToken.success.msg', { txHash }),
-          confirmText: this.$t('alert.sendLuckyToken.success.confirmText'),
+          confirmText: this.$t('alert.sendLuckyToken.success.confirmText')
         };
       } catch (e) {
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.sendLuckyToken.fail.title'),
           message: this.$t('alert.sendLuckyToken.fail.msg', { e }),
-          confirmText: this.$t('alert.sendLuckyToken.fail.confirmText'),
+          confirmText: this.$t('alert.sendLuckyToken.fail.confirmText')
         };
       }
       this.$dialog.alert(alertCfg);
@@ -506,14 +515,14 @@ export default {
           type: 'is-dark',
           title: this.$t('alert.revokeAuction.success.title'),
           message: this.$t('alert.revokeAuction.success.msg', { txHash }),
-          confirmText: this.$t('alert.revokeAuction.success.confirmText'),
+          confirmText: this.$t('alert.revokeAuction.success.confirmText')
         };
       } catch (e) {
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.revokeAuction.fail.title'),
           message: this.$t('alert.revokeAuction.fail.msg', { e }),
-          confirmText: this.$t('alert.revokeAuction.fail.confirmText'),
+          confirmText: this.$t('alert.revokeAuction.fail.confirmText')
         };
       }
       this.$dialog.alert(alertCfg);
@@ -529,7 +538,7 @@ export default {
           this.$dialog.prompt({
             message: '挂单时长(小时)',
             inputAttrs: {
-              value: 1, // default 1 hour
+              value: 1 // default 1 hour
             },
             onConfirm: (durationInHour) => {
               const startTime = parseInt(new Date().getTime() / 1000);
@@ -539,11 +548,11 @@ export default {
                 tokenId: luckyTokenId,
                 priceInETH,
                 startTime,
-                endTime,
+                endTime
               });
-            },
+            }
           });
-        },
+        }
       });
     },
     async onTrasfer(tokenId) {
@@ -555,7 +564,7 @@ export default {
             to,
             tokenId
           });
-        },
+        }
       });
     },
     onSwitchTxType(type) {
@@ -566,7 +575,7 @@ export default {
     },
     onSwitchItemType(type) {
       this.itemTableType = type;
-    },
+    }
   },
   watch: {
     async luckyTokenTableType(toType, fromType) {
@@ -611,8 +620,8 @@ export default {
         }
       } catch (e) {}
       this.isLoadingPackTxs = false;
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="postcss" scoped>

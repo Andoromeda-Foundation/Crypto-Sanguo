@@ -332,7 +332,7 @@ export const allOfHotPotatoExchange = async (id, contractAddress) => {
 export const getLuckyToken = async (id) => {
   const item = {};
   item.id = Number(id);
-  item.owner = (await Promise.promisify(LuckyPackageContract.allOf)(id))[0];
+  item.owner = (await Promise.promisify(LuckyPackageContract.allOf)(id));
   item.approved = await isApproved(id);
   return item;
 };
