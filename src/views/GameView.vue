@@ -43,7 +43,7 @@ export default {
                 城市
               </div>
               <div class="column has-text-right subtitle">
-                新野<!--{{selectedstatus.name}}-->
+                {{selectedstatus.name}}<!--新野-->
               </div>
               <div class="column has-text-left subtitle">
                 太守
@@ -90,7 +90,7 @@ export default {
             </div>
             <div class="columns is-mobile">
               <div class="column has-text-left">
-                武力
+                武将
               </div>
               <div class="column has-text-right">
                 5
@@ -137,6 +137,7 @@ export default {
         { 位置: '襄平', 人口: 1223 },
       ],
     };
+    var theself = this;
     this.selectedstatus = {name : "wow"};
     this.legendVisible = false;
     this.chartSettings = {
@@ -211,9 +212,12 @@ export default {
       },
     };
     this.chartEvents = {
-      click(e) {
-        () => this.selectedstatus = e;
+      click(e){
+        theself.selectedstatus = e;
+        theself.$forceUpdate();
         console.log(e);
+        console.log(this);
+        console.log(theself);
       },
       mouseover(e) {
         console.log(e.name);
