@@ -232,7 +232,7 @@ export const buyItem = (id, price) => new Promise((resolve, reject) => {
     value: price, // web3.toWei(Number(price), 'ether'),
     gasPrice: 1000000000 * 5
   },
-    (err, result) => (err ? reject(err) : resolve(result)));
+  (err, result) => (err ? reject(err) : resolve(result)));
 });
 
 export const getTotal = () => Promise.promisify(sponsorTokenContract.totalSupply)();
@@ -265,7 +265,7 @@ export const createToken = async ({ price, frozen1, frozen2, parentId }) =>
       // value: price, // web3.toWei(Number(price), 'ether'),
       gasPrice: 1000000000 * 5
     },
-      (err, result) => (err ? reject(err) : resolve(result)));
+    (err, result) => (err ? reject(err) : resolve(result)));
   });
 
 // No longer use Axios
@@ -311,7 +311,7 @@ export const setLocale = async (locale) => {
 export const getHotPotatoExchange = async (id) => {
   const item = {};
   [item.creator, item.owner, item.issuer,
-  item.tokenid, item.price, item.free1, item.free2] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
+    item.tokenid, item.price, item.free1, item.free2] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
   item.Exchangeid = id;
   return item;
 };
@@ -361,12 +361,12 @@ export const getLuckyTokenAuction = async (id) => {
   id = Number(id);
   const auction = { id };
   [auction.creator,
-  auction.owner,
-  auction.issuer,
-  auction.tokenId,
-  auction.price,
-  auction.startTime,
-  auction.endTime] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
+    auction.owner,
+    auction.issuer,
+    auction.tokenId,
+    auction.price,
+    auction.startTime,
+    auction.endTime] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
   auction.Exchangeid = Number(id);
   auction.tokenId = Number(auction.tokenId);
   auction.startTime *= 1000;
@@ -396,34 +396,34 @@ export const buyLuckyToken = (id, price) => new Promise((resolve, reject) => {
     value: price, // web3.toWei(Number(price), 'ether'),
     gasPrice: 1000000000 * 5
   },
-    (err, result) => (err ? reject(err) : resolve(result)));
+  (err, result) => (err ? reject(err) : resolve(result)));
 });
 export const rollDice = luckyTokenId => new Promise((resolve, reject) => {
   LuckyPackageContract.rollDice(luckyTokenId, {
     value: 0,
     gasPrice: 1000000000 * 5
   },
-    (err, result) => (err ? reject(err) : resolve(result)));
+  (err, result) => (err ? reject(err) : resolve(result)));
 });
 
 export const createAuction = ({
   tokenId,
   price,
   startTime, endTime }) => new Promise((resolve, reject) => {
-    DecentralizedExchangeHotPotatoContract.put(network.LuckyPackage, tokenId, price,
-      startTime, endTime, {
-        value: 0,
-        gasPrice: 1000000000 * 5
-      },
-      (err, result) => (err ? reject(err) : resolve(result)));
-  });
+  DecentralizedExchangeHotPotatoContract.put(network.LuckyPackage, tokenId, price,
+    startTime, endTime, {
+      value: 0,
+      gasPrice: 1000000000 * 5
+    },
+    (err, result) => (err ? reject(err) : resolve(result)));
+});
 
 export const revokeAuction = id => new Promise((resolve, reject) => {
   DecentralizedExchangeHotPotatoContract.revoke(id, {
     value: 0,
     gasPrice: 1000000000 * 5
   },
-    (err, result) => (err ? reject(err) : resolve(result)));
+  (err, result) => (err ? reject(err) : resolve(result)));
 });
 
 export const getPackage = async () => {
@@ -471,7 +471,7 @@ export const approveD = luckyTokenId => new Promise((resolve, reject) => {
     value: 0,
     gasPrice: 1000000000 * 5
   },
-    (err, result) => (err ? reject(err) : resolve(result)));
+  (err, result) => (err ? reject(err) : resolve(result)));
 });
 
 export const eventRollDice = sponsorTokenContract.Transfer();
@@ -482,7 +482,7 @@ export const transfer = ({ to, tokenId }) => new Promise((resolve, reject) => {
       value: 0,
       gasPrice: 1000000000 * 5
     },
-      (err, result) => (err ? reject(err) : resolve(result)));
+    (err, result) => (err ? reject(err) : resolve(result)));
   } else {
     alert('请输入正确的赠送地址!');
   }
