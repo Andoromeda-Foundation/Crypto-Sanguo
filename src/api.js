@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
 import Cookie from 'js-cookie';
-import axios from 'axios';
 import web3 from '@/web3';
 import * as config from '@/config';
 import request from 'superagent';
@@ -13,7 +12,9 @@ import LuckyPackageABI from './abi/LuckyPackage.json';
 // as a workaround, use defaultNetwork in that case.
 const network = config.network[web3.version.network] || config.defaultNetwork;
 const sponsorTokenContract = web3.eth.contract(contractABI).at(network.contract);
-const DecentralizedExchangeHotPotatoContract = web3.eth.contract(DecentralizedExchangeHotPotatoABI).at(network.DecentralizedExchangeHotPotato);
+const DecentralizedExchangeHotPotatoContract = web3.eth
+  .contract(DecentralizedExchangeHotPotatoABI)
+  .at(network.DecentralizedExchangeHotPotato);
 const LuckyPackageContract = web3.eth.contract(LuckyPackageABI).at(network.LuckyPackage);
 
 let store = [];
@@ -23,10 +24,7 @@ let isInit = false;
 export const init = async () => {
   await request
     .get('https://api.leancloud.cn/1.1/classes/ad')
-    .set({
-      'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-      'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-    })
+    .set(config.leanCloudKey)
     .type('json')
     .accept('json')
     .then((response) => {
@@ -57,10 +55,7 @@ export const getMe = async () => {
 export const getAnnouncements = async () => {
   const response = await request
     .get('https://api.leancloud.cn/1.1/classes/announcement')
-    .set({
-      'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-      'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-    })
+    .set(config.leanCloudKey)
     .type('json')
     .accept('json');
 
@@ -88,10 +83,7 @@ export const getGg = async (id, time = 0) => {
 export const setGg = async (id, str) => {
   const response = await request
     .get('https://api.leancloud.cn/1.1/classes/ad')
-    .set({
-      'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-      'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-    })
+    .set(config.leanCloudKey)
     .type('json')
     .accept('json');
   if (response.body && response.body.results) {
@@ -103,14 +95,11 @@ export const setGg = async (id, str) => {
     // update request
     await request
       .put(`https://api.leancloud.cn/1.1/classes/ad/${item.objectId}`)
-      .set({
-        'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-        'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-      })
+      .set(config.leanCloudKey)
       .type('json')
       .accept('json')
       .send({
-        str,
+        str
       });
     // update store
     item.str = str;
@@ -118,15 +107,12 @@ export const setGg = async (id, str) => {
     // create request
     await request
       .post('https://api.leancloud.cn/1.1/classes/ad')
-      .set({
-        'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-        'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-      })
+      .set(config.leanCloudKey)
       .type('json')
       .accept('json')
       .send({
         id: `${id}`,
-        str,
+        str
       });
     // update store
     await init();
@@ -161,10 +147,7 @@ export const setNextPrice = async (id, priceInWei) => {
   const price = Number(web3.fromWei(priceInWei, 'ether').toString());
   const response = await request
     .get('https://api.leancloud.cn/1.1/classes/ad')
-    .set({
-      'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-      'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-    })
+    .set(config.leanCloudKey)
     .type('json')
     .accept('json');
   if (response.body && response.body.results) {
@@ -180,14 +163,11 @@ export const setNextPrice = async (id, priceInWei) => {
     // update request
     await request
       .put(`https://api.leancloud.cn/1.1/classes/ad/${item.objectId}`)
-      .set({
-        'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-        'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-      })
+      .set(config.leanCloudKey)
       .type('json')
       .accept('json')
       .send({
-        nextPrice: price * 1.1,
+        nextPrice: price * 1.1
       });
     // update store
     item.nextPrice = price * 1.1;
@@ -195,15 +175,12 @@ export const setNextPrice = async (id, priceInWei) => {
     // create request
     await request
       .post('https://api.leancloud.cn/1.1/classes/ad')
-      .set({
-        'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
-        'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
-      })
+      .set(config.leanCloudKey)
       .type('json')
       .accept('json')
       .send({
         id: `${id}`,
-        nextPrice: price * 1.1,
+        nextPrice: price * 1.1
       });
     // update store
     await init();
@@ -219,7 +196,7 @@ export const setPrice = (id, price) =>
       price,
       {
         value: 0,
-        gasPrice: 1000000000 * 5, // be nice
+        gasPrice: 1000000000 * 5 // be nice
       },
       (err, result) => (err ? reject(err) : resolve(result)),
     );
@@ -234,7 +211,7 @@ export const getItem = async (id) => {
   item.attributes = ['特技', '势力', '统御', '武力', '智力', '政治', '魅力', '统武和', '统武智和', '综合', '性别', '性格', '出生', '死亡', '枪兵', '戬兵', '弩兵', '骑兵', '武器', '水军', '出身']
     .map(v => ({
       name: v,
-      value: item[v],
+      value: item[v]
     }));
   item.bio = item.生平;
 
@@ -253,7 +230,7 @@ export const getItem = async (id) => {
 export const buyItem = (id, price) => new Promise((resolve, reject) => {
   sponsorTokenContract.buy(id, {
     value: price, // web3.toWei(Number(price), 'ether'),
-    gasPrice: 1000000000 * 5,
+    gasPrice: 1000000000 * 5
   },
   (err, result) => (err ? reject(err) : resolve(result)));
 });
@@ -286,19 +263,20 @@ export const createToken = async ({ price, frozen1, frozen2, parentId }) =>
   new Promise((resolve, reject) => {
     sponsorTokenContract.issueToken(web3.toWei(Number(price), 'ether'), frozen1, frozen2, parentId, {
       // value: price, // web3.toWei(Number(price), 'ether'),
-      gasPrice: 1000000000 * 5,
+      gasPrice: 1000000000 * 5
     },
     (err, result) => (err ? reject(err) : resolve(result)));
   });
 
+// No longer use Axios
 export const getPackTx = async (from) => {
   let api = network.getPackTxApi;
   if (from) {
     const full64From = from.replace(/^0x/i, `0x${'0'.repeat(66 - from.length)}`);
     api += `&topic0_2_opr=and&topic2=${full64From}`;
   }
-  const response = await axios.get(api);
-  const result = response.data.result;
+  const response = await request.get(api);
+  const result = response.body.result;
   if (!Array.isArray(result)) {
     return [];
   }
@@ -311,8 +289,8 @@ export const getPackTx = async (from) => {
       date: new Date(parseInt(timeStamp, 16) * 1000),
       prize: {
         id: prizeId,
-        title: item.姓名,
-      },
+        title: item.姓名
+      }
     };
   });
 };
@@ -330,26 +308,25 @@ export const setLocale = async (locale) => {
   Cookie.set('locale', locale, { expires: 365 });
 };
 
-
-export const allOfHotPotatoExchange = async (id, contractAddress) => {
-  const total = await Promise.promisify(DecentralizedExchangeHotPotatoContract.totalOrder)();
-  const rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
-  const ids = rangeArray(0, Number(total) - 1);
-  const items = await Promise.all(ids.map(id => getHotPotatoExchange(id)));
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].issuer == contractAddress && items[i].tokenid == id) {
-      return items[i];
-    }
-  }
-  return {};
-};
-
 export const getHotPotatoExchange = async (id) => {
   const item = {};
   [item.creator, item.owner, item.issuer,
     item.tokenid, item.price, item.free1, item.free2] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
   item.Exchangeid = id;
   return item;
+};
+
+export const allOfHotPotatoExchange = async (id, contractAddress) => {
+  const total = await Promise.promisify(DecentralizedExchangeHotPotatoContract.totalOrder)();
+  const rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
+  const ids = rangeArray(0, Number(total) - 1);
+  const items = await Promise.all(ids.map(_id => getHotPotatoExchange(_id)));
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].issuer == contractAddress && items[i].tokenid == id) {
+      return items[i];
+    }
+  }
+  return {};
 };
 
 export const getLuckyToken = async (id) => {
@@ -390,7 +367,7 @@ export const getLuckyTokenAuction = async (id) => {
     auction.price,
     auction.startTime,
     auction.endTime] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
-    auction.Exchangeid = Number(id);
+  auction.Exchangeid = Number(id);
   auction.tokenId = Number(auction.tokenId);
   auction.startTime *= 1000;
   auction.endTime *= 1000;
@@ -417,14 +394,14 @@ export const getAllLuckyTokenAuctions = async () => {
 export const buyLuckyToken = (id, price) => new Promise((resolve, reject) => {
   DecentralizedExchangeHotPotatoContract.buy(id, {
     value: price, // web3.toWei(Number(price), 'ether'),
-    gasPrice: 1000000000 * 5,
+    gasPrice: 1000000000 * 5
   },
   (err, result) => (err ? reject(err) : resolve(result)));
 });
 export const rollDice = luckyTokenId => new Promise((resolve, reject) => {
   LuckyPackageContract.rollDice(luckyTokenId, {
     value: 0,
-    gasPrice: 1000000000 * 5,
+    gasPrice: 1000000000 * 5
   },
   (err, result) => (err ? reject(err) : resolve(result)));
 });
@@ -436,7 +413,7 @@ export const createAuction = ({
   DecentralizedExchangeHotPotatoContract.put(network.LuckyPackage, tokenId, price,
     startTime, endTime, {
       value: 0,
-      gasPrice: 1000000000 * 5,
+      gasPrice: 1000000000 * 5
     },
     (err, result) => (err ? reject(err) : resolve(result)));
 });
@@ -444,7 +421,7 @@ export const createAuction = ({
 export const revokeAuction = id => new Promise((resolve, reject) => {
   DecentralizedExchangeHotPotatoContract.revoke(id, {
     value: 0,
-    gasPrice: 1000000000 * 5,
+    gasPrice: 1000000000 * 5
   },
   (err, result) => (err ? reject(err) : resolve(result)));
 });
@@ -484,32 +461,29 @@ export const getPackageSize = async () => {
 export const isApproved = async (id) => {
   const t = await Promise.promisify(LuckyPackageContract.approvedFor)(id);
   if (t != '0x0000000000000000000000000000000000000000') {
-    return true
-  } 
-    return false
-  
+    return true;
+  }
+  return false;
 };
 
 export const approveD = luckyTokenId => new Promise((resolve, reject) => {
   LuckyPackageContract.approve(network.DecentralizedExchangeHotPotato, luckyTokenId, {
     value: 0,
-    gasPrice: 1000000000 * 5,
+    gasPrice: 1000000000 * 5
   },
   (err, result) => (err ? reject(err) : resolve(result)));
 });
 
 export const eventRollDice = sponsorTokenContract.Transfer();
 
-export const transfer = ({to,tokenId}) => new Promise((resolve, reject) => {
-
-  if (web3.isAddress(to.toLowerCase())){
-      LuckyPackageContract.transfer(to,tokenId, {
+export const transfer = ({ to, tokenId }) => new Promise((resolve, reject) => {
+  if (web3.isAddress(to.toLowerCase())) {
+    LuckyPackageContract.transfer(to, tokenId, {
       value: 0,
-      gasPrice: 1000000000 * 5,
+      gasPrice: 1000000000 * 5
     },
     (err, result) => (err ? reject(err) : resolve(result)));
-  }else{
+  } else {
     alert('请输入正确的赠送地址!');
   }
-
 });
