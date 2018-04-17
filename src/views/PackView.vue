@@ -172,7 +172,7 @@
                                 :label="$t('PackView.tabs.luckyToken.id')"
                                 sortable
                                 centered>
-                 <router-link :to="{name: 'LuckyTokenView', params: {id: props.row.id}}">
+                 <router-link :to="{name: 'LuckyTokenView', params: {id: props.row.tokenId}}">
                   {{ props.row.tokenId }}
                  </router-link>
                 </b-table-column>
