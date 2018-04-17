@@ -222,7 +222,7 @@
                     {{$t('PackView.tabs.luckyToken.revokeAuction')}}</button>
                     <!-- @ need add i18n!!! -->
                   <router-link class="button is-small is-warning is-outlined"
-                   :to="{name: 'LuckyTokenView', params: {id: props.row.id}}">
+                   :to="{name: 'LuckyTokenView', params: {id: props.row.tokenId}}">
                     查看幸运币详情
                   </router-link>
                 </b-table-column>
