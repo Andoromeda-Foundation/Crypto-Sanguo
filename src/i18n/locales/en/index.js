@@ -10,7 +10,8 @@ export default {
       game: 'Current Political Situation',
       myPage: 'Power',
       Transactions: 'Current Event',
-      herolist: 'Encyclopedia'
+      herolist: 'Encyclopedia',
+      SignIn: 'Sign in'
     }
   },
   itemView: {
