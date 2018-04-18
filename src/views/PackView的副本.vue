@@ -2,29 +2,28 @@
   <div class="PackView is-marginless is-clipped">
 
     <section class="KJ-position-relative has-text-centered">
-      <div id="helpMsg">
-        <!-- <h3>{{ $t('itemContent.help') }}</h3> -->
-        <p>{{ $t('itemContent.content1') }}</p>
-        <p>{{ $t('itemContent.content2') }}</p>
-        <p>{{ $t('itemContent.content3') }}</p>
-      </div>
-      <img id="charas" src="@/assets/img/charas.png" />
+      <img src="@/assets/img/packBg.png" />
       <div class="KJ-position-absolute-horizontal-center"
            style="bottom:5%">
+        <div class="remainingCards-msg mainTextColor
+        KJ-position-relative">{{ $t('itemView.remainCards') }}{{packageSize}} {{ $t('itemView.remainCardsNum') }}</div>
+        <div @click="onRollDice()"
+             class="KJ-position-relative KJ-cursor-pointer">
+          <img style="width:82%"
+               src="@/assets/img/button_chouka.png" />
+          <span class="drawCard-btn-text mainTextColor
+           KJ-position-absolute-horizontal-center has-text-weight-bold">
+            {{ $t('itemView.drawCards') }}({{luckyLength}})</span>
+        </div>
       </div>
-      <div id="cover"></div>
     </section>
 
-    <div id="getCardBtn" @click="onRollDice()"
-             class="KJ-position-relative KJ-cursor-pointer has-text-centered">
-      <img src="@/assets/img/button_chouka.png" />
-      <span class="drawCard-btn-text mainTextColor
-       KJ-position-absolute-horizontal-center has-text-weight-bold">
-        {{ $t('itemView.drawCards') }}({{luckyLength}})</span>
-    </div>
-
-    <div id="surplusCards" class="remainingCards-msg mainTextColor
-    KJ-position-relative has-text-centered">{{ $t('itemView.remainCards') }}{{packageSize}} {{ $t('itemView.remainCardsNum') }}</div>
+    <section class="help-msg">
+      <h3>{{ $t('itemContent.help') }}</h3>
+      <p>{{ $t('itemContent.content1') }}</p>
+      <p>{{ $t('itemContent.content2') }}</p>
+      <p>{{ $t('itemContent.content3') }}</p>
+    </section>
 
     <section>
       <b-tabs position="is-centered"
@@ -56,33 +55,18 @@
               {{$t('PackView.tabs.item.my')}}
             </button>
           </div>
-
-          <div id="arrowLeft" @click="onArrowClicked('left')">
-            <img src="@/assets/img/arrow_left.png" />
-          </div>
-          <div id="arrowRight" @click="onArrowClicked('right')">
-            <img src="@/assets/img/arrow_right.png" />
-          </div>
-
-          <div id="cardsContainer" class=" columns is-mobile is-multiline">
+          <div class=" columns is-mobile is-multiline">
             <b-loading :is-full-page="false"
                        :active.sync="isLoadingItems"
                        :canCancel="false"></b-loading>
-            <div v-for="item in items.slice(startIndex, startIndex+6)"
+            <div v-for="item in items"
                  :key="item.id.toString()"
                  class="column is-half-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
               <ItemPreview :item="item" />
             </div>
           </div>
         </b-tab-item>
-      </b-tabs>
-    </section>
 
-    <br /><br /><br />
-
-    <section>
-      <b-tabs position="is-centered"
-              class="block PackView-tabs">
         <b-tab-item :label="$t('PackView.tabs.item.title1')">
           <div class="buttons is-centered">
             <button @click="onSwitchTxType('ALL')"
@@ -150,15 +134,9 @@
 
             </template>
           </b-table>
+
         </b-tab-item>
-      </b-tabs>
-    </section>
 
-    <br /><br /><br />
-
-    <section>
-      <b-tabs position="is-centered"
-              class="block PackView-tabs">
         <b-tab-item :label="$t('PackView.tabs.luckyToken.title')">
           <div class="buttons is-centered">
             <button @click="onSwitchLuckyTokenType('ALL')"
@@ -194,6 +172,13 @@
                                 centered>
                   {{ props.row.tokenId }}
                 </b-table-column>
+                <!-- <b-table-column field="price"
+                              :label="$t('PackView.tabs.luckyToken.owner')"
+                              centered>
+                <a :href="'https://ropsten.etherscan.io/address/' + props.row.owner">
+                  1 {{ props.row.owner.substr(36,42) }}
+                </a>
+              </b-table-column> -->
 
                 <b-table-column field="price"
                                 :label="$t('PackView.tabs.luckyToken.price')"
@@ -298,7 +283,6 @@
         </b-tab-item>
       </b-tabs>
     </section>
-
   </div>
 </template>
 
@@ -346,7 +330,6 @@ export default {
       txList: [],
       luckyTokenAuctions: [],
       luckyLength: '',
-      startIndex: 0,
     };
   },
   computed: {
@@ -584,15 +567,6 @@ export default {
     onSwitchItemType(type) {
       this.itemTableType = type;
     },
-    onArrowClicked(type) {
-      const itemsCount = this.items.length;
-      console.log(itemsCount)
-      if(type == "left" && this.startIndex>0) {
-        this.startIndex-=6;
-      }else if(type == "right" && this.startIndex<itemsCount-6) {
-        this.startIndex+=6;
-      }
-    },
   },
   watch: {
     async luckyTokenTableType(toType, fromType) {
@@ -641,10 +615,10 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .PackView {
-  /*--paddingY: 18vw;*/
-  /*--fontSize: 1vw;*/
+  --paddingY: 18vw;
+  --fontSize: 1vw;
 
   background-image: url("../assets/img/packViewBg.jpg");
   background-size: 100%;
@@ -652,35 +626,12 @@ export default {
   background-color: #000;
   padding: 3% var(--paddingY) 5% var(--paddingY);
   font-size: var(--fontSize);
-  /*@media (max-width: 800px) {
+  @media (max-width: 800px) {
     --scale: 1.4;
     padding: 3% calc(var(--paddingY) * (var(--scale) -1)) 5%
       calc(var(--paddingY) * (var(--scale) -1));
     font-size: calc(var(--fontSize)* var(--scale));
-  }*/
-}
-#helpMsg {
-  position: absolute;
-  text-align: left;
-  color: #fbb800;
-  padding: 20px;
-}
-#cover {
-  position: absolute;
-  background-color: #000;
-  width: 100%;
-  top: 500px;
-  height: 200px;
-}
-#charas {
-  padding-top: 150px;
-}
-#getCardBtn {
-  top: -100px;
-  /*background-color: #666;*/
-}
-#surplusCards {
-  top: -120px;
+  }
 }
 .mainTextColor {
   color: #fbb800;
@@ -697,20 +648,5 @@ export default {
   font-size: 1.1em;
   color: #eed9b2;
   padding: 2em 1.4em;
-}
-
-#cardsContainer {
-  width: 80%;
-  margin: auto;
-}
-
-#arrowLeft {
-  position: absolute;
-  cursor: pointer;
-}
-#arrowRight {
-  position: absolute;
-  cursor: pointer;
-  right: 20px;
 }
 </style>
