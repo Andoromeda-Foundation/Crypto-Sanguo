@@ -35,8 +35,91 @@ export default {
                 :events="chartEvents"
                 :extend="chartExtend"></ve-map>
       </div>
-      <div class="column">
-        UI
+      <div class="tile is-parent">
+        <div class="column">
+          <article class="is-child notification is-primary">
+            <div class="columns is-mobile">
+              <div class="column has-text-left subtitle">
+                城市
+              </div>
+              <div class="column has-text-right subtitle">
+                {{selectedstatus.name}}<!--新野-->
+              </div>
+              <div class="column has-text-left subtitle">
+                太守
+              </div>
+              <div class="column has-text-right subtitle">
+                岛娘
+              </div>
+            </div>
+            <div class="columns is-mobile">
+              <div class="column has-text-left">
+                金
+              </div>
+              <div class="column has-text-right">
+                1000
+              </div>
+              <div class="column has-text-left">
+                粮
+              </div>
+              <div class="column has-text-right">
+                20000
+              </div>
+            </div>
+            <div class="columns is-mobile">
+              <div class="column has-text-left">
+                农业
+              </div>
+              <div class="column has-text-right">
+                940/1000
+              </div>
+              <div class="column has-text-left">
+                商业
+              </div>
+              <div class="column has-text-right">
+                460/800
+              </div>
+            </div>
+            <div class="columns is-mobile">
+              <div class="column has-text-left">
+                兵力
+              </div>
+              <div class="column has-text-right">
+                10000
+              </div>
+            </div>
+            <div class="columns is-mobile">
+              <div class="column has-text-left">
+                武将
+              </div>
+              <div class="column has-text-right">
+                5
+              </div>
+            </div>
+            <div class="columns is-mobile">
+              <div class="column has-text-left">
+                城防
+              </div>
+              <div class="column has-text-right">
+                1000/1000
+              </div>
+            </div>
+          </article>
+          <article class="is-child notification is-warning">
+            <div class="columns is-mobile">
+              <div class="column is-one-fifth"><a class="button">军事</a></div>
+              <div class="column is-one-fifth"><a class="button">内政</a></div>
+              <div class="column is-one-fifth"><a class="button">人事</a></div>
+              <div class="column is-one-fifth"><a class="button">计谋</a></div>
+              <div class="column is-one-fifth"><a class="button">外交</a></div>
+              <!-- <a class="button">军事</a>
+              <a class="button">内政</a>
+              <a class="button">人事</a>
+              <a class="button">计谋</a>
+              <a class="button">外交</a> -->
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </div>
@@ -54,6 +137,8 @@ export default {
         { 位置: '襄平', 人口: 1223 },
       ],
     };
+    var theself = this;
+    this.selectedstatus = {name : "wow"};
     this.legendVisible = false;
     this.chartSettings = {
       positionJsonLink: './static/gameGeo.json',
@@ -127,8 +212,12 @@ export default {
       },
     };
     this.chartEvents = {
-      click(e) {
+      click(e){
+        theself.selectedstatus = e;
+        theself.$forceUpdate();
         console.log(e);
+        console.log(this);
+        console.log(theself);
       },
       mouseover(e) {
         console.log(e.name);
