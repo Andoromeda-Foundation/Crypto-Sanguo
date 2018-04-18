@@ -10,7 +10,8 @@ export default {
       game: 'ゲーム',
       myPage: '勢力',
       Transactions: 'イベント',
-      herolist: '百科事典'
+      herolist: '百科事典',
+      SignIn: '登録'
     }
   },
   itemView: {
