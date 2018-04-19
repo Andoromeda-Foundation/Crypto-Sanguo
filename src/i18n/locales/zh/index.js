@@ -11,7 +11,8 @@ export default {
       myPage: '势力',
       Transactions: '时事',
       herolist: '百科',
-    },
+      SignIn: '登录'
+    }
   },
   itemView: {
     tabs: {
