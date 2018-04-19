@@ -12,6 +12,7 @@ import RecentView from '@/views/RecentView';
 import TransactionView from '@/views/TransactionView';
 import HeroListView from '@/views/HeroListView';
 import PackView from '@/views/PackView';
+import PackViewNew from '@/views/PackViewNew';
 
 Vue.use(Router);
 
@@ -75,5 +76,10 @@ export default new Router({
       component: PackView,
     },
 
+    {
+      name: 'HomeNew',
+      path: '/new',
+      component: PackViewNew,
+    },
   ],
 });
