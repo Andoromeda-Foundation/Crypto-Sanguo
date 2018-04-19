@@ -643,21 +643,20 @@ export default {
 </script>
 <style scoped>
 .PackView {
-  /*--paddingY: 18vw;*/
-  /*--fontSize: 1vw;*/
-
   background-image: url("../assets/img/packViewBg.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
   background-color: #000;
   padding: 3% var(--paddingY) 5% var(--paddingY);
   font-size: var(--fontSize);
-  /*@media (max-width: 800px) {
+  @media (max-width: 800px) {
+    --paddingY: 18vw;
+    --fontSize: 1vw;
     --scale: 1.4;
     padding: 3% calc(var(--paddingY) * (var(--scale) -1)) 5%
       calc(var(--paddingY) * (var(--scale) -1));
     font-size: calc(var(--fontSize)* var(--scale));
-  }*/
+  }
 }
 #helpMsg {
   position: absolute;
@@ -666,18 +665,19 @@ export default {
   padding: 20px;
 }
 #cover {
-  position: absolute;
-  background-color: #000;
-  width: 100%;
-  top: 500px;
-  height: 200px;
+  @media (min-width: 800px) {
+    position: absolute;
+    background-color: #000;
+    width: 100%;
+    top: 500px;
+    height: 200px;
+  }
 }
 #charas {
   padding-top: 150px;
 }
 #getCardBtn {
   top: -100px;
-  /*background-color: #666;*/
 }
 #surplusCards {
   top: -120px;
