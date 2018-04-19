@@ -1,18 +1,27 @@
 <template>
   <div class="item-view">
-    <div v-if="item">
+    <div v-if="item.owner === '0x0000000000000000000000000000000000000000'">
+      <div class="notification is-warning">
+        <h1>Sorry, but...</h1>
+        This Lucky Token {{itemId}} doesn't exist
+      </div>
+
+    </div>
+    <div v-else-if="item">
       <div class="columns is-multiline is-mobile">
         <div class="column
            is-full-mobile">
-          <div class="box columns">
               <img class="item-image"
-                   src="https://ws2.sinaimg.cn/large/006tNc79gy1fqg3lasdupj309q09q3z8.jpg" />
-          </div>
+                   :src="coinPhoto" />
         </div>
         <div class="column
            is-full-mobile">
           <h1 class="title">幸运币第 {{itemId}} 号</h1>
           <template >
+            <figure class="image is-128x128">
+              <img class="item-image"
+              :src="getIdeticon">
+            </figure>
             <ul>
               <li>{{$t('Owner')}}：
                 <router-link :to="{ name: 'User', params:{address: item.owner}}">
@@ -28,6 +37,7 @@
             <template v-if="item.owner === me.address">
               <div class="buttons">
                 <button class="button is-danger" @click="onTrasfer(itemId)"> 赠送 </button>
+                <button class="button is-danger" @click="onRollDice(itemId)"> 抽取武将卡 </button>
                 <button class="button is-danger" @click="onCreateAuction(itemId)"> 挂单 </button>
               </div>
               <!-- <div class="buttons">
@@ -55,9 +65,7 @@
       </div>
     </div>
 
-    <div v-else-if="item === null">
-      Lucky Token doesn't exist
-    </div>
+
   </div>
 </template>
 
@@ -83,6 +91,7 @@ import {
 } from '@/api';
 import { toReadablePrice } from '@/util';
 import web3 from '@/web3';
+import { getAvatarFromAddress } from '@/avatarService';
 
 export default {
   name: 'item-view',
@@ -91,7 +100,7 @@ export default {
   },
   data() {
     return {
-      item: null
+      item: {}
     };
   },
   computed: {
@@ -100,6 +109,13 @@ export default {
     },
     me() {
       return this.$store.state.me || {};
+    },
+    getIdeticon() {
+      return getAvatarFromAddress(this.item.owner);
+    },
+
+    coinPhoto() {
+      return 'https://ws2.sinaimg.cn/large/006tNc79gy1fqg3lasdupj309q09q3z8.jpg';
     }
   },
   mounted() {
@@ -222,9 +238,10 @@ export default {
     async toTrasfer({ to, tokenId }) {
       let alertCfg;
       try {
-        const txHash = await transfer(
-          { to,
-            tokenId });
+        const txHash = await transfer({
+          to,
+          tokenId
+        });
         // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
         alertCfg = {
           type: 'is-dark',
@@ -328,5 +345,11 @@ export default {
   /* width: 100%; */
   border-radius: 5px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+.notification h1 {
+  color: #4a4a4a;
+  font-size: 3rem !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
 }
 </style>
