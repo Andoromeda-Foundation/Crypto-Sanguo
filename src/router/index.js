@@ -12,6 +12,7 @@ import RecentView from '@/views/RecentView';
 import TransactionView from '@/views/TransactionView';
 import HeroListView from '@/views/HeroListView';
 import PackView from '@/views/PackView';
+import PackViewNew from '@/views/PackViewNew';
 import LuckyTokenView from '@/views/LuckyTokenView';
 
 Vue.use(Router);
@@ -79,7 +80,12 @@ export default new Router({
       name: 'Pack',
       path: '/pack',
       component: PackView
-    }
-
-  ]
+    },
+    
+    {
+      name: 'HomeNew',
+      path: '/new',
+      component: PackViewNew,
+    },
+  ],
 });
