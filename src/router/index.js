@@ -12,6 +12,7 @@ import RecentView from '@/views/RecentView';
 import TransactionView from '@/views/TransactionView';
 import HeroListView from '@/views/HeroListView';
 import PackView from '@/views/PackView';
+import LuckyTokenView from '@/views/LuckyTokenView';
 
 Vue.use(Router);
 
@@ -21,59 +22,64 @@ export default new Router({
     {
       name: 'Home',
       path: '/',
-      component: PackView,
+      component: PackView
     },
 
     {
       name: 'Explore',
       path: '/explore',
-      component: ExploreView,
+      component: ExploreView
     },
     {
       name: 'Item',
       path: '/item/:id(\\d+)',
-      component: ItemView,
+      component: ItemView
+    },
+    {
+      name: 'LuckyTokenView',
+      path: '/lucky/:id(\\d+)',
+      component: LuckyTokenView
     },
     {
       name: 'User',
       path: '/user/:address',
-      component: UserView,
+      component: UserView
     },
     {
       name: 'Game',
       path: '/game',
-      component: GameView,
+      component: GameView
     },
     {
       name: 'CreateItem',
       path: '/item/create',
-      component: CreateItemView,
+      component: CreateItemView
     },
     {
       name: 'HeroList',
       path: '/herolist',
-      component: HeroListView,
+      component: HeroListView
     },
     {
       name: 'Login',
       path: '/Login',
-      component: LoginView,
+      component: LoginView
     },
     {
       name: 'Recent',
       path: '/Recent',
-      component: RecentView,
+      component: RecentView
     },
     {
       name: 'Transaction',
       path: '/transaction',
-      component: TransactionView,
+      component: TransactionView
     },
     {
       name: 'Pack',
       path: '/pack',
-      component: PackView,
-    },
+      component: PackView
+    }
 
-  ],
+  ]
 });

@@ -11,24 +11,25 @@ export default {
       myPage: '勢力',
       Transactions: 'イベント',
       herolist: '百科事典',
-    },
+      SignIn: '登録'
+    }
   },
   itemView: {
     tabs: {
       bio: '武将紹介',
       attributes: '武将属性',
-      transactions: '取引履歴',
+      transactions: '取引履歴'
     },
     tokenNotExist: '武将未登場',
     drawCards: '今すぐ引く',
     remainCards: 'カードパッケージ残り：',
-    remainCardsNum: '枚カード',
+    remainCardsNum: '枚カード'
   },
   itemContent: {
     help: 'ガイド:',
     content1: '新しいブロックチェーンカードゲームはイーサ三国志に展開。',
     content2: 'カードを引くことで武将カードを入手するのは、公式カードリリースチャンネルで唯一的な方法。',
-    content3: '智能カードパッケージに含まれているカードと当たる確率は全て公開。',
+    content3: '智能カードパッケージに含まれているカードと当たる確率は全て公開。'
   },
   PackView: {
     tabs: {
@@ -45,13 +46,13 @@ export default {
         price: '価格',
         action: '',
         buy: '購入',
-        rollDice: 'このラッキーコインを使ってカードを引く',
+        rollDice: 'このラッキーコインを使ってカードを引く'
       },
       tx: {
         txHash: 'TX',
         date: '日付',
         from: 'ユーザー',
-        status: '当たるカード',
+        status: '当たるカード'
       },
       luckyToken: {
         title: 'ラッキーコイン',
@@ -72,9 +73,9 @@ export default {
         createAuction: '売る',
         revokeAuction: '取り戻す',
         sendTitle: '幸運なお金を与える',
-        send: 'ギフト',
-      },
-    },
+        send: 'ギフト'
+      }
+    }
   },
   'My Cards': '私のカード',
   'Sign In': '登録',
@@ -82,7 +83,7 @@ export default {
   FAQs: 'よくある質問',
   Owner: '所有者',
   'Current Price': '価格',
-  odds:'当たる確率',
+  odds: '当たる確率',
   Buy: '購入',
   BirthdayGift: '智取生辰綱(HOT)',
   'Terms of Service': '利用規約',
@@ -109,66 +110,66 @@ export default {
       success: {
         title: 'カードを引く',
         msg: '成功しました',
-        confirmText: '確認',
+        confirmText: '確認'
       },
       fail: {
         title: 'カードを引く',
         msg: '失敗しました',
-        confirmText: '確認',
+        confirmText: '確認'
       },
       noLuckyToken: {
         title: 'カードを引く',
         msg: 'すみません、ラッキーコイン在庫ないので、ラッキーコイン市場で購入してください。',
-        confirmText: '確認',
+        confirmText: '確認'
       }
     },
     CreateAuction: {
       success: {
         title: 'ラッキーコインを売る',
         msg: '成功しました',
-        confirmText: '確認',
+        confirmText: '確認'
       },
       fail: {
         title: 'ラッキーコインを売る',
         msg: '失敗しました',
-        confirmText: '確認',
+        confirmText: '確認'
       }
     },
     revokeAuction: {
       success: {
         title: 'ラッキーコインを取り戻す',
         msg: '成功しました',
-        confirmText: '確認',
+        confirmText: '確認'
       },
       fail: {
         title: 'ラッキーコインを取り戻す',
         msg: '失敗しました',
-        confirmText: '確認',
+        confirmText: '確認'
       }
     },
     buyLuckyToken: {
       success: {
         title: 'ラッキーコインを購入',
         msg: '成功しました',
-        confirmText: '確認',
+        confirmText: '確認'
       },
       fail: {
         title: 'ラッキーコインを購入',
         msg: '失敗しました',
-        confirmText: '確認',
+        confirmText: '確認'
       }
     },
     sendLuckyToken: {
       success: {
         title: '幸運なコインを送る',
         msg: 'ラッキーコインの成功を送る',
-        confirmText: '確認',
+        confirmText: '確認'
       },
       fail: {
         title: '幸運なコインを送る',
         msg: '幸運なコインを送ることができなかった',
-        confirmText: '確認',
+        confirmText: '確認'
       }
-    },
+    }
   }
 };

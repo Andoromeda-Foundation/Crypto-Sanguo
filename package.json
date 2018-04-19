@@ -12,11 +12,11 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "bignumber.js": "^6.0.0",
     "bluebird": "^3.5.1",
     "buefy": "^0.6.3",
     "echarts": "^4.0.4",
+    "ethereum-blockies-png": "^0.1.2",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.5",
     "npm": "^5.8.0",
