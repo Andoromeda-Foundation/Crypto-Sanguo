@@ -25,6 +25,10 @@
            is-full-mobile">
           <h1 class="title">{{item.title}}</h1>
           <template >
+            <figure class="image is-128x128">
+              <img class="item-image"
+              :src="getIdeticon">
+            </figure>
             <ul>
               <li>{{$t('Owner')}}：
                 <router-link :to="{ name: 'User', params:{address: item.owner}}">
@@ -117,6 +121,7 @@ import 'echarts/lib/chart/radar';
 import { buyItem, setPrice, getItem, getMe } from '@/api';
 import { toReadablePrice } from '@/util';
 import web3 from '@/web3';
+import { getAvatarFromAddress } from '@/avatarService';
 
 export default {
   name: 'item-view',
@@ -140,6 +145,9 @@ export default {
     me() {
       return this.$store.state.me || {};
     },
+    getIdeticon() {
+      return getAvatarFromAddress(this.item.owner);
+    },    
     item() {
       return this.$store.state.items[this.itemId];
     },
