@@ -1,716 +1,332 @@
 <template>
   <div class="PackView is-marginless is-clipped">
 
-    <section class="KJ-position-relative has-text-centered">
-      <div id="helpMsg">
-        <!-- <h3>{{ $t('itemContent.help') }}</h3> -->
-        <p>{{ $t('itemContent.content1') }}</p>
-        <p>{{ $t('itemContent.content2') }}</p>
-        <p>{{ $t('itemContent.content3') }}</p>
-      </div>
-      <img id="charas" src="@/assets/img/charas.png" />
-      <div class="KJ-position-absolute-horizontal-center"
-           style="bottom:5%">
-      </div>
-      <div id="cover"></div>
+    <section class="section1">
+          <div class="sectionContainer">
+              <div class="logo">
+                  <img alt="" width="150" srcset="../assets/img/logo.png"/>
+              </div>
+              <div class="titleNav">
+                  <div>
+                      <p class="title">以太三国</p>
+                      <p class="subtitle">三国题材与区块链融合的策略游戏</p>
+                  </div>
+                  <br/>
+                  <div class="btndiv">
+                    <router-link class="button is-medium" :to="{ name: 'Game' }">进入游戏</router-link>
+                    <!-- <a class="button is-medium" href="https://cryptosanguo.pro/#/game" target="_blank">进入游戏</a> -->
+                  </div>
+                  <div class="btndiv">
+                    <router-link class="button is-medium" :to="{ name: 'PreSell' }">预售商城</router-link>
+                  </div>
+                  <div class="btndiv">
+                    <!-- <a class="button is-medium" href="http://old.etherwarship.com" style="background-color: transparent; color:white" target="_blank">白皮书</a> -->
+                    <router-link class="button is-medium" :to="{ name: 'BP' }" style="background-color: transparent; color:white">白皮书</router-link>
+                  </div>
+                  <br/>
+                  <br/>
+                  <br/>
+              </div>
+          </div>
     </section>
 
-    <div id="getCardBtn" @click="onRollDice()"
-             class="KJ-position-relative KJ-cursor-pointer has-text-centered">
-      <img src="@/assets/img/button_chouka.png" />
-      <span class="drawCard-btn-text mainTextColor
-       KJ-position-absolute-horizontal-center has-text-weight-bold">
-        {{ $t('itemView.drawCards') }}({{luckyLength}})</span>
-    </div>
+    <br/>
 
-    <div id="surplusCards" class="remainingCards-msg mainTextColor
-    KJ-position-relative has-text-centered">{{ $t('itemView.remainCards') }}{{packageSize}} {{ $t('itemView.remainCardsNum') }}</div>
-
-    <section>
-      <b-tabs position="is-centered"
-              class="block PackView-tabs">
-        <b-tab-item :label="$t('PackView.tabs.item.title')">
-          <div class="buttons is-centered">
-            <button @click="onSwitchItemType('PACK')"
-                    :class="{
-                      'is-sg-btn-primary': itemTableType === 'PACK',
-                       'is-sg-btn-dark': itemTableType !== 'PACK',
-                    }"
-                    class='button is-medium has-text-weight-bold'>
-              {{$t('PackView.tabs.item.pack')}}
-            </button>
-            <button @click="onSwitchItemType('ALL')"
-                    :class="{
-                      'is-sg-btn-primary': itemTableType === 'ALL',
-                       'is-sg-btn-dark': itemTableType !== 'ALL',
-                    }"
-                    class='button is-medium has-text-weight-bold'>
-              {{$t('PackView.tabs.item.all')}}
-            </button>
-            <button @click="onSwitchItemType('MY')"
-                    :class="{
-                      'is-sg-btn-primary': itemTableType === 'MY',
-                       'is-sg-btn-dark': itemTableType !== 'MY',
-                    }"
-                    class='button is-medium has-text-weight-bold'>
-              {{$t('PackView.tabs.item.my')}}
-            </button>
-          </div>
-
-          <div id="arrowLeft" @click="onArrowClicked('left')">
-            <img src="@/assets/img/arrow_left.png" />
-          </div>
-          <div id="arrowRight" @click="onArrowClicked('right')">
-            <img src="@/assets/img/arrow_right.png" />
-          </div>
-
-          <div id="cardsContainer" class=" columns is-mobile is-multiline">
-            <b-loading :is-full-page="false"
-                       :active.sync="isLoadingItems"
-                       :canCancel="false"></b-loading>
-            <div v-for="item in items.slice(startIndex, startIndex+6)"
-                 :key="item.id.toString()"
-                 class="column is-half-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
-              <ItemPreview :item="item" />
+    <section class="section">
+      <div class="sec2toptitle">
+        <a class="section2title">独一无二的三国英雄卡</a>
+      </div>
+      <br/>
+      <div class="columns">
+        <div class="column is-two-thirds">
+        <br/>
+        <br/>
+        <br/>
+          <a class="section2content">这是一款基于以太坊区块链的三国题材的策略游戏。<br>1.0版本中具备简易的战斗方式，着重考察玩家对战场局势的掌控与对兵力的调度，之后将引入资源相关的调度。</a>
+          <div style="margin: 30px 8px 20px 6px;border-top:1px solid #C0C0C0;"></div>
+          <div class="columns">
+            <div class="column is-half">
+              <a class="sec2subtitle">英雄卡</a>
+              <br>
+              <a class="sec2subcontent">玩家可使用幸运币抽取独一无二的三国英雄卡。</a>
+            </div>
+            <div class="column is-half sec2subtitle">
+              <a class="sec2subtitle">幸运币</a>
+              <br>
+              <a class="sec2subcontent">幸运币市场每天都会售卖一枚唯一编号的幸运币。</a>
             </div>
           </div>
-        </b-tab-item>
-      </b-tabs>
+        </div>
+        <div class="column cardSample">
+            <img alt="" srcset="../assets/img/cardsample.png"/>
+        </div>
+      </div>
     </section>
 
-    <br /><br /><br />
+    <br/>
+
+    <section class="section">
+      <div class="sec2toptitle">
+        <a class="section2title">独创的区块链抽卡玩法</a>
+      </div>
+      <br/>
+      <div class="columns">
+        <div class="column is-one-third">
+            <img alt="" srcset="../assets/img/cardwhich.png"/>
+        </div>
+        <div class="column">
+          <a class="sec2subtitle">以太三国创新推出全新的区块链抽卡玩法。</a>
+          <br/>
+          <br/>
+          <br/>
+          <a class="sec2subcontent">
+          通过抽卡方法获得武将卡，将会是唯一的官方卡牌发售渠道。<br>
+          智能卡包中当前包含的卡牌和中奖概率完全公开透明。</a>
+          <div class="btndiv">
+            <router-link class="button is-medium" :to="{ name: 'PreSell' }">前往抽卡</router-link>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <br/>
+
+    <section class="section">
+      <div class="sec2toptitle">
+        <a class="section2title">丰富的游戏玩法</a>
+        <br/>
+        <a class="sec2subtitle">英雄卡不仅仅是一张卡，他们将成为玩家们的武将，为玩家争夺统治领地，扩张势力。</a>
+      </div>
+      <br/>
+      <div class="columns is-multiline is-mobile">
+        <div class="column is-one-third-desktop is-one-third-tablet is-12-mobile playContainer" v-for="item in playstyle">
+          <img alt="" v-bind:src="'../static/home/'+item.img+'.jpg'"/>
+          <br>
+          <a class="playTitle">{{ item.title }}</a>
+          <br>
+          <a class="playContent">{{ item.content }}</a>
+        </div>
+        <div class="column is-two-third-desktop is-two-third-tablet is-12-mobile zhilingDiv">
+          <a class="playTitle">已提供下列指令：</a>
+          <br/>
+          <a class="playContent">搜寻（120）有一定概率可以搜寻到武将人才。搜寻到的概率同执行武将的魅力相关。<br>
+            出征：对其他玩家的城池发动攻击。战斗胜利的一方有一定概率获得对手的in game 武
+            将。<br>
+            调度：调度自己的部队。<br>
+            撤退：从战斗中撤退到其他城市。<br>
+            移动：仅移动自己的武将。<br>
+            更多玩法，敬请期待。</a>
+        </div>
+      </div>
+    </section>
 
     <section>
-      <b-tabs position="is-centered"
-              class="block PackView-tabs">
-        <b-tab-item :label="$t('PackView.tabs.item.title1')">
-          <div class="buttons is-centered">
-            <button @click="onSwitchTxType('ALL')"
-                    :class="{
-                      'is-sg-btn-primary': txTableType === 'ALL',
-                       'is-sg-btn-dark': txTableType !== 'ALL',
-                    }"
-                    class='button is-medium has-text-weight-bold'>
-              {{ $t('PackView.tabs.item.all1') }}
-            </button>
-            <button @click="onSwitchTxType('MY')"
-                    :class="{
-                      'is-sg-btn-primary': txTableType === 'MY',
-                       'is-sg-btn-dark': txTableType !== 'MY',
-                    }"
-                    class='button is-medium has-text-weight-bold'>
-              {{ $t('PackView.tabs.item.my1') }}
-            </button>
+      <slider class="sliderContainer" animation="normal" height="700px">
+        <slider-item>
+          <div class="slide slide1">
+            <div class="slideContainer">
+              <span class="slidetext slidetitle">各路武将 谁与争锋</span>
+              <p class="slidetext">在幸运币商店购买幸运币即可抽取随机一位武将。</p>
+              <br>
+              <div class="btndiv">
+                <router-link class="button is-medium" :to="{ name: 'PreSell' }">了解详情</router-link>
+              </div>
+            </div>
           </div>
-
-          <b-table class="txTable"
-                   :data="txList"
-                   default-sort="date"
-                   default-sort-direction="desc"
-                   :loading="isLoadingPackTxs"
-                   :striped="true"
-                   :mobile-cards="false">
-            <template slot-scope="props">
-
-              <b-table-column field="txHash"
-                              :label="$t('PackView.tabs.tx.txHash')"
-                              centered>
-                <a :href="'https://etherscan.io/tx/'+props.row.txHash"
-                   target="_blank">
-                  {{ props.row.txHash.slice(-6).toUpperCase() }}
-                </a>
-              </b-table-column>
-
-              <b-table-column field="date"
-                              :label="$t('PackView.tabs.tx.date')"
-                              sortable
-                              centered>
-                {{ (new Date(props.row.date)).toLocaleString() }}
-              </b-table-column>
-
-              <b-table-column field="from"
-                              :label="$t('PackView.tabs.tx.from')"
-                              centered>
-                <router-link :to="{
-                  name: 'User',
-                  params:{address: props.row.from}}">
-                  {{ props.row.from.slice(-6).toUpperCase() }}
-                </router-link>
-              </b-table-column>
-
-              <b-table-column field="prize"
-                              :label="$t('PackView.tabs.tx.status')"
-                              centered>
-                <router-link :to="{
-                  name: 'Item',
-                  params:{id: props.row.prize.id }}">
-                   {{ props.row.prize.title }}
-                </router-link>
-              </b-table-column>
-
-            </template>
-          </b-table>
-        </b-tab-item>
-      </b-tabs>
+        </slider-item>
+        <slider-item>
+          <div class="slide slide2">
+            <div class="slideContainer">
+              <span class="slidetext slidetitle">群雄争霸天下</span>
+              <p class="slidetext">指挥武将进行对战，争夺城池，一统天下。</p>
+              <br>
+              <div class="btndiv">
+                <router-link class="button is-medium" :to="{ name: 'Game' }">了解详情</router-link>
+              </div>
+            </div>
+          </div>
+        </slider-item>
+        <slider-item>
+          <div class="slide slide3">
+            <div class="slideContainer">
+              <span class="slidetext slidetitle">更多内容</span>
+              <p class="slidetext">敬请期待。</p>
+            </div>
+          </div>
+        </slider-item>
+      </slider>
     </section>
 
-    <br /><br /><br />
-
-    <section>
-      <b-tabs position="is-centered"
-              class="block PackView-tabs">
-        <b-tab-item :label="$t('PackView.tabs.luckyToken.title')">
-          <div class="buttons is-centered">
-            <button @click="onSwitchLuckyTokenType('ALL')"
-                    :class="{
-                      'is-sg-btn-primary': luckyTokenTableType === 'ALL',
-                       'is-sg-btn-dark': luckyTokenTableType !== 'ALL',
-                    }"
-                    class='button is-medium has-text-weight-bold'>
-              {{$t('PackView.tabs.luckyToken.all')}}
-            </button>
-            <button @click="onSwitchLuckyTokenType('MY')"
-                    :class="{
-                      'is-sg-btn-primary': luckyTokenTableType === 'MY',
-                       'is-sg-btn-dark': luckyTokenTableType !== 'MY',
-                    }"
-                    class='button is-medium has-text-weight-bold'>
-              {{$t('PackView.tabs.luckyToken.my')}}
-            </button>
-          </div>
-          <div v-show="luckyTokenTableType === 'ALL'">
-            <b-table class="txTable"
-                     :data="luckyTokens"
-                     default-sort="price"
-                     default-sort-direction="asc"
-                     :striped="true"
-                     :loading="isLoadingLuckyTokens"
-                     :mobile-cards="false">
-              <template slot-scope="props">
-
-                <b-table-column field="tokenId"
-                                :label="$t('PackView.tabs.luckyToken.id')"
-                                sortable
-                                centered>
-                  {{ props.row.tokenId }}
-                </b-table-column>
-
-                <b-table-column field="price"
-                                :label="$t('PackView.tabs.luckyToken.price')"
-                                centered
-                                sortable>
-                  {{ props.row.priceInETH }} ETH
-                </b-table-column>
-
-                <b-table-column field="startTime"
-                                :label="$t('PackView.tabs.luckyToken.free1')"
-                                centered
-                                sortable>
-                  {{ (new Date(props.row.startTime)).toLocaleString() }}
-                </b-table-column>
-
-                <b-table-column field="endTime"
-                                :label="$t('PackView.tabs.luckyToken.free2')"
-                                centered
-                                sortable>
-                  {{ (new Date(props.row.endTime)).toLocaleString() }}
-                </b-table-column>
-
-                <b-table-column field="status"
-                                :label="$t('PackView.tabs.luckyToken.action')"
-                                centered>
-                  <a v-if="props.row.status === 'SELLING' && me && props.row.owner != me.address"
-                     class="button is-small is-warning is-outlined"
-                     @click="onBuyLuckyToken(props.row)">
-                    {{$t('PackView.tabs.luckyToken.buy')}}
-                  </a>
-                  <button class="button is-small is-warning is-outlined"
-                          disabled
-                          v-else> {{$t('PackView.tabs.luckyToken.buy')}}</button>
-                  <button v-if="me && props.row.owner === me.address && props.row.status=== 'EXPIRED'"
-                          class="button is-small is-warning is-outlined"
-                          @click="onRevokeAuction(props.row.Exchangeid)">
-                    {{$t('PackView.tabs.luckyToken.revokeAuction')}}</button>
-                </b-table-column>
-              </template>
-            </b-table>
-          </div>
-          <div v-show="luckyTokenTableType === 'MY'">
-            <b-table class="txTable"
-                     :data="luckyTokens"
-                     default-sort="id"
-                     default-sort-direction="asc"
-                     :striped="true"
-                     :loading="isLoadingLuckyTokens"
-                     :mobile-cards="false">
-              <template slot-scope="props">
-                <b-table-column field="id"
-                                :label="$t('PackView.tabs.luckyToken.id')"
-                                sortable
-                                centered>
-                  {{ props.row.id }}
-                </b-table-column>
-
-                <b-table-column field="id"
-                                :label="$t('PackView.tabs.luckyToken.rollDiceTitle')"
-                                centered>
-                  <a class="button is-small is-warning is-outlined"
-                     @click="onRollDice(props.row.id)">
-                    {{$t('PackView.tabs.luckyToken.rollDice')}}
-                  </a>
-
-                </b-table-column>
-
-              <b-table-column field="id"
-                                :label="$t('PackView.tabs.luckyToken.sendTitle')"
-                                centered>
-                  <a class="button is-small is-warning is-outlined"
-                     @click="onTrasfer(props.row.id)">
-                    {{$t('PackView.tabs.luckyToken.send')}}
-                  </a>
-
-                </b-table-column>
-
-                <template v-if="props.row.approved">
-                  <b-table-column field="id"
-                                  :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
-                                  centered>
-                    <a class="button is-small is-warning is-outlined"
-                       @click="onCreateAuction(props.row.id)">
-                      {{$t('PackView.tabs.luckyToken.createAuction')}}
-                    </a>
-                  </b-table-column>
-                </template>
-                <template v-else>
-                  <b-table-column field="id"
-                                  :label="$t('PackView.tabs.luckyToken.createAuctionTitle')"
-                                  centered>
-                    <a class="button is-small is-warning is-outlined"
-                       @click="onAppprove(props.row.id)">
-                      {{$t('PackView.tabs.luckyToken.approved')}}
-                    </a>
-                  </b-table-column>
-                </template>
-
-              </template>
-            </b-table>
-          </div>
-        </b-tab-item>
-      </b-tabs>
-    </section>
+    <br/>
 
   </div>
 </template>
 
 <script>
-import web3 from '@/web3';
-import { mapState } from 'vuex';
-import ItemPreview from '@/components/ItemPreview';
-import {
-  getPackTx,
-  getItemsOf,
-  getPackage,
-  getLuckTokensOf,
-  buyLuckyToken,
-  rollDice,
-  getPackageSize,
-  getItem,
-  getItems,
-  createAuction,
-  revokeAuction,
-  getAllLuckyTokenAuctions,
-  approveD,
-  eventRollDice,
-  getLuckTokensOfLength,
-  transfer,
-} from '@/api';
-import BTableColumn from 'buefy/src/components/table/TableColumn';
+import { Slider, SliderItem } from 'vue-easy-slider'
 
 export default {
-  name: 'PackView',
+  name: 'PackViewNew',
   components: {
-    BTableColumn,
-    ItemPreview,
+    Slider,
+    SliderItem
   },
   data() {
     return {
-      packageSize: '',
-      luckyTokens: [],
-      items: [],
-      txTableType: '',
-      luckyTokenTableType: '',
-      itemTableType: '',
-      isLoadingLuckyTokens: true,
-      isLoadingItems: true,
-      isLoadingPackTxs: true,
-      txList: [],
-      luckyTokenAuctions: [],
-      luckyLength: '',
-      startIndex: 0,
-    };
-  },
-  computed: {
-    ...mapState(['me', 'signInError']),
-  },
-  async created() {
-    this.luckyTokenTableType = 'ALL';
-    this.itemTableType = 'PACK';
-    this.txTableType = 'ALL';
-    this.packageSize = await getPackageSize();
-    this.luckyLength = await getLuckTokensOfLength(this.me.address);
-    eventRollDice.watch(async (error, result) => {
-      // console.log({ error, result });
-      if (error) return;
-      const _from = result.args._from;
-      const _to = result.args._to;
-      const _tokenId = result.args._tokenId.toString();
-      const item = await getItem(_tokenId);
-      const luckyContract = '0x8b481c5af4734501ea8b6a0c3502e001dd883d3d'
-      // console.log(_from,_to,_tokenId,item);
-      if (_from.toUpperCase() === luckyContract.toUpperCase()){
-             
-        let playerName = _to.toUpperCase();
-        if (this.me && this.me.address.toUpperCase() === playerName) {
-          playerName = '你';
-        }
-        const message = `恭喜${playerName}刚刚抽中了 ${item.title} 卡`;
-        this.$toast.open({
-          duration: 5000,
-          message,
-          position: 'is-top',
-          type: 'is-warning',
-        });
-      }
+      playstyle: [
+        {"title":"城池", "content":"城池是玩家的统治的领地，也是玩家之间争夺的焦点。", "img":"home_1_chengchi"},
+        {"title":"武将", "content":"武将具有，统御，武力，智力，内政和魅力五种属性。", "img":"home_2_wujiang"},
+        {"title":"势力", "content":"玩家掌握的所有城市的集合。", "img":"home_3_shili"},
+        {"title":"战斗", "content":"开始直到某一方战败或者撤退。", "img":"home_4_zhandou"},
+        {"title":"预约", "content":"持有武将卡的玩家将可以对城池进行预约。", "img":"home_5_yuyue"},
+        {"title":"时点", "content":"玩家发布指令会消耗时点。", "img":"home_6_shidian"},
+        {"title":"指令", "content":"指令是玩家影响游戏进程的主要手段。", "img":"home_7_zhiling"},
+      ]
+    }
+  }
+}
 
-    });
-    setInterval(async () => {
-      if (this.luckyTokenTableType === 'ALL') {
-        this.luckyTokens = await getAllLuckyTokenAuctions();
-      }
-    }, 5000);
-  },
-  methods: {
-    checkLogin() {
-      if (this.me && this.me.address) {
-        return true;
-      }
-      alert(this.signInError);
-      return false;
-    },
-    async onBuyLuckyToken(luckyToken) {
-      if (!this.checkLogin()) {
-        return;
-      }
-      let alertCfg;
-
-      try {
-        const txHash = await buyLuckyToken(luckyToken.id, luckyToken.price);
-        // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.buyLuckyToken.success.title'),
-          message: this.$t('alert.buyLuckyToken.success.msg', { txHash }),
-          confirmText: this.$t('alert.buyLuckyToken.success.confirmText'),
-        };
-      } catch (e) {
-        console.log(e);
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.buyLuckyToken.fail.title'),
-          message: this.$t('alert.buyLuckyToken.fail.msg', { e }),
-          confirmText: this.$t('alert.buyLuckyToken.fail.confirmText'),
-        };
-      }
-      this.$dialog.alert(alertCfg);
-    },
-    async onRollDice(luckyTokenId) {
-      if (!this.checkLogin()) {
-        return;
-      }
-      // 没有指定使用哪个幸运币
-      if (isNaN(luckyTokenId)) {
-        const myLuckyTokenIds = await getLuckTokensOf(this.me.address);
-        // 没有幸运币
-        if (myLuckyTokenIds.length === 0) {
-          this.$dialog.alert({
-            type: 'is-dark',
-            title: this.$t('alert.rollDice.noLuckyToken.title'),
-            message: this.$t('alert.rollDice.noLuckyToken.msg'),
-            confirmText: this.$t('alert.rollDice.noLuckyToken.confirmText'),
-          });
-          return;
-        }
-        // 随机选一个幸运币
-        const randomLuckyToken =
-          myLuckyTokenIds[Math.floor(Math.random() * myLuckyTokenIds.length)];
-        luckyTokenId = randomLuckyToken.id;
-      }
-
-      let alertCfg;
-      try {
-        const txHash = await rollDice(luckyTokenId);
-        // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.rollDice.success.title'),
-          message: this.$t('alert.rollDice.success.msg', { txHash }),
-          confirmText: this.$t('alert.rollDice.success.confirmText'),
-        };
-      } catch (e) {
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.rollDice.fail.title'),
-          message: this.$t('alert.rollDice.fail.msg', { e }),
-          confirmText: this.$t('alert.rollDice.fail.confirmText'),
-        };
-      }
-      this.$dialog.alert(alertCfg);
-    },
-    async toCreateAuction({ tokenId, priceInETH, startTime, endTime }) {
-      let alertCfg;
-      try {
-        const txHash = await createAuction({
-          price: web3.toWei(priceInETH, 'ether'),
-          tokenId,
-          startTime,
-          endTime,
-        });
-        // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.CreateAuction.success.title'),
-          message: this.$t('alert.CreateAuction.success.msg', { txHash }),
-          confirmText: this.$t('alert.CreateAuction.success.confirmText'),
-        };
-      } catch (e) {
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.CreateAuction.fail.title'),
-          message: this.$t('alert.CreateAuction.fail.msg', { e }),
-          confirmText: this.$t('alert.CreateAuction.fail.confirmText'),
-        };
-      }
-      this.$dialog.alert(alertCfg);
-    },
-    async toTrasfer({ to, tokenId}) {
-      let alertCfg;
-      try {
-        const txHash = await transfer(
-          {to,
-          tokenId});
-        // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.sendLuckyToken.success.title'),
-          message: this.$t('alert.sendLuckyToken.success.msg', { txHash }),
-          confirmText: this.$t('alert.sendLuckyToken.success.confirmText'),
-        };
-      } catch (e) {
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.sendLuckyToken.fail.title'),
-          message: this.$t('alert.sendLuckyToken.fail.msg', { e }),
-          confirmText: this.$t('alert.sendLuckyToken.fail.confirmText'),
-        };
-      }
-      this.$dialog.alert(alertCfg);
-    },
-    async onRevokeAuction(id) {
-      let alertCfg;
-      try {
-        const txHash = await revokeAuction(id);
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.revokeAuction.success.title'),
-          message: this.$t('alert.revokeAuction.success.msg', { txHash }),
-          confirmText: this.$t('alert.revokeAuction.success.confirmText'),
-        };
-      } catch (e) {
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.revokeAuction.fail.title'),
-          message: this.$t('alert.revokeAuction.fail.msg', { e }),
-          confirmText: this.$t('alert.revokeAuction.fail.confirmText'),
-        };
-      }
-      this.$dialog.alert(alertCfg);
-    },
-    async onAppprove(luckyTokenId) {
-      await approveD(luckyTokenId);
-    },
-    async onCreateAuction(luckyTokenId) {
-      this.$dialog.prompt({
-        message: '售卖价格(ETH)',
-        inputAttrs: {},
-        onConfirm: (priceInETH) => {
-          this.$dialog.prompt({
-            message: '挂单时长(小时)',
-            inputAttrs: {
-              value: 1, // default 1 hour
-            },
-            onConfirm: (durationInHour) => {
-              const startTime = parseInt(new Date().getTime() / 1000);
-              // const endTime = startTime + 24 * 60 * 60; // 1 day
-              const endTime = startTime + Number(durationInHour) * 60 * 60;
-              this.toCreateAuction({
-                tokenId: luckyTokenId,
-                priceInETH,
-                startTime,
-                endTime,
-              });
-            },
-          });
-        },
-      });
-    },
-    async onTrasfer(tokenId) {
-      this.$dialog.prompt({
-        message: '送给谁(address)',
-        inputAttrs: {},
-        onConfirm: (to) => {
-          this.toTrasfer({
-            to,
-            tokenId
-          });
-        },
-      });
-    },
-    onSwitchTxType(type) {
-      this.txTableType = type;
-    },
-    onSwitchLuckyTokenType(type) {
-      this.luckyTokenTableType = type;
-    },
-    onSwitchItemType(type) {
-      this.itemTableType = type;
-    },
-    onArrowClicked(type) {
-      const itemsCount = this.items.length;
-      console.log(itemsCount)
-      if(type == "left" && this.startIndex>0) {
-        this.startIndex-=6;
-      }else if(type == "right" && this.startIndex<itemsCount-6) {
-        this.startIndex+=6;
-      }
-    },
-  },
-  watch: {
-    async luckyTokenTableType(toType, fromType) {
-      this.isLoadingLuckyTokens = true;
-      try {
-        if (toType === 'ALL') {
-          this.luckyTokens = await getAllLuckyTokenAuctions();
-        }
-        if (toType === 'MY') {
-          this.checkLogin();
-          this.luckyTokens = await getLuckTokensOf(this.me.address);
-        }
-      } catch (e) {}
-      this.isLoadingLuckyTokens = false;
-    },
-    async itemTableType(toType, fromType) {
-      this.isLoadingItems = true;
-      this.items = [];
-      try {
-        if (toType === 'PACK') {
-          this.items = await getPackage();
-        }
-        if (toType === 'ALL') {
-          this.items = await getItems();
-        }
-        if (toType === 'MY') {
-          this.checkLogin();
-          this.items = await getItemsOf(this.me.address);
-        }
-      } catch (e) {}
-      this.isLoadingItems = false;
-    },
-    async txTableType(toType, fromType) {
-      this.isLoadingPackTxs = true;
-      try {
-        if (toType === 'ALL') {
-          this.txList = await getPackTx();
-        }
-        if (toType === 'MY') {
-          this.checkLogin();
-          this.txList = await getPackTx(this.me.address);
-        }
-      } catch (e) {}
-      this.isLoadingPackTxs = false;
-    },
-  },
-};
 </script>
+
 <style scoped>
 .PackView {
-  background-image: url("../assets/img/packViewBg.jpg");
+  background-color: #000;
+}
+
+/*
+  section 1
+*/
+.section1 {
+  background-image: url("../assets/img/homeBG.jpeg");
   background-size: 100%;
   background-repeat: no-repeat;
   background-color: #000;
-  padding: 3% var(--paddingY) 5% var(--paddingY);
-  font-size: var(--fontSize);
   @media (max-width: 800px) {
-    --paddingY: 18vw;
-    --fontSize: 1vw;
-    --scale: 1.4;
-    padding: 3% calc(var(--paddingY) * (var(--scale) -1)) 5%
-      calc(var(--paddingY) * (var(--scale) -1));
-    font-size: calc(var(--fontSize)* var(--scale));
+    background-size: cover;
   }
 }
-#helpMsg {
-  position: absolute;
-  text-align: left;
-  color: #fbb800;
-  padding: 20px;
-}
-#cover {
-  @media (min-width: 800px) {
-    position: absolute;
-    background-color: #000;
-    width: 100%;
-    top: 500px;
-    height: 200px;
+.logo {
+  text-align: right;
+  padding-right: 30px;
+  padding-top: 30px;
+  @media (max-width: 800px) {
+    text-align: center;
+    padding-right: 0px;
   }
 }
-#charas {
-  padding-top: 150px;
+.sectionContainer {
+  background-color: #000;
+  opacity: 0.7;
 }
-#getCardBtn {
-  top: -100px;
+.titleNav {
+  margin-left: 50px;
+  @media (max-width: 800px) {
+    margin-left: 0px;
+    text-align: center;
+  }
 }
-#surplusCards {
-  top: -120px;
+.title {
+  font-size: 60px;
+  color: #fff;
 }
-.mainTextColor {
-  color: #fbb800;
+.subtitle {
+  color: #fff;
 }
-.remainingCards-msg {
-  font-size: 1.5em;
-  bottom: -1.7em;
-}
-.drawCard-btn-text {
-  font-size: 1.5em;
-  bottom: 36%;
-}
-.help-msg {
-  font-size: 1.1em;
-  color: #eed9b2;
-  padding: 2em 1.4em;
+.btndiv {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-#cardsContainer {
+/*
+  section 2
+*/
+.section {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+.sec2toptitle {
+  text-align: center;
+}
+.section2title {
+  font-size: 40px;
+  color: #fff;
+}
+.section2content {
+  font-size: 20px;
+  color: #fff;
+}
+.sec2subtitle {
+  font-size: 20px;
+  color: #fff;
+}
+.sec2subcontent {
+  color: #999
+}
+
+/*
+  section 4
+*/
+.playContainer {
+  text-align: center;
+}
+.playTitle {
+  font-size: 20px;
+  color: #fff;
+}
+.playContent {
+  color: #999;
+}
+.zhilingDiv {
+  border-style: solid;
+  border-width: 1px;
+  border-color: white;
+  padding: 30px;
+  margin: 30px;
+  @media (max-width: 770px) {
+    margin: 0px;
+  }
+}
+
+/*
+  section 5
+*/
+.sliderContainer {
+  width: 100%;
+  height: 999px;
+}
+.slide {
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-color: #000;
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 30px;
+}
+.slide1 {
+  background-image: url("../assets/img/home1.jpeg");
+}
+.slide2 {
+  background-image: url("../assets/img/home2.jpeg");
+}
+.slide3 {
+  background-image: url("../assets/img/home3.jpeg");
+}
+.slideContainer {
+  margin-top: 55px;
+  margin-left: 30px;
+  padding: 30px;
   width: 80%;
-  margin: auto;
+  height: 50%;
+  background-color: #ffffff33;
+  /*opacity: 0.5;*/
 }
-
-#arrowLeft {
-  position: absolute;
-  cursor: pointer;
+.slidetext {
+  color: #000;
+  font-size: 20px;
 }
-#arrowRight {
-  position: absolute;
-  cursor: pointer;
-  right: 20px;
+.slidetitle {
+  font-size: 40px;
 }
 </style>

@@ -13,6 +13,7 @@ import TransactionView from '@/views/TransactionView';
 import HeroListView from '@/views/HeroListView';
 import PackView from '@/views/PackView';
 import PackViewNew from '@/views/PackViewNew';
+import BPView from '@/views/BPView';
 import LuckyTokenView from '@/views/LuckyTokenView';
 
 Vue.use(Router);
@@ -86,6 +87,16 @@ export default new Router({
       name: 'HomeNew',
       path: '/new',
       component: PackViewNew,
+    },
+    {
+      name: 'PreSell',
+      path: '/presell',
+      component: PackView,
+    },
+    {
+      name: 'BP',
+      path: '/bp',
+      component: BPView,
     },
   ],
 });

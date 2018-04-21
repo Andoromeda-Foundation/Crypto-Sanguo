@@ -22,7 +22,10 @@ Vue.use(VueResource);
 Vue.use(VueLazyload);
 Vue.use(vueConfig, config);
 Vue.use(Buefy);
+
+
 Vue.component('ECharts', ECharts);
+
 
 /* eslint-disable no-new */
 new Vue({
