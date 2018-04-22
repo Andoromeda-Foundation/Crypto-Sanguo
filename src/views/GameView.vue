@@ -205,7 +205,7 @@ export default {
     this.chartData = {
       columns: ["位置", "势力", "兵力", "城防", "人口"],
       rows: [
-        { 位置: "北平", 兵力: 11, 城防: 250, 势力: 999, 人口: 123 },
+        { 位置: "北平", 兵力: 11, 城防: 250, 势力: 999, 人口: 123},
         { 位置: "襄平", 人口: 1223 },
         { 位置: "蓟", 人口: 321 },
         { 位置: "晋阳" },
@@ -249,6 +249,9 @@ export default {
       ]
     };
     var theself = this;
+    this.fighting = {
+      name: ["北平"]
+    }
     //----
     this.isjoinedgame = false;
     this.selectedcity = false;
@@ -267,31 +270,41 @@ export default {
       selectedMode: "single",
       zoom: 1,
       roam: false,
-      itemStyle: {
-        normal: {
-          borderColor: "rgba(0, 0, 0, 0.2)"
-        },
-        emphasis: {
-          areaColor: null,
-          shadowOffsetX: 0,
-          shadowOffsetY: 0,
-          shadowBlur: 20,
-          borderWidth: 0,
-          shadowColor: "rgba(0, 0, 0, 0.5)"
-        },
-        fighted: {
-          areaColor: "rgba(255, 0, 0, 0.3)",
-          shadowOffsetX: 0,
-          shadowOffsetY: 0,
-          shadowBlur: 20,
-          borderWidth: 0,
-          shadowColor: "rgba(0, 0, 0, 0.2)"
-        }
-      }
     };
+    
     this.chartExtend = {
       series: {
-        showLegendSymbol: false,
+        itemStyle: {
+          normal: {
+            borderColor: "rgba(0, 0, 0, 0.2)",
+            //areaColor : "rgba(255, 0, 0, 0.2)",
+            // areaColor : function(params){
+            //   console.log(params);
+            //   console.log(this);
+            //   //theself.getfighting(),
+            // }(),
+            color: function(params) {
+              //console.log(params);
+              for(var i=0;i<theself.fighting.name.length;i++){
+                if (params.name == theself.fighting.name[i]){
+                  return "rgba(255, 0, 0, 0.2)";
+                }
+              }
+              return null;
+            }
+          },
+          emphasis: {
+            areaColor: null,
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            shadowBlur: 20,
+            borderWidth: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+            color: null,
+          },
+        },
+        showLegendSymbol: false, 
+        textFixed: {TianShui : [100, -100]},
         nameMap: {
           XiangPing: "襄平",
           BeiPing: "北平",
@@ -334,8 +347,8 @@ export default {
           HePu: "合浦",
           YuLin: "郁林",
           JiaoZhi: "交趾"
-        }
-      }
+        },
+      },
     };
     this.chartEvents = {
       click(e) {
@@ -346,6 +359,7 @@ export default {
         console.log(e);
         console.log(this);
         console.log(theself);
+        console.log(theself.series.data);
       },
       mouseover(e) {
         console.log(e.name);
