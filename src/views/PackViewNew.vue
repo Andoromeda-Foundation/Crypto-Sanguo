@@ -109,7 +109,7 @@
         <div class="column is-two-third-desktop is-two-third-tablet is-12-mobile zhilingDiv">
           <a class="playTitle">已提供下列指令：</a>
           <br/>
-          <a class="playContent">搜寻（120）有一定概率可以搜寻到武将人才。搜寻到的概率同执行武将的魅力相关。<br>
+          <a class="playContent">搜寻：有一定概率可以搜寻到武将人才。搜寻到的概率同执行武将的魅力相关。<br>
             出征：对其他玩家的城池发动攻击。战斗胜利的一方有一定概率获得对手的in game 武
             将。<br>
             调度：调度自己的部队。<br>
@@ -306,12 +306,15 @@ export default {
 }
 .slide1 {
   background-image: url("../assets/img/home1.jpeg");
+    background-size: cover;
 }
 .slide2 {
   background-image: url("../assets/img/home2.jpeg");
+    background-size: cover;
 }
 .slide3 {
   background-image: url("../assets/img/home3.jpeg");
+    background-size: cover;
 }
 .slideContainer {
   margin-top: 55px;
