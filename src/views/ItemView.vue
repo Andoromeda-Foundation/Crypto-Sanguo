@@ -121,19 +121,25 @@ import 'echarts/lib/chart/radar';
 import { buyItem, setPrice, getItem, getMe } from '@/api';
 import { toReadablePrice } from '@/util';
 import web3 from '@/web3';
-import { getAvatarFromAddress } from '@/avatarService';
+// import { getAvatarFromAddress } from '@/avatarService';
+import getAvatarFromAddress from 'dravatar';
 
 export default {
   name: 'item-view',
   components: {
-    TransactionList,
+    TransactionList
   },
   data() {
     return {
       activeTab: 'bio',
       radarEChartInitOptions: {},
-      transactionIds: [1, 2],
+      transactionIds: [1, 2]
     };
+  },
+  asyncComputed: {
+    async getIdeticon() {
+      return await getAvatarFromAddress(this.item.owner);
+    }
   },
   computed: {
     tabs() {
@@ -147,7 +153,7 @@ export default {
     },
     getIdeticon() {
       return getAvatarFromAddress(this.item.owner);
-    },    
+    },
     item() {
       return this.$store.state.items[this.itemId];
     },
@@ -157,7 +163,7 @@ export default {
         { name: '武力', max: 100 },
         { name: '政治', max: 100 },
         { name: '智力', max: 100 },
-        { name: '魅力', max: 100 },
+        { name: '魅力', max: 100 }
       ];
       const item = this.item || {};
       const value = indicator.map(
@@ -170,19 +176,19 @@ export default {
               color: '#fff',
               backgroundColor: '#999',
               borderRadius: 3,
-              padding: [3, 5],
-            },
+              padding: [3, 5]
+            }
           },
-          indicator,
+          indicator
         },
         series: [
           {
             type: 'radar',
-            data: [{ value }],
-          },
-        ],
+            data: [{ value }]
+          }
+        ]
       };
-    },
+    }
   },
   updated() {
     this.handleResize();
@@ -262,8 +268,8 @@ export default {
           alert(this.$t('UPDATE_PRICE_FAIL_MSG'));
           console.log(e);
         });
-    },
-  },
+    }
+  }
 };
 </script>
  <style scoped>

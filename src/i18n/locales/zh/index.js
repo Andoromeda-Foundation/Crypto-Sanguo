@@ -6,7 +6,7 @@ export default {
   header: {
     nav: {
       siteName: '以太三国',
-      preSell: '预售商城',
+      preSale: '预售',
       explore: '探索',
       game: '时局',
       myPage: '势力',
@@ -160,7 +160,7 @@ export default {
         msg: '取消购买幸运币',
         confirmText: '确认',
       }
-    },    
+    },
     sendLuckyToken: {
       success: {
         title: '赠送幸运币',
