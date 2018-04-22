@@ -9,7 +9,7 @@
               <div class="column ">
                 <div class="column is-half">
                   <p class="image is-128x128">
-                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                    <img :src="getIdeticon">
                   </p>
                 </div>
                 <div class="column is-half">
@@ -51,23 +51,31 @@
 <script>
 import ItemList from '@/components/ItemList';
 import { getItemsOf } from '@/api';
+import getAvatarFromAddress from 'dravatar';
 
 export default {
   name: 'UserView',
   components: {
-    ItemList,
+    ItemList
   },
   data: () => ({
-    itemIds: [],
+    itemIds: []
   }),
-
+  asyncComputed: {
+    async getIdeticon() {
+      return await getAvatarFromAddress(this.addr);
+    }
+  },
   computed: {
     address() {
       return this.$route.params.address.toUpperCase();
     },
+    addr() {
+      return this.$route.params.address;
+    },
     me() {
       return this.$store.state.me;
-    },
+    }
   },
   async created() {
     this.itemIds = await getItemsOf(this.$route.params.address);
@@ -75,7 +83,7 @@ export default {
 
   watch: {},
 
-  methods: {},
+  methods: {}
 };
 </script>
 <style scoped>
