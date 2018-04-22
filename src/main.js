@@ -7,6 +7,8 @@ import vueConfig from 'vue-config';
 import VueLazyload from 'vue-lazyload';
 import VueResource from 'vue-resource';
 import Buefy from 'buefy';
+import asyncComputed from 'vue-async-computed';
+
 import 'buefy/lib/buefy.css';
 // https://github.com/ecomfe/vue-echarts/blob/master/demo/Demo.vue
 import ECharts from 'vue-echarts/components/ECharts';
@@ -19,6 +21,7 @@ import i18n from './i18n';
 Vue.config.productionTip = false;
 Vue.use(VueLodash, lodash);
 Vue.use(VueResource);
+Vue.use(asyncComputed);
 Vue.use(VueLazyload);
 Vue.use(vueConfig, config);
 Vue.use(Buefy);
@@ -34,5 +37,5 @@ new Vue({
   i18n,
   router,
   components: { App },
-  template: '<App/>',
+  template: '<App/>'
 });
