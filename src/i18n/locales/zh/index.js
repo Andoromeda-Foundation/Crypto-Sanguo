@@ -6,7 +6,7 @@ export default {
   header: {
     nav: {
       siteName: '以太三国',
-      preSell: '预售商城',
+      preSale: '预售',
       explore: '探索',
       game: '时局',
       myPage: '势力',

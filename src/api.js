@@ -460,7 +460,7 @@ export const getPackageSize = async () => {
 
 export const isApproved = async (id) => {
   const t = await Promise.promisify(LuckyPackageContract.approvedFor)(id);
-  if (t != '0x0000000000000000000000000000000000000000') {
+  if (t !== '0x0000000000000000000000000000000000000000') {
     return true;
   }
   return false;

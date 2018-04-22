@@ -7,8 +7,8 @@
           {{$t('header.nav.siteName')}}
         </router-link>
         <router-link class="navbar-item"
-                     :to="{ name: 'Home'}">
-          {{$t('header.nav.preSell')}}
+                     :to="{ name: 'PreSale'}">
+          {{$t('header.nav.preSale')}}
         </router-link>
 
         <router-link v-if="!me"
