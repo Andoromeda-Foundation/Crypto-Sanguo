@@ -38,19 +38,19 @@ export default {
       <div class="tile is-parent">
         <div class="column">
           <!-- 城池属性界面，出现条件：点击左边一处地图 -->
-          <article class="is-child notification is-primary" v-if="selectedcity">
+          <article class="is-child notification is-primary" v-if="isselectedcity">
             <div class="columns is-mobile">
               <div class="column has-text-left subtitle">
                 城市
               </div>
               <div class="column has-text-right subtitle">
-                {{selectedstatus.name}}<!--新野-->
+                {{selectedstatus.位置}}<!--新野-->
               </div>
               <div class="column has-text-left subtitle">
                 太守
               </div>
               <div class="column has-text-right subtitle">
-                岛娘
+                {{selectedstatus.势力}}
               </div>
             </div>
             <div class="columns is-mobile">
@@ -58,74 +58,29 @@ export default {
                 兵力
               </div>
               <div class="column has-text-right">
-                8000/20000
+                {{selectedstatus.兵力}}
               </div>
               <div class="column has-text-left">
                 兵力恢复
               </div>
               <div class="column has-text-right">
-                80
+                {{selectedstatus.兵力恢复}}
               </div>
             </div>
             <div class="columns is-mobile">
               <div class="column has-text-left">
-                武将
+                武将数
               </div>
               <div class="column has-text-right">
-                5
+                {{selectedstatus.武将数}}
               </div>
               <div class="column has-text-left">
                 总统率力
               </div>
               <div class="column has-text-right">
-                330
+                {{selectedstatus.总统率力}}
               </div>
             </div>
-            <!-- <div class="columns is-mobile">
-              <div class="column has-text-left">
-                金
-              </div>
-              <div class="column has-text-right">
-                1000
-              </div>
-              <div class="column has-text-left">
-                粮
-              </div>
-              <div class="column has-text-right">
-                20000
-              </div>
-            </div>
-            <div class="columns is-mobile">
-              <div class="column has-text-left">
-                农业
-              </div>
-              <div class="column has-text-right">
-                940/1000
-              </div>
-              <div class="column has-text-left">
-                商业
-              </div>
-              <div class="column has-text-right">
-                460/800
-              </div>
-            </div>
-            <div class="columns is-mobile">
-              <div class="column has-text-left">
-                兵力
-              </div>
-              <div class="column has-text-right">
-                10000
-              </div>
-            </div>
-            </div>
-            <div class="columns is-mobile">
-              <div class="column has-text-left">
-                城防
-              </div>
-              <div class="column has-text-right">
-                1000/1000
-              </div>
-            </div> -->
           </article>
            <!-- 时局界面，出现条件：未选择任何地图，刚刚进入地图界面 -->
           <article class="is-child notification is-primary" v-else>
@@ -162,32 +117,54 @@ export default {
               选中左边城市以参与战局！
             </div>
           </article>
+          <!-- 武将界面 -->
+          <article class="is-child notification">
+            <div class="columns is-mobile">
+              <div v-if="cityisoccupied()">
+                <div>
+                  城池武将：
+                </div>
+                <div v-for="hero in selectedstatus.武将">
+                  {{hero.name}} {{hero.attack}}
+                </div>
+              </div>
+              <div v-else>
+                <div>
+                  我的武将：
+                </div>
+                <div v-if="isselectedcity">
+                  <div v-for="hero in playerheros">
+                    <input type="checkbox" v-model="hero.selected">
+                      {{hero.name}}
+                    </input>  
+                    {{hero.attack}}
+                    {{hero.city}}
+                  </div>
+                </div>
+                <div v-else>
+                  <div v-for="hero in playerheros">
+                    {{hero.name}}  {{hero.attack}} {{hero.city}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
           <!-- 操作界面 -->
           <!-- 主要作战界面，出现条件：选中地图，并且已经加入游戏，最主要的作战界面 -->
-          <div v-if="selectedcity">
-          <article class="is-child notification is-warning" v-if="isjoinedgame">
+          <div v-if="isselectedcity">
+          <article class="is-child notification is-warning" v-if="cityisoccupied()">
             <div class="columns is-mobile">
-              <div class="column is-one-fifth"><a class="button">军事</a></div>
-              <div class="column is-one-fifth"><a class="button">内政</a></div>
-              <div class="column is-one-fifth"><a class="button">人事</a></div>
-              <div class="column is-one-fifth"><a class="button">计谋</a></div>
-              <div class="column is-one-fifth"><a class="button">外交</a></div>
-              <!-- <a class="button">军事</a>
-              <a class="button">内政</a>
-              <a class="button">人事</a>
-              <a class="button">计谋</a>
-              <a class="button">外交</a> -->
+              <div class="column is-one-fifth"><a class="button">出征</a></div>
+              <div class="column is-one-fifth"><a class="button">撤退</a></div>
+              <div class="column is-one-fifth"><a class="button">调度</a></div>
+              <div class="column is-one-fifth"><a class="button">移动</a></div>
+              <div class="column is-one-fifth"><a class="button">搜寻</a></div>
             </div>
           </article>
           <!-- 加入战局界面，出现条件：选中地图，但未加入战局-->
           <article class="is-child notification is-warning" v-else>
             <div class="columns is-mobile">
-              <div class="column"><a class="button" v-on:click="joingame">加入战局</a></div>
-              <!-- <a class="button">军事</a>
-              <a class="button">内政</a>
-              <a class="button">人事</a>
-              <a class="button">计谋</a>
-              <a class="button">外交</a> -->
+              <div class="column"><a class="button" v-on:click="occupy">占领城池</a></div>
             </div>
           </article>
           </div>
@@ -203,16 +180,16 @@ export default {
   components: { VeMap },
   created() {
     this.chartData = {
-      columns: ["位置", "势力", "兵力", "城防", "人口"],
+      columns: ["位置", "势力", "兵力", "兵力恢复", "武将数", "总统率力"],
       rows: [
-        { 位置: "北平", 兵力: 11, 城防: 250, 势力: 999, 人口: 123},
-        { 位置: "襄平", 人口: 1223 },
-        { 位置: "蓟", 人口: 321 },
+        { 位置: "北平",  势力: "0x123", 兵力: 11, 兵力恢复: 250, 人口: 123, color:"#FFB03A", 武将数:2, 总统率力:11, 武将: [{name:"张飞", attack:11},{name :"赵云"}],},
+        { 位置: "襄平", 势力: "0x123", color:"#FFB03A" },
+        { 位置: "蓟",  势力: "0x321", color:"#BFFF3A" },
         { 位置: "晋阳" },
         { 位置: "上党" },
         { 位置: "南皮" },
         { 位置: "兒" },
-        { 位置: "北海" },
+        { 位置: "北海" }, 
         { 位置: "陈留" },
         { 位置: "洛阳" },
         { 位置: "弘农" },
@@ -248,18 +225,60 @@ export default {
         { 位置: "交趾" }
       ]
     };
-    var theself = this;
-    this.fighting = {
-      name: ["北平"]
+    var theself = this; //用于在函数内取得this的属性
+
+    //###########后端交互相关###########
+    this.msgsender = "0x123";
+    this.msgcolor = "#FFB03A";
+    this.playerheros = [{name:"马超",attack:10},{name:"诸葛亮"}];
+    //上面会在playerheros加一个selected，默认为false，后端万一出错再改
+    //下面会在playerheros加一个city，代表已经加入战场
+    //###########后端交互相关###########
+
+    this.getdata = (name) => {  //取得rows里的元素
+      for(var i=0;i<this.chartData.rows.length;i++){
+          if (name == this.chartData.rows[i].位置){
+            return theself.chartData.rows[i];
+          }
+      }
     }
-    //----
-    this.isjoinedgame = false;
-    this.selectedcity = false;
-    this.joingame = () => {
-      this.isjoinedgame = true;
-      theself.$forceUpdate();
+    this.isselectedcity = false; // 是否选择城市
+    this.cityisoccupied = () => { //城池是否有人占领
+      if (!theself.isselectedcity) return false;
+      return (theself.selectedstatus.势力 != null);
     };
-    this.selectedstatus = { name: "" };
+    this.occupy = () => {//占领城池
+      if (!theself.isselectedcity) return;
+      if (theself.selectedstatus.势力 != null) return;
+      //把选中的武将装进去
+      var isselectedheros = false;
+      var heroamount = 0;
+      var allattacks = 0;
+      var heros = [];
+      var hero = {};
+      for(var i=0;i<theself.playerheros.length;i++){
+        hero = theself.playerheros[i];
+        if (hero.city != null) continue;
+        if (hero.selected){
+          heros.push(theself.playerheros[i]);
+          heroamount += 1;
+          allattacks += hero.attack;
+          isselectedheros = true;
+          hero.city = theself.selectedstatus.位置;
+        }
+        hero.selected = false;
+      }
+      if (!isselectedheros) return;//未选中至少一个武将，返回
+      theself.selectedstatus.势力 = theself.msgsender;
+      theself.selectedstatus.color = theself.msgcolor;
+      theself.selectedstatus.武将数 = heroamount;
+      theself.selectedstatus.武将 = heros;
+      theself.selectedstatus.总统率力 = allattacks;
+      theself.$forceUpdate();
+    }
+    this.selectedstatus = {}; //正在选择的城市
+    //上面城市逻辑，下面是组件属性设置######
+
     this.legendVisible = false;
     this.chartSettings = {
       positionJsonLink: "./static/gameGeo.json",
@@ -277,19 +296,10 @@ export default {
         itemStyle: {
           normal: {
             borderColor: "rgba(0, 0, 0, 0.2)",
-            //areaColor : "rgba(255, 0, 0, 0.2)",
-            // areaColor : function(params){
-            //   console.log(params);
-            //   console.log(this);
-            //   //theself.getfighting(),
-            // }(),
-            color: function(params) {
-              //console.log(params);
-              for(var i=0;i<theself.fighting.name.length;i++){
-                if (params.name == theself.fighting.name[i]){
-                  return "rgba(255, 0, 0, 0.2)";
-                }
-              }
+            color: function(params) { // 根据row中数据取得color
+              if (params == null) return null;
+              var k = theself.getdata(params.name);
+              if (k != null) return k.color;
               return null;
             }
           },
@@ -350,16 +360,16 @@ export default {
         },
       },
     };
-    this.chartEvents = {
+    this.chartEvents = { // 点击地图城池
       click(e) {
-        theself.selectedstatus = e;
-        if (e.name != "") theself.selectedcity = true;
-        else theself.selectedcity = false;
+        theself.selectedstatus = theself.getdata(e.name);
+        if (e.name != "") theself.isselectedcity = true;
+        else theself.isselectedcity = false;
         theself.$forceUpdate();
         console.log(e);
         console.log(this);
         console.log(theself);
-        console.log(theself.series.data);
+        //console.log(theself.series.data);
       },
       mouseover(e) {
         console.log(e.name);
