@@ -13,11 +13,11 @@
                   </div>
                   <br/>
                   <div class="btndiv">
-                    <router-link class="button is-medium" :to="{ name: 'Game' }">进入游戏</router-link>
+                    <router-link class="gotoGame button is-medium" :to="{ name: 'Game' }">进入游戏</router-link>
                     <!-- <a class="button is-medium" href="https://cryptosanguo.pro/#/game" target="_blank">进入游戏</a> -->
                   </div>
                   <div class="btndiv">
-                    <router-link class="button is-medium" :to="{ name: 'PreSell' }">预售商城</router-link>
+                    <router-link class="gotoShop button is-medium" :to="{ name: 'PreSell' }">预售商城</router-link>
                   </div>
                   <div class="btndiv">
                     <!-- <a class="button is-medium" href="http://old.etherwarship.com" style="background-color: transparent; color:white" target="_blank">白皮书</a> -->
@@ -32,58 +32,77 @@
 
     <br/>
 
-    <section class="section">
+    <section class="section2">
+          <div class="section2Container">
+            <div class="section">
       <div class="sec2toptitle">
         <a class="section2title">独一无二的三国英雄卡</a>
       </div>
-      <br/>
-      <div class="columns">
-        <div class="column is-two-thirds">
         <br/>
         <br/>
         <br/>
+        <div style="text-align: center;">
           <a class="section2content">这是一款基于以太坊区块链的三国题材的策略游戏。<br>1.0版本中具备简易的战斗方式，着重考察玩家对战场局势的掌控与对兵力的调度，之后将引入资源相关的调度。</a>
-          <div style="margin: 30px 8px 20px 6px;border-top:1px solid #C0C0C0;"></div>
-          <div class="columns">
+        </div>
+          <!-- <div style="margin: 30px 8px 20px 6px;border-top:1px solid #C0C0C0;"></div> -->
+        <br/>
+        <br/>
+        <br/>
+          <div class="columns" style="margin-left: 50px; margin-right: 50px;">
             <div class="column is-half">
-              <a class="sec2subtitle">英雄卡</a>
-              <br>
-              <a class="sec2subcontent">玩家可使用幸运币抽取独一无二的三国英雄卡。</a>
+              <div class="columns">
+                <div class="column is-one-fifth">
+                  <img alt="" srcset="../assets/img/iconcard.png"/>
+                </div>
+                <div class="column">
+                  <a class="sec2subtitle">英雄卡</a>
+                  <br>
+                  <a class="sec2subcontent">玩家可使用幸运币抽取独一无二的三国英雄卡。</a>
+                </div>
+              </div>
             </div>
-            <div class="column is-half sec2subtitle">
-              <a class="sec2subtitle">幸运币</a>
-              <br>
-              <a class="sec2subcontent">幸运币市场每天都会售卖一枚唯一编号的幸运币。</a>
+            <div class="column is-half">
+              <div class="columns">
+                <div class="column is-one-fifth">
+                  <img alt="" srcset="../assets/img/iconcoin.png"/>
+                </div>
+                <div class="column">
+                  <a class="sec2subtitle">幸运币</a>
+                  <br>
+                  <a class="sec2subcontent">幸运币市场每天都会售卖一枚唯一编号的幸运币。</a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
         <div class="column cardSample">
             <img alt="" srcset="../assets/img/cardsample.png"/>
         </div>
       </div>
+    </div>
     </section>
 
     <br/>
 
-    <section class="section">
-      <div class="sec2toptitle">
-        <a class="section2title">独创的区块链抽卡玩法</a>
-      </div>
-      <br/>
-      <div class="columns">
-        <div class="column is-one-third">
-            <img alt="" srcset="../assets/img/cardwhich.png"/>
-        </div>
-        <div class="column">
-          <a class="sec2subtitle">以太三国创新推出全新的区块链抽卡玩法。</a>
-          <br/>
-          <br/>
-          <br/>
-          <a class="sec2subcontent">
-          通过抽卡方法获得武将卡，将会是唯一的官方卡牌发售渠道。<br>
-          智能卡包中当前包含的卡牌和中奖概率完全公开透明。</a>
-          <div class="btndiv">
-            <router-link class="button is-medium" :to="{ name: 'PreSell' }">前往抽卡</router-link>
+    <section class="section3">
+      <div class="section3Container">
+        <br/>
+        <div class="columns section3container">
+          <div class="column is-half cardwhich">
+              <img alt="" width="200" srcset="../assets/img/cardwhich.png"/>
+          </div>
+          <div class="column">
+          <a class="section2title">独创的区块链抽卡玩法</a>
+            <br/>
+            <a class="sec2subtitle">以太三国创新推出全新的区块链抽卡玩法。</a>
+            <br/>
+            <br/>
+            <br/>
+            <a class="sec2subcontent">
+            通过抽卡方法获得武将卡，将会是唯一的官方卡牌发售渠道。<br>
+            智能卡包中当前包含的卡牌和中奖概率完全公开透明。</a>
+            <div class="btndiv">
+              <router-link class="gotoGetCard button is-medium" :to="{ name: 'PreSell' }">前往抽卡</router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -102,20 +121,21 @@
         <div class="column is-one-third-desktop is-one-third-tablet is-12-mobile playContainer" v-for="item in playstyle">
           <img alt="" v-bind:src="'../static/home/'+item.img+'.jpg'"/>
           <br>
-          <a class="playTitle">{{ item.title }}</a>
+          <a class="playTypeTitle">{{ item.title }}</a>
           <br>
-          <a class="playContent">{{ item.content }}</a>
+          <a class="playTypeContent">{{ item.content }}</a>
         </div>
         <div class="column is-two-third-desktop is-two-third-tablet is-12-mobile zhilingDiv">
           <a class="playTitle">已提供下列指令：</a>
           <br/>
-          <a class="playContent">搜寻：有一定概率可以搜寻到武将人才。搜寻到的概率同执行武将的魅力相关。<br>
-            出征：对其他玩家的城池发动攻击。战斗胜利的一方有一定概率获得对手的in game 武
-            将。<br>
+          <a class="playContent">搜寻：有一定概率可以搜寻到武将人才。<br>
+            出征：对其他玩家的城池发动攻击。<br>
             调度：调度自己的部队。<br>
             撤退：从战斗中撤退到其他城市。<br>
-            移动：仅移动自己的武将。<br>
-            更多玩法，敬请期待。</a>
+            移动：仅移动自己的武将。</a>
+          <br/>
+          <div style="margin: 10px 60px 10px 60px; border-top:1px dashed #3a2729;"></div>
+          <a class="moreContent">更多玩法，敬请期待。</a>
         </div>
       </div>
     </section>
@@ -129,7 +149,7 @@
               <p class="slidetext">在幸运币商店购买幸运币即可抽取随机一位武将。</p>
               <br>
               <div class="btndiv">
-                <router-link class="button is-medium" :to="{ name: 'PreSell' }">了解详情</router-link>
+                <router-link class="button is-medium gotoDetail" :to="{ name: 'PreSell' }">了解详情</router-link>
               </div>
             </div>
           </div>
@@ -141,7 +161,7 @@
               <p class="slidetext">指挥武将进行对战，争夺城池，一统天下。</p>
               <br>
               <div class="btndiv">
-                <router-link class="button is-medium" :to="{ name: 'Game' }">了解详情</router-link>
+                <router-link class="button is-medium gotoDetail" :to="{ name: 'Game' }">了解详情</router-link>
               </div>
             </div>
           </div>
@@ -215,8 +235,8 @@ export default {
   }
 }
 .sectionContainer {
-  background-color: #000;
-  opacity: 0.7;
+  background-color: #00000099;
+  /*opacity: 0.7;*/
 }
 .titleNav {
   margin-left: 50px;
@@ -236,10 +256,39 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.gotoGame {
+  background-image: url("../assets/img/home_btn1.png");
+  background-size: cover;
+  height: 48px;
+  width: 130px;
+  background-color: transparent;
+  border-color: transparent;
+}
+.gotoShop {
+  background-image: url("../assets/img/home_btn2.png");
+  background-size: cover;
+  height: 48px;
+  width: 130px;
+  background-color: transparent;
+  border-color: transparent;
+  color: white;
+}
 
 /*
   section 2
 */
+.section2 {
+  background-image: url("../assets/img/sectionBG1.jpeg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-color: #000;
+  @media (max-width: 800px) {
+    background-size: cover;
+  }
+}
+.section2Container {
+  background-color: #000000d9;
+}
 .section {
   margin-right: 30px;
   margin-left: 30px;
@@ -262,6 +311,43 @@ export default {
 .sec2subcontent {
   color: #999
 }
+.cardSample {
+  padding: 50px;
+  @media (max-width: 800px) {
+    padding: 0;
+  }
+}
+
+/*
+  section 3
+*/
+.section3 {
+  background-image: url("../assets/img/sectionBG2.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-color: #000;
+  @media (max-width: 800px) {
+    background-size: cover;
+  }
+}
+.section3container {
+  background-color: #000000d9;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cardwhich {
+  text-align: center;
+}
+.gotoGetCard {
+  background-image: url("../assets/img/home_button.png");
+  background-size: cover;
+  height: 50px;
+  width: 130px;
+  background-color: transparent;
+  border-color: transparent;
+  color: #3a2729;
+}
 
 /*
   section 4
@@ -269,19 +355,32 @@ export default {
 .playContainer {
   text-align: center;
 }
-.playTitle {
-  font-size: 20px;
+.playTypeTitle {
+  font-size: 30px;
   color: #fff;
 }
+.playTypeContent {
+  color: #fff;
+}
+.playTitle {
+  font-size: 30px;
+  color: #3a2729;
+}
 .playContent {
-  color: #999;
+  color: #3a2729;
+}
+.moreContent {
+  font-size: 20px;
+  color: #3a2729;
 }
 .zhilingDiv {
-  border-style: solid;
-  border-width: 1px;
-  border-color: white;
-  padding: 30px;
-  margin: 30px;
+  height: 300px;
+  background-image: url("../assets/img/paper.png");
+  background-size: 100% 100%;
+  padding-top: 30px;
+  padding-left: 60px;
+  padding-right: 60px;
+  text-align: center;
   @media (max-width: 770px) {
     margin: 0px;
   }
@@ -331,5 +430,14 @@ export default {
 }
 .slidetitle {
   font-size: 40px;
+}
+.gotoDetail {
+  background-image: url("../assets/img/home_button.png");
+  background-size: cover;
+  height: 50px;
+  width: 130px;
+  background-color: transparent;
+  border-color: transparent;
+  color: #3a2729;
 }
 </style>
