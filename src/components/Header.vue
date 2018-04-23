@@ -24,11 +24,6 @@
           </router-link>
 
           <router-link class="navbar-item"
-                       :to="{ name: 'User', params:{address: me.address}}">
-            {{$t('header.nav.myPage')}}
-          </router-link>
-
-          <router-link class="navbar-item"
                        :to="{ name: 'Transaction', params:{address: me.address}}">
             {{$t('header.nav.Transactions')}}
           </router-link>
@@ -48,13 +43,14 @@
 
       <div class="navbar-end">
 
-        <div class="navbar-item">
-          <div class="field is-grouped">
-            <p class="control">
-              {{network.name}}
-            </p>
-          </div>
-        </div>
+        <router-link class="navbar-item"
+                     :to="{ name: 'User', params:{address: me.address}}">
+          <img :src="getAvatar" class="avatar" />                     
+          <span class="info">
+          <p> {{getBalance}} ETH </p>
+          <p> {{getNetwork}}</p>
+          </span>          
+        </router-link>
 
         <div class="navbar-item">
           <div class="field is-grouped">
@@ -73,11 +69,18 @@
 </template>
 
 <script>
-import { getNetwork } from '@/api';
+import { getNetwork, getMe } from '@/api';
+import Dravatar from 'dravatar';
 import I18nSwitcher from '@/components/I18nSwitcher';
 
 export default {
   name: 'Header',
+  asyncComputed: {
+    async getAvatar() {
+      const uri = await Dravatar(this.me.address);
+      return uri;
+    },
+  },  
   components: {
     I18nSwitcher,
   },
@@ -97,6 +100,7 @@ export default {
     if (!network.contract) {
       alert(`Unsupported ${network.name}`);
     }
+    this.getMe = await getMe();
   },
   computed: {
     locale: {
@@ -117,6 +121,13 @@ export default {
     me() {
       return this.$store.state.me;
     },
+    getBalance() {
+      const weiToEth = wei => wei / 1000000000000000000;
+      return weiToEth(this.me.balance).toFixed(2);
+    },
+    getNetwork() {
+      return this.network.name;
+    },    
   },
   methods: {
     onCloseInfo() {
@@ -168,5 +179,10 @@ header {
 a.navbar-item:hover {
   color: #fdda46 !important;
   background-color: transparent !important;
+}
+.avatar {
+  border-radius: 100%;
+  margin-right: 8px;
+  max-height: 2.9rem;
 }
 </style>
