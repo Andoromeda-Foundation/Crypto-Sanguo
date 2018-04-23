@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import HomeView from '@/views/HomeView';
+import PreSaleView from '@/views/PreSaleView';
 import ExploreView from '@/views/ExploreView';
 import ItemView from '@/views/ItemView';
 import UserView from '@/views/UserView';
@@ -11,7 +12,7 @@ import LoginView from '@/views/LoginView';
 import RecentView from '@/views/RecentView';
 import TransactionView from '@/views/TransactionView';
 import HeroListView from '@/views/HeroListView';
-import PackView from '@/views/PackView';
+import BPView from '@/views/BPView';
 import LuckyTokenView from '@/views/LuckyTokenView';
 
 Vue.use(Router);
@@ -22,9 +23,13 @@ export default new Router({
     {
       name: 'Home',
       path: '/',
-      component: PackView
+      component: HomeView,
     },
-
+    {
+      name: 'PreSale',
+      path: '/presale',
+      component: PreSaleView,
+    },
     {
       name: 'Explore',
       path: '/explore',
@@ -76,10 +81,9 @@ export default new Router({
       component: TransactionView
     },
     {
-      name: 'Pack',
-      path: '/pack',
-      component: PackView
-    }
-
-  ]
+      name: 'BP',
+      path: '/bp',
+      component: BPView,
+    },
+  ],
 });

@@ -91,7 +91,7 @@ import {
 } from '@/api';
 import { toReadablePrice } from '@/util';
 import web3 from '@/web3';
-import { getAvatarFromAddress } from '@/avatarService';
+import getAvatarFromAddress from 'dravatar';
 
 export default {
   name: 'item-view',
@@ -103,6 +103,11 @@ export default {
       item: {}
     };
   },
+  asyncComputed: {
+    async getIdeticon() {
+      return await getAvatarFromAddress(this.item.owner);
+    }
+  },
   computed: {
     itemId() {
       return this.$route.params.id;
@@ -110,10 +115,6 @@ export default {
     me() {
       return this.$store.state.me || {};
     },
-    getIdeticon() {
-      return getAvatarFromAddress(this.item.owner);
-    },
-
     coinPhoto() {
       return 'https://ws2.sinaimg.cn/large/006tNc79gy1fqg3lasdupj309q09q3z8.jpg';
     }

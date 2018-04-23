@@ -6,6 +6,7 @@ export default {
   header: {
     nav: {
       siteName: 'イーサ三国志',
+      preSale: '前売り',
       explore: '発見',
       game: 'ゲーム',
       myPage: '勢力',
