@@ -56,7 +56,7 @@ export default {
     };
   },
   mounted() {
-    this.$http.get('static/heroes.json').then((response) => {
+    this.$http.get('static/new_heroes.json').then((response) => {
       this.heros = this._.orderBy(
         response.body,
         this.sortKey,
