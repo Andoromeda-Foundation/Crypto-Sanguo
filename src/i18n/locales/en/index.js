@@ -7,8 +7,8 @@ export default {
     nav: {
       siteName: 'CryptoSanguo',
       preSale: 'PreSale',
-      explore: 'explore',
-      game: 'Current Political Situation',
+      explore: 'Explore',
+      game: 'Map',
       myPage: 'Power',
       Transactions: 'Current Event',
       herolist: 'Encyclopedia',
