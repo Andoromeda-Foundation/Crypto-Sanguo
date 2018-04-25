@@ -43,14 +43,17 @@
 
       <div class="navbar-end">
 
-        <router-link class="navbar-item"
+        <router-link v-if="!me" class="navbar-item"></router-link>
+        <template v-else>
+          <router-link class="navbar-item"
                      :to="{ name: 'User', params:{address: me.address}}">
-          <img :src="getAvatar" class="avatar" />                     
-          <span class="info">
-          <p> {{getBalance}} ETH </p>
-          <p> {{getNetwork}}</p>
-          </span>          
-        </router-link>
+            <img :src="getAvatar" class="avatar" />                     
+            <span class="info">
+            <p> {{getBalance}} ETH </p>
+            <p> {{getNetwork}}</p>
+            </span>          
+          </router-link>
+        </template>
 
         <div class="navbar-item">
           <div class="field is-grouped">
