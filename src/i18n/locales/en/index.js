@@ -6,9 +6,9 @@ export default {
   header: {
     nav: {
       siteName: 'CryptoSanguo',
-      preSele: 'PreSale',
-      explore: 'explore',
-      game: 'Current Political Situation',
+      preSale: 'PreSale',
+      explore: 'Explore',
+      game: 'Map',
       myPage: 'Power',
       Transactions: 'Current Event',
       herolist: 'Encyclopedia',

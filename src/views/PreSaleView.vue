@@ -580,7 +580,10 @@ export default {
           this.luckyTokens = await getAllLuckyTokenAuctions();
         }
         if (toType === 'MY') {
-          this.checkLogin();
+          if (!this.checkLogin()) {
+            this.luckyTokens = [];
+            return;
+          }
           this.luckyTokens = await getLuckTokensOf(this.me.address);
         }
       } catch (e) {}
