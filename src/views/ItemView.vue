@@ -201,6 +201,10 @@ export default {
     // });
   },
   async created() {
+    console.log("thanks");
+    console.log(this.itemId);
+    console.log(this.$route.params);
+    console.log(this.$store.state.items[this.itemId]);
     this.$store.dispatch('FETCH_ITEM', this.itemId);
   },
 
