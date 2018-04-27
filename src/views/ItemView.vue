@@ -196,15 +196,10 @@ export default {
   mounted() {
     window.addEventListener('resize', this.handleResize.bind(this));
     // this.$nextTick(() => {
-    //   console.log(this.$refs.itemChartWrapper);
     //   this.handleResize();
     // });
   },
   async created() {
-    console.log("thanks");
-    console.log(this.itemId);
-    console.log(this.$route.params);
-    console.log(this.$store.state.items[this.itemId]);
     this.$store.dispatch('FETCH_ITEM', this.itemId);
   },
 
@@ -240,7 +235,6 @@ export default {
         })
         .catch((e) => {
           alert(this.$t('BUY_FAIL_MSG'));
-          console.log(e);
         });
     },
     toDisplayedPrice(priceInWei) {
@@ -270,7 +264,6 @@ export default {
         })
         .catch((e) => {
           alert(this.$t('UPDATE_PRICE_FAIL_MSG'));
-          console.log(e);
         });
     }
   }
