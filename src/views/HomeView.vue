@@ -20,8 +20,7 @@
                     <router-link class="gotoShop button is-medium" :to="{ name: 'PreSale' }">预售商城</router-link>
                   </div>
                   <div class="btndiv">
-                    <!-- <a class="button is-medium" href="http://old.etherwarship.com" style="background-color: transparent; color:white" target="_blank">白皮书</a> -->
-                    <router-link class="button is-medium" :to="{ name: 'BP' }" style="background-color: transparent; color:white">白皮书</router-link>
+                    <a class="button is-medium" @click="bpClicked()" style="background-color: transparent; color:white">白皮书</a>
                   </div>
                   <br/>
                   <br/>
@@ -203,7 +202,14 @@ export default {
         {"title":"指令", "content":"指令是玩家影响游戏进程的主要手段。", "img":"home_7_zhiling"},
       ]
     }
-  }
+  },
+  methods: {
+    bpClicked() {
+      var w = window.open('about:blank');
+      var url = "https://github.com/lychees/Crypto-Sanguo/wiki/%E4%B8%89%E5%9B%BD%E5%BF%97%E7%99%BD%E7%9A%AE%E4%B9%A6"
+      w.location.href = url;
+    }
+  },
 }
 
 </script>

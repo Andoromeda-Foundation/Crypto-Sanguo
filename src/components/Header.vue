@@ -3,38 +3,45 @@
     <nav class="navbar">
       <div class="navbar-brand">
         <router-link class="navbar-item"
-                     :to="{ name: 'Home'}">
+                     :to="{ name: 'Home'}"
+                     :style="navItemFontSize">
           {{$t('header.nav.siteName')}}
         </router-link>
         <router-link class="navbar-item"
-                     :to="{ name: 'PreSale'}">
+                     :to="{ name: 'PreSale'}"
+                     :style="navItemFontSize">
           {{$t('header.nav.preSale')}}
         </router-link>
 
         <router-link v-if="!me"
                      class="navbar-item"
-                     :to="{ name: 'Login'}">
+                     :to="{ name: 'Login'}"
+                     :style="navItemFontSize">
           {{$t('header.nav.SignIn')}}
         </router-link>
 
         <template v-else>
           <router-link class="navbar-item"
-                       :to="{ name: 'Game' }">
+                       :to="{ name: 'Game' }"
+                     :style="navItemFontSize">
             {{$t('header.nav.game')}}
           </router-link>
 
           <router-link class="navbar-item"
-                       :to="{ name: 'Transaction', params:{address: me.address}}">
+                       :to="{ name: 'Transaction', params:{address: me.address}}"
+                     :style="navItemFontSize">
             {{$t('header.nav.Transactions')}}
           </router-link>
 
           <router-link class="navbar-item"
-                       :to="{ name: 'Explore' }">
+                       :to="{ name: 'Explore' }"
+                     :style="navItemFontSize">
             {{$t('header.nav.explore')}}
           </router-link>
 
           <router-link class="navbar-item"
-                       :to="{ name: 'HeroList' }">
+                       :to="{ name: 'HeroList' }"
+                     :style="navItemFontSize">
             {{$t('header.nav.herolist')}}
           </router-link>
         </template>
@@ -42,15 +49,19 @@
       </div>
 
       <div class="navbar-end">
-
-        <router-link class="navbar-item"
-                     :to="{ name: 'User', params:{address: me.address}}">
-          <img :src="getAvatar" class="avatar" />                     
-          <span class="info">
-          <p> {{getBalance}} ETH </p>
-          <p> {{getNetwork}}</p>
-          </span>          
-        </router-link>
+        
+        <router-link v-if="!me" class="navbar-item"></router-link>
+        <template v-else>
+          <router-link class="navbar-item"
+                       :to="{ name: 'User', params:{address: me.address}}"
+                     :style="navItemFontSize">
+            <img :src="getAvatar" class="avatar" />                     
+            <span class="info">
+            <p> {{getBalance}} ETH </p>
+            <p> {{getNetwork}}</p>
+            </span>          
+          </router-link>
+        </template>
 
         <div class="navbar-item">
           <div class="field is-grouped">
@@ -103,6 +114,11 @@ export default {
     this.getMe = await getMe();
   },
   computed: {
+    navItemFontSize: function () {
+      return {
+        'font-size': this.$store.state.locale=="en" ? 0.8+'rem' : 1.14+'rem'
+      }
+    },
     locale: {
       get() {
         const locale = this.$store.state.locale;
