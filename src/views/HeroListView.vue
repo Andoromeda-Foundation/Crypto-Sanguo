@@ -36,7 +36,11 @@
           <td>{{hero.政治}}</td>
           <td>{{hero.魅力}}</td>
           <td>13FX90</td>
-
+          <td>
+            <router-link :to="{ name: 'User', params:{address: getitem(hero.id)}}">
+                {{getitem(hero.id).owner.slice(-6).toUpperCase()}}
+            </router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -63,9 +67,19 @@ export default {
         this.isAsc ? 'asc' : 'desc',
       );
       this.allHeros = this.heros;
+      console.log("hello");
+      console.log(this.heros);
+      console.log(this.$route);
+      console.log(this.$store);
+      console.log(this.$store.state.items[1]);
     });
   },
   methods: {
+    getitem(id) {
+      console.log(id);
+      console.log(this.$store.state.items[id]);
+      return this.$store.state.items[id] || {owner:"0x000000000000000000"};
+    },
     setSortKey(sortKey) {
       this.isAsc = this.sortKey === sortKey ? !this.isAsc : false;
       this.sortKey = sortKey;
