@@ -236,10 +236,7 @@ export default {
         })
         .catch((e) => {
           alert(this.$t('BUY_FAIL_MSG'));
-<<<<<<< HEAD
-=======
           console.error(e);
->>>>>>> b3d7a049c9f7785ebd43e92437bf9cbc226cffe4
         });
     },
     toDisplayedPrice(priceInWei) {
