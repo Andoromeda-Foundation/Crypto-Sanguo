@@ -71,25 +71,16 @@
 
 <script>
 import {
-  getPackTx,
-  getItemsOf,
-  getPackage,
   getLuckTokensOf,
   buyLuckyToken,
   rollDice,
-  getPackageSize,
-  getItem,
-  getItems,
   createAuction,
   revokeAuction,
-  getAllLuckyTokenAuctions,
   getLuckyToken,
   approveD,
-  eventRollDice,
-  getLuckTokensOfLength,
   transfer
 } from '@/api';
-import { toReadablePrice } from '@/util';
+// import { toReadablePrice } from '@/util';
 import web3 from '@/web3';
 import getAvatarFromAddress from 'dravatar';
 
@@ -105,7 +96,8 @@ export default {
   },
   asyncComputed: {
     async getIdeticon() {
-      return await getAvatarFromAddress(this.item.owner);
+      const uri = await getAvatarFromAddress(this.item.owner);
+      return uri;
     }
   },
   computed: {
@@ -157,7 +149,7 @@ export default {
           confirmText: this.$t('alert.buyLuckyToken.success.confirmText')
         };
       } catch (e) {
-        console.log(e);
+        console.error(e);
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.buyLuckyToken.fail.title'),
@@ -171,6 +163,7 @@ export default {
       if (!this.checkLogin()) {
         return;
       }
+      let tokenId;
       // 没有指定使用哪个幸运币
       if (isNaN(luckyTokenId)) {
         const myLuckyTokenIds = await getLuckTokensOf(this.me.address);
@@ -187,13 +180,12 @@ export default {
         // 随机选一个幸运币
         const randomLuckyToken =
           myLuckyTokenIds[Math.floor(Math.random() * myLuckyTokenIds.length)];
-        luckyTokenId = randomLuckyToken.id;
+        tokenId = randomLuckyToken.id;
       }
 
       let alertCfg;
       try {
-        const txHash = await rollDice(luckyTokenId);
-        // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
+        const txHash = await rollDice(tokenId);
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.rollDice.success.title'),
@@ -294,9 +286,10 @@ export default {
               value: 1 // default 1 hour
             },
             onConfirm: (durationInHour) => {
-              const startTime = parseInt(new Date().getTime() / 1000);
+              const time = new Date().getTime() / 1000;
+              const startTime = parseInt(time, 10);
               // const endTime = startTime + 24 * 60 * 60; // 1 day
-              const endTime = startTime + Number(durationInHour) * 60 * 60;
+              const endTime = startTime + (Number(durationInHour) * 60 * 60);
               this.toCreateAuction({
                 tokenId: luckyTokenId,
                 priceInETH,

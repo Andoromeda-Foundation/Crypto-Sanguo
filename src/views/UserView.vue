@@ -63,7 +63,8 @@ export default {
   }),
   asyncComputed: {
     async getIdeticon() {
-      return await getAvatarFromAddress(this.addr);
+      const uri = await getAvatarFromAddress(this.addr);
+      return uri;
     }
   },
   computed: {
