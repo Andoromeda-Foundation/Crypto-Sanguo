@@ -1,4 +1,5 @@
 <template lang="pug">
+  // 唔好意思 pug (jade) 真的可以为所欲为
   header(class="[$route.name === 'Home' ? 'sig-home-header' : '']")
     nav.navbar
       .navbar-brand
@@ -60,7 +61,27 @@ export default {
   },
   data() {
     return {
-      network: {}
+      network: {},
+      menus: [
+        {
+          name: 'header.nav.siteName',
+          to: { name: 'Home' }
+        },
+        {
+          name: 'header.nav.preSale',
+          to: { name: 'PreSale' }
+        },
+        {
+          name: 'header.nav.explore',
+          to: { name: 'Explore' }
+        },
+        {
+          name: 'header.nav.herolist',
+          to: {
+            name: 'HeroList'
+          }
+        }
+      ]
     };
   },
   async created() {
@@ -77,26 +98,6 @@ export default {
     this.getMe = await getMe();
   },
   computed: {
-    menus() {
-      return [
-        {
-          name: 'header.nav.siteName',
-          to: { name: 'Home' }
-        },
-        {
-          name: 'header.nav.preSale',
-          to: { name: 'PreSale' }
-        }, {
-          name: 'header.nav.explore',
-          to: { name: 'Explore' }
-        }, {
-          name: 'header.nav.herolist',
-          to: {
-            name: 'HeroList'
-          }
-        }
-      ];
-    },
     navItemFontSize() {
       return {
         'font-size':
