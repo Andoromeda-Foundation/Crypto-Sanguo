@@ -105,7 +105,7 @@ export default {
     price: null,
     frozen1: null,
     frozen2: null,
-    parentId: null,
+    parentId: null
   }),
 
   computed: {},
@@ -120,17 +120,17 @@ export default {
         price: this.price,
         frozen1: this.frozen1,
         frozen2: this.frozen2,
-        parentId: this.parentId,
+        parentId: this.parentId
       })
         .then((txHash) => {
           alert(`成功了，一会刷新. txHash: ${txHash}`);
         })
         .catch((e) => {
           alert('出错了.');
-          console.log(e);
+          console.error(e); // If error happened
         });
-    },
-  },
+    }
+  }
 };
 </script>
  <style scoped>

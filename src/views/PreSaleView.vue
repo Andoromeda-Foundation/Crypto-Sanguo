@@ -63,7 +63,9 @@
                        :canCancel="false"></b-loading>
             <div v-for="item in items"
                  :key="item.id.toString()"
-                 class="column is-half-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
+                 class="column is-half-mobile
+                 is-one-third-tablet is-one-third-desktop is-one-third-widescreen
+                 is-one-third-fullhd">
               <ItemPreview :item="item" />
             </div>
           </div>
@@ -111,7 +113,8 @@
                               :label="$t('PackView.tabs.tx.date')"
                               sortable
                               centered>
-                {{ (new Date(props.row.date)).toLocaleString() }}
+                <!-- {{ (new Date(props.row.date)).toLocaleString() }} -->
+                {{ getDateTimeString(props.row.date) }}
               </b-table-column>
 
               <b-table-column field="from"
@@ -195,20 +198,20 @@
                                 :label="$t('PackView.tabs.luckyToken.free1')"
                                 centered
                                 sortable>
-                  {{ (new Date(props.row.startTime)).toLocaleString() }}
+                  {{ getDateTimeString(props.row.startTime) }}
                 </b-table-column>
 
                 <b-table-column field="endTime"
                                 :label="$t('PackView.tabs.luckyToken.free2')"
                                 centered
                                 sortable>
-                  {{ (new Date(props.row.endTime)).toLocaleString() }}
+                  {{ getDateTimeString(props.row.endTime) }}
                 </b-table-column>
 
                 <b-table-column field="status"
                                 :label="$t('PackView.tabs.luckyToken.action')"
                                 centered>
-                  <a v-if="props.row.status === 'SELLING' && me && props.row.owner != me.address"
+                  <a v-if="isGoodToSale(props)"
                      class="button is-small is-warning is-outlined"
                      @click="onBuyLuckyToken(props.row)">
                     {{$t('PackView.tabs.luckyToken.buy')}}
@@ -216,7 +219,7 @@
                   <button class="button is-small is-warning is-outlined"
                           disabled
                           v-else> {{$t('PackView.tabs.luckyToken.buy')}}</button>
-                  <button v-if="me && props.row.owner === me.address && props.row.status=== 'EXPIRED'"
+                  <button v-if="canBeClaimed(props)"
                           class="button is-small is-warning is-outlined"
                           @click="onRevokeAuction(props.row.Exchangeid)">
                     {{$t('PackView.tabs.luckyToken.revokeAuction')}}</button>
@@ -377,6 +380,21 @@ export default {
     }, 5000);
   },
   methods: {
+    canBeClaimed(props) {
+      const me = this.me;
+      return (
+        me && props.row.owner === me.address && props.row.status === 'EXPIRED'
+      );
+    },
+    isGoodToSale(props) {
+      const me = this.me;
+      return (
+        props.row.status === 'SELLING' && me && props.row.owner !== me.address
+      );
+    },
+    getDateTimeString(time) {
+      return new Date(time).toLocaleString();
+    },
     checkLogin() {
       if (this.me && this.me.address) {
         return true;
@@ -400,7 +418,7 @@ export default {
           confirmText: this.$t('alert.buyLuckyToken.success.confirmText')
         };
       } catch (e) {
-        console.log(e);
+        console.error(e);
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.buyLuckyToken.fail.title'),
@@ -482,9 +500,10 @@ export default {
     async toTrasfer({ to, tokenId }) {
       let alertCfg;
       try {
-        const txHash = await transfer(
-          { to,
-            tokenId });
+        const txHash = await transfer({
+          to,
+          tokenId
+        });
         // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
         alertCfg = {
           type: 'is-dark',
@@ -536,7 +555,8 @@ export default {
               value: 1 // default 1 hour
             },
             onConfirm: (durationInHour) => {
-              const startTime = parseInt(new Date().getTime() / 1000);
+              const time = new Date().getTime() / 1000;
+              const startTime = parseInt(time, 10);
               // const endTime = startTime + 24 * 60 * 60; // 1 day
               const endTime = startTime + Number(durationInHour) * 60 * 60;
               this.toCreateAuction({

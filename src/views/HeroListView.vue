@@ -35,8 +35,11 @@
           <td>{{hero.智力}}</td>
           <td>{{hero.政治}}</td>
           <td>{{hero.魅力}}</td>
-          <td>13FX90</td>
-
+          <td>
+            <router-link :to="{ name: 'User', params:{address: getitem(hero.id).owner}}">
+                {{getitem(hero.id).owner.slice(-6).toUpperCase()}}
+            </router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -65,7 +68,15 @@ export default {
       this.allHeros = this.heros;
     });
   },
+  async created() {    
+    for (var i=1;i<211;++i){
+      this.$store.dispatch('FETCH_ITEM', i);
+    }
+  },  
   methods: {
+    getitem(id) {
+      return this.$store.state.items[id] || {owner:"0x000000000000000000"};
+    },
     setSortKey(sortKey) {
       this.isAsc = this.sortKey === sortKey ? !this.isAsc : false;
       this.sortKey = sortKey;

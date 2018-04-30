@@ -118,7 +118,7 @@
 <script>
 import TransactionList from '@/components/TransactionList';
 import 'echarts/lib/chart/radar';
-import { buyItem, setPrice, getItem, getMe } from '@/api';
+import { buyItem, setPrice } from '@/api';
 import { toReadablePrice } from '@/util';
 import web3 from '@/web3';
 // import { getAvatarFromAddress } from '@/avatarService';
@@ -138,7 +138,8 @@ export default {
   },
   asyncComputed: {
     async getIdeticon() {
-      return await getAvatarFromAddress(this.item.owner);
+      const uri = await getAvatarFromAddress(this.item.owner);
+      return uri;
     }
   },
   computed: {
@@ -196,7 +197,6 @@ export default {
   mounted() {
     window.addEventListener('resize', this.handleResize.bind(this));
     // this.$nextTick(() => {
-    //   console.log(this.$refs.itemChartWrapper);
     //   this.handleResize();
     // });
   },
@@ -236,7 +236,7 @@ export default {
         })
         .catch((e) => {
           alert(this.$t('BUY_FAIL_MSG'));
-          console.log(e);
+          console.error(e);
         });
     },
     toDisplayedPrice(priceInWei) {
@@ -266,7 +266,6 @@ export default {
         })
         .catch((e) => {
           alert(this.$t('UPDATE_PRICE_FAIL_MSG'));
-          console.log(e);
         });
     }
   }
