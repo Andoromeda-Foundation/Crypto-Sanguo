@@ -92,11 +92,8 @@ export default {
         this.heros = this.allHeros;
       } else {
         this.heros = [];
-        this.allHeros.forEach((hero) => {
-          if (hero.姓名.contain(keyWord)) {
-            this.heros.append(hero);
-          }
-        });
+        // Should working as array.proto.filter
+        this.heros = this.allHeros.filter(hero => hero['姓名'].includes(keyWord));
       }
     }
   }
