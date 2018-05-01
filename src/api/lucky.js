@@ -1,26 +1,26 @@
 import { getPackTx } from '@/api';
+import * as config from '@/config';
+import web3 from '@/web3';
 import agent from 'superagent';
+
+const network = config.network[web3.version.network] || config.defaultNetwork;
+
 
 function getDateTimeString(time) {
   return new Date(time).toLocaleString();
 }
 
 async function getTokenHistoryTx(itemId) {
-  const api = 'https://kovan.etherscan.io/api';
-  const address = '0xb760ada4f12e5d29eff2d9eef3bca94b574a1f2f';
+  const api = network.getPackTxApi;
+  const address = network.LuckyPackage;
   const topic0 =
         '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
-  const getLogs = {
-    module: 'logs',
-    action: 'getLogs',
-    fromBlock: 4000,
-    toBlock: 'latest'
-  };
+  const basicParams = network.params;
   const params = { address, topic0, apikey: 'YourApiKeyToken' };
   // Use query instead of hard-encoded params
   const response = await agent
     .get(api)
-    .query(getLogs)
+    .query(basicParams)
     .query(params);
   const { result } = response.body;
   const trimResult = ({ data, transactionHash, timeStamp }) => ({
