@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h2 class="title">武将百科</h2>
     <input type="text"
            placeholder="查找武将"
@@ -55,7 +55,7 @@ export default {
     this.isAsc = false;
     this.allHeros = [];
     return {
-      heros: [],
+      heros: []
     };
   },
   mounted() {
@@ -68,14 +68,14 @@ export default {
       this.allHeros = this.heros;
     });
   },
-  async created() {    
-    for (var i=1;i<211;++i){
+  async created() {
+    for (let i = 1; i < 211; ++i) {
       this.$store.dispatch('FETCH_ITEM', i);
     }
-  },  
+  },
   methods: {
     getitem(id) {
-      return this.$store.state.items[id] || {owner:"0x000000000000000000"};
+      return this.$store.state.items[id] || { owner: '0x000000000000000000' };
     },
     setSortKey(sortKey) {
       this.isAsc = this.sortKey === sortKey ? !this.isAsc : false;
@@ -98,8 +98,8 @@ export default {
           }
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

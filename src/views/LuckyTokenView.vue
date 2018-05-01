@@ -1,97 +1,57 @@
-<template>
-  <div class="item-view">
-    <div v-if="item.owner === '0x0000000000000000000000000000000000000000'">
-      <div class="notification is-warning">
-        <h1>Sorry, but...</h1>
-        This Lucky Token {{itemId}} doesn't exist
-      </div>
+<template lang="pug">
+.container
+  .item-view
+      .notification.is-warning(v-if="item.owner === '0x0000000000000000000000000000000000000000'")
+        h1|Sorry, but...
+        p|This Lucky Token {{itemId}} doesn't exist
+      .item(v-else-if="item")
+        .columns.is-multiline.is-mobile
+          .column.is-full-mobile
+                img.item-image(:src="coinPhoto" style="float: right;")
+          .column.is-full-mobile
+            h1.title|幸运币第 {{itemId}} 号
+            template
+              figure.image.is-128x128
+                img.item-image(:src="getIdeticon")
+              ul
+                li|{{$t('Owner')}}：
+                  router-link(:to="toOwnerPage")
+                    |{{item.owner.slice(-6).toUpperCase()}}
 
-    </div>
-    <div v-else-if="item">
-      <div class="columns is-multiline is-mobile">
-        <div class="column
-           is-full-mobile">
-              <img class="item-image"
-                   :src="coinPhoto" />
-        </div>
-        <div class="column
-           is-full-mobile">
-          <h1 class="title">幸运币第 {{itemId}} 号</h1>
-          <template >
-            <figure class="image is-128x128">
-              <img class="item-image"
-              :src="getIdeticon">
-            </figure>
-            <ul>
-              <li>{{$t('Owner')}}：
-                <router-link :to="{ name: 'User', params:{address: item.owner}}">
-                  {{item.owner.slice(-6).toUpperCase()}}
-                </router-link>
-              </li>
-              <!-- <li>{{$t('Current Price')}}：{{toDisplayedPrice(item.price)}}</li> -->
-            </ul>
-            <br/>
-
-            <!-- LuckyPackage Owner can do these -->
-
-            <template v-if="item.owner === me.address">
-              <div class="buttons">
-                <button class="button is-danger" @click="onTrasfer(itemId)"> 赠送 </button>
-                <button class="button is-danger" @click="onRollDice(itemId)"> 抽取武将卡 </button>
-                <button class="button is-danger" @click="onCreateAuction(itemId)"> 挂单 </button>
-              </div>
-              <!-- <div class="buttons">
-                <button class="button is-danger is-outlined"
-                          @click="onCreateAuction(1)">{{ $t('BUY_BTN') }}
-                          </button>
-                  <button class="button is-danger is-outlined"
-                          @click="onCreateAuction(1.1)">
-                          {{ $t('PREMIUM_BUY_BTN', { rate: '10%' }) }}
-                          </button>
-                  <button class="button is-danger is-outlined"
-                          @click="onCreateAuction(1.3)">
-                          {{ $t('PREMIUM_BUY_BTN', { rate: '30%' }) }}
-                          </button>
-                  <button class="button is-danger is-outlined"
-                          @click="onCreateAuction(1.5)">
-                          {{ $t('PREMIUM_BUY_BTN', { rate: '50%' }) }}</button>
-                  <button class="button is-danger is-outlined"
-                          @click="onCreateAuction(2)">
-                          {{ $t('PREMIUM_BUY_BTN', { rate: '100%' }) }}</button>
-              </div> -->
-            </template>
-          </template>
-        </div>
-      </div>
-    </div>
-
-
-  </div>
+            // LuckyPackage Owner can do these
+            .buttons(v-if="item.owner === me.address")
+                button.button.is-danger(@click="onTrasfer(itemId)") 赠送
+                button.button.is-danger(@click="onRollDice(itemId)") 抽取武将卡
+                button.button.is-danger(@click="onCreateAuction(itemId)") 挂单
+            .buttons(v-else)
+              router-link(to="/presale")
+                button.button.is-primary| Back
+        .tx
+            h1.title| 抽卡记录
+            b-table(:data="txList" :columns="txColumns" striped)
 </template>
+
 
 <script>
 import {
-  getLuckTokensOf,
   buyLuckyToken,
   rollDice,
-  createAuction,
   revokeAuction,
   getLuckyToken,
-  approveD,
   transfer
 } from '@/api';
 // import { toReadablePrice } from '@/util';
-import web3 from '@/web3';
 import getAvatarFromAddress from 'dravatar';
+import getDrawHistoryTx from '@/api/lucky';
 
 export default {
-  name: 'item-view',
-  components: {
-    // TransactionList
-  },
+  name: 'lucky-token-view',
+  components: {},
   data() {
     return {
-      item: {}
+      item: {},
+      // txColumns: ,
+      txList: []
     };
   },
   asyncComputed: {
@@ -101,6 +61,30 @@ export default {
     }
   },
   computed: {
+    txColumns() {
+      const $t = this.$t;
+      return [
+        {
+          field: 'txHash',
+          label: $t('PackView.tabs.tx.txHash')
+        },
+        {
+          field: 'from',
+          label: $t('PackView.tabs.tx.from')
+        },
+        {
+          field: 'date',
+          label: $t('PackView.tabs.tx.date')
+        },
+        {
+          field: 'prize.title',
+          label: $t('PackView.tabs.tx.status')
+        }
+      ];
+    },
+    toOwnerPage() {
+      return { name: 'User', params: { address: this.item.owner } };
+    },
     itemId() {
       return this.$route.params.id;
     },
@@ -113,19 +97,29 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.handleResize.bind(this));
-    // this.$nextTick(() => {
-    //   console.log(this.$refs.itemChartWrapper);
-    //   this.handleResize();
-    // });
   },
   async created() {
     this.item = await getLuckyToken(this.$route.params.id);
+    this.txList = await getDrawHistoryTx(this.$route.params.id);
+    // this.getLuckyTokenTx();
     // this.$set(item,)
   },
 
   watch: {},
 
   methods: {
+    jump(props) {
+      return {
+        name: 'User',
+        params: { address: props.row.from }
+      };
+    },
+    jumpItem(props) {
+      return {
+        name: 'Item',
+        params: { id: props.row.prize.id }
+      };
+    },
     checkLogin() {
       if (this.me && this.me.address) {
         return true;
@@ -159,30 +153,8 @@ export default {
       }
       this.$dialog.alert(alertCfg);
     },
-    async onRollDice(luckyTokenId) {
-      if (!this.checkLogin()) {
-        return;
-      }
-      let tokenId;
-      // 没有指定使用哪个幸运币
-      if (isNaN(luckyTokenId)) {
-        const myLuckyTokenIds = await getLuckTokensOf(this.me.address);
-        // 没有幸运币
-        if (myLuckyTokenIds.length === 0) {
-          this.$dialog.alert({
-            type: 'is-dark',
-            title: this.$t('alert.rollDice.noLuckyToken.title'),
-            message: this.$t('alert.rollDice.noLuckyToken.msg'),
-            confirmText: this.$t('alert.rollDice.noLuckyToken.confirmText')
-          });
-          return;
-        }
-        // 随机选一个幸运币
-        const randomLuckyToken =
-          myLuckyTokenIds[Math.floor(Math.random() * myLuckyTokenIds.length)];
-        tokenId = randomLuckyToken.id;
-      }
-
+    async onRollDice() {
+      const tokenId = this.itemId;
       let alertCfg;
       try {
         const txHash = await rollDice(tokenId);
@@ -198,32 +170,6 @@ export default {
           title: this.$t('alert.rollDice.fail.title'),
           message: this.$t('alert.rollDice.fail.msg', { e }),
           confirmText: this.$t('alert.rollDice.fail.confirmText')
-        };
-      }
-      this.$dialog.alert(alertCfg);
-    },
-    async toCreateAuction({ tokenId, priceInETH, startTime, endTime }) {
-      let alertCfg;
-      try {
-        const txHash = await createAuction({
-          price: web3.toWei(priceInETH, 'ether'),
-          tokenId,
-          startTime,
-          endTime
-        });
-        // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.CreateAuction.success.title'),
-          message: this.$t('alert.CreateAuction.success.msg', { txHash }),
-          confirmText: this.$t('alert.CreateAuction.success.confirmText')
-        };
-      } catch (e) {
-        alertCfg = {
-          type: 'is-dark',
-          title: this.$t('alert.CreateAuction.fail.title'),
-          message: this.$t('alert.CreateAuction.fail.msg', { e }),
-          confirmText: this.$t('alert.CreateAuction.fail.confirmText')
         };
       }
       this.$dialog.alert(alertCfg);
@@ -271,35 +217,6 @@ export default {
         };
       }
       this.$dialog.alert(alertCfg);
-    },
-    async onAppprove(luckyTokenId) {
-      await approveD(luckyTokenId);
-    },
-    async onCreateAuction(luckyTokenId) {
-      this.$dialog.prompt({
-        message: '售卖价格(ETH)',
-        inputAttrs: {},
-        onConfirm: (priceInETH) => {
-          this.$dialog.prompt({
-            message: '挂单时长(小时)',
-            inputAttrs: {
-              value: 1 // default 1 hour
-            },
-            onConfirm: (durationInHour) => {
-              const time = new Date().getTime() / 1000;
-              const startTime = parseInt(time, 10);
-              // const endTime = startTime + 24 * 60 * 60; // 1 day
-              const endTime = startTime + (Number(durationInHour) * 60 * 60);
-              this.toCreateAuction({
-                tokenId: luckyTokenId,
-                priceInETH,
-                startTime,
-                endTime
-              });
-            }
-          });
-        }
-      });
     },
     async onTrasfer(tokenId) {
       this.$dialog.prompt({
