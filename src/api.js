@@ -429,29 +429,13 @@ export const revokeAuction = id => new Promise((resolve, reject) => {
 });
 
 export const getPackage = async () => {
-  let ids,
-    ratios,
-    addrs;
-
-  [ids, ratios, addrs] = await Promise.promisify(LuckyPackageContract.getAllPackage)();
+  const [ids, ratios, addrs] = await Promise.promisify(LuckyPackageContract.getAllPackage)();
   // ids = [1, 2, 3];
   // ratios = [1.1, 2.2, 3.3];
   const items = await Promise.all(ids.map(id => getItem(id)));
-
-  items.forEach((element, index) => {
-    element.ratio = ratios[index];
-  });
-
-  let z = 0;
-  items.forEach((element, index) => {
-    z += parseInt(ratios[index]);
-  });
-
-  items.forEach((element, index) => {
-    element.sigmaRatio = z;
-  });
-
-  return items;
+  const sigmaRatio = ratios.reduce((acc, cur) => acc + parseInt(cur, 10), 0);
+  return items.map((element, index) => ({ ...element, ratio: ratios[index] }))
+    .map(element => ({ ...element, sigmaRatio }));
 };
 
 
