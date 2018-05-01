@@ -269,12 +269,14 @@ export const createToken = async ({ price, frozen1, frozen2, parentId }) =>
 
 // No longer use Axios
 export const getPackTx = async (from) => {
-  let api = network.getPackTxApi;
+  const api = network.getPackTxApi;
+  // No More Hard Encoded Params, use .query() instead for coding readability
+  let extraParams = {};
   if (from) {
     const full64From = from.replace(/^0x/i, `0x${'0'.repeat(66 - from.length)}`);
-    api += `&topic0_2_opr=and&topic2=${full64From}`;
+    extraParams = Object.assign({ topic2: full64From, topic0_2_opr: 'and' }, extraParams);
   }
-  const response = await request.get(api);
+  const response = await request.get(api).query(extraParams);
   const result = response.body.result;
   if (!Array.isArray(result)) {
     return [];
