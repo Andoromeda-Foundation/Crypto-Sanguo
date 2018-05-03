@@ -1,18 +1,17 @@
 <template>
-  <div>
+  <div class="container">
     <section class="session"
              style="background-image: url(./static/icons-background.svg)">
       <div class="hero-body">
         <div class="column is-8 is-offset-2">
-          <div class="box ">
-            <div class="columns">
-              <div class="column ">
-                <div class="column is-half">
+            <div class="column is-multiline is-mobile">
+              <div class="columns box">
+                <div class="column is-3">
                   <p class="image is-128x128">
                     <img :src="getIdeticon">
                   </p>
                 </div>
-                <div class="column is-half">
+                <div class="column is-9">
                   <h1 class="">
                     {{$t('Nickname')}}: {{nickame}}
                   </h1>
@@ -22,12 +21,8 @@
                   <h1 class="">
                     {{$t('Benefit')}}: {{benefit}}
                   </h1>
-                </div>
-              </div>
 
-            </div>
-
-            <div class="navbar-tabs">
+                              <!-- <div class="navbar-tabs">
               <a class="navbar-item is-tab">
                 <a v-if="me && me.address.toUpperCase() === address">{{$t('Cards I Bought')}}</a>
                 <a v-else>{{$t('Cards He Bought')}}</a>
@@ -36,14 +31,18 @@
                 <a v-if="me && me.address.toUpperCase() === address">{{$t('Cards I Created')}}</a>
                 <a v-else>{{$t('Cards He Created')}}</a>
               </a>
+            </div> -->
+                </div>
+              </div>
+
             </div>
-          </div>
+
+
         </div>
 
       </div>
 
     </section>
-
     <ItemList :itemIds='itemIds' />
   </div>
 </template>

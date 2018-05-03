@@ -1,5 +1,5 @@
 <template>
-  <div class="item-view">
+  <div class="item-view container">
     <div v-if="item">
       <div class="columns is-multiline is-mobile">
         <div class="column

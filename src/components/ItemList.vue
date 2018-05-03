@@ -14,6 +14,7 @@
         <div class="card-content">
           <div class="content is-small">
             <ul>
+              <img :src="item.imageUrl" alt="Heros Card">
               <li>{{$t('ID')}}: {{item.id}}</li>
               <li>{{$t('Owner')}}：
                 <router-link v-if="item.owner"
@@ -41,18 +42,15 @@ export default {
 
   computed: {
     items() {
-      return this.itemIds.map((id) => {
-        const item = this.$store.state.items[id];
-        return item || { id };
-      });
-    },
+      return this.itemIds.map(card => card);
+    }
   },
 
   methods: {
     toDisplayedPrice(priceInWei) {
       const readable = toReadablePrice(priceInWei);
       return `${readable.price} ${readable.unit}`;
-    },
+    }
   },
 
   created() {},
@@ -62,8 +60,8 @@ export default {
       newItemIds.forEach((itemId) => {
         this.$store.dispatch('FETCH_ITEM', itemId);
       });
-    },
-  },
+    }
+  }
 };
 </script>
  <style scoped>
