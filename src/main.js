@@ -9,7 +9,6 @@ import VueResource from 'vue-resource';
 import Buefy from 'buefy';
 import asyncComputed from 'vue-async-computed';
 
-import 'buefy/lib/buefy.css';
 // https://github.com/ecomfe/vue-echarts/blob/master/demo/Demo.vue
 import ECharts from 'vue-echarts/components/ECharts';
 import * as config from '@/config';

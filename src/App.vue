@@ -29,6 +29,7 @@ export default {
 </script>
 
 <style lang="postcss">
+@import 'buefy/lib/buefy.css';
 .view {
   margin-top: 2rem;
   margin-bottom: 2rem;
