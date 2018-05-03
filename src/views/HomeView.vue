@@ -13,14 +13,20 @@
                   </div>
                   <br/>
                   <div class="btndiv">
-                    <router-link class="gotoGame button is-medium" :to="{ name: 'Game' }">进入游戏</router-link>
+                    <router-link class="gotoGame button is-medium" 
+                                  :to="{ name: 'Game' }">进入游戏</router-link>
                     <!-- <a class="button is-medium" href="https://cryptosanguo.pro/#/game" target="_blank">进入游戏</a> -->
                   </div>
                   <div class="btndiv">
-                    <router-link class="gotoShop button is-medium" :to="{ name: 'PreSale' }">预售商城</router-link>
+                    <router-link class="gotoShop button is-medium" 
+                                  :to="{ name: 'PreSale' }">预售商城</router-link>
                   </div>
                   <div class="btndiv">
-                    <a class="button is-medium" @click="bpClicked()" style="background-color: transparent; color:white">白皮书</a>
+                    <!-- <a class="button is-medium" href="http://old.etherwarship.com" style="background-color: transparent; color:white" target="_blank">白皮书</a> -->
+                    <a class="button is-medium" @click="bpClicked()" 
+                        style="background-color: transparent; color:white">
+                      白皮书
+                    </a>
                   </div>
                   <br/>
                   <br/>

@@ -25,7 +25,7 @@ export default {
     return {
       loading: true,
       itemIds: [],
-      total: null,
+      total: null
     };
   },
 
@@ -42,7 +42,7 @@ export default {
   },
 
   methods: {},
-  watch: {},
+  watch: {}
 };
 </script>
 <style scoped>

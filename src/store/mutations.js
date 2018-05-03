@@ -29,7 +29,7 @@ export default {
   },
   SET_AD(state, { id, ad }) {
     Vue.set(state.ads, id, ad);
-  },
+  }
   /* Examples:
   [types.ADD_TO_CART](state, payload) {
     state.cart.push(payload);

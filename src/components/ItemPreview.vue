@@ -37,7 +37,7 @@ export default {
     // this.item = await getItem(this.itemId);
   },
 
-  watch: {},
+  watch: {}
 };
 </script>
  <style lang="postcss" scoped>
