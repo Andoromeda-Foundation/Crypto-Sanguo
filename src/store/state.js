@@ -27,6 +27,6 @@ export default () => ({
   */
   computed: mapState([
     'me',
-    'signInError',
-  ]),
+    'signInError'
+  ])
 });

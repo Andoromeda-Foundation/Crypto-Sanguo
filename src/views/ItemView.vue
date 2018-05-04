@@ -264,7 +264,7 @@ export default {
         .then(() => {
           alert(this.$t('UPDATE_PRICE_SUCCESS_MSG'));
         })
-        .catch((e) => {
+        .catch(() => {
           alert(this.$t('UPDATE_PRICE_FAIL_MSG'));
         });
     }

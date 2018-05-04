@@ -23,12 +23,12 @@ export default new Router({
     {
       name: 'Home',
       path: '/',
-      component: HomeView,
+      component: HomeView
     },
     {
       name: 'PreSale',
       path: '/presale',
-      component: PreSaleView,
+      component: PreSaleView
     },
     {
       name: 'Explore',
@@ -83,7 +83,7 @@ export default new Router({
     {
       name: 'BP',
       path: '/bp',
-      component: BPView,
-    },
-  ],
+      component: BPView
+    }
+  ]
 });

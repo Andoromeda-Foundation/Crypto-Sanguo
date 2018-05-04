@@ -17,7 +17,7 @@ export default {
 
   created() {},
 
-  watch: {},
+  watch: {}
 };
 </script>
  <style scoped>

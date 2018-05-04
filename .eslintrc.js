@@ -51,6 +51,10 @@ module.exports = {
     // allow alert during development
     'no-alert': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     // allow console during development
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    "vue/no-parsing-error": [2, { "x-invalid-end-tag": false }],
+    "max-len": 'off',
+    "consistent-return": 'off',
+    "no-param-reassign": [2, { props: false }]
   }
 }

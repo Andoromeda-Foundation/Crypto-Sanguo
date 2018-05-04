@@ -27,14 +27,14 @@ export default {
       },
       set(value) {
         this.$store.dispatch('setLocale', value);
-      },
-    },
+      }
+    }
   },
   watch: {
     locale(val) {
       this.$i18n.locale = val;
-    },
-  },
+    }
+  }
 };
 </script>
 

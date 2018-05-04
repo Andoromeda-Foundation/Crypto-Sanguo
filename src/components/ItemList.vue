@@ -14,7 +14,6 @@
         <div class="card-content">
           <div class="content is-small">
             <ul>
-              <img :src="item.imageUrl" alt="Heros Card">
               <li>{{$t('ID')}}: {{item.id}}</li>
               <li>{{$t('Owner')}}：
                 <router-link v-if="item.owner"
@@ -42,7 +41,10 @@ export default {
 
   computed: {
     items() {
-      return this.itemIds.map(card => card);
+      return this.itemIds.map((id) => {
+        const item = this.$store.state.items[id];
+        return item || { id };
+      });
     }
   },
 
