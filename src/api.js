@@ -320,15 +320,23 @@ export const getHotPotatoExchange = async (id) => {
 
 export const allOfHotPotatoExchange = async (id, contractAddress) => {
   const total = await Promise.promisify(DecentralizedExchangeHotPotatoContract.totalOrder)();
-  const rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
+  const rangeArray = (start, end) => Array((end - start) + 1).fill(0).map((v, i) => i + start);
   const ids = rangeArray(0, Number(total) - 1);
   const items = await Promise.all(ids.map(_id => getHotPotatoExchange(_id)));
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].issuer == contractAddress && items[i].tokenid == id) {
+  for (let i = 0; i < items.length; i += 1) {
+    if (items[i].issuer === contractAddress && items[i].tokenid === id) {
       return items[i];
     }
   }
   return {};
+};
+
+export const isApproved = async (id) => {
+  const t = await Promise.promisify(LuckyPackageContract.approvedFor)(id);
+  if (t !== '0x0000000000000000000000000000000000000000') {
+    return true;
+  }
+  return false;
 };
 
 export const getLuckyToken = async (id) => {
@@ -360,16 +368,16 @@ export const getLuckTokensOfLength = async (address) => {
 };
 // 获取某个拍卖（auction）
 export const getLuckyTokenAuction = async (id) => {
-  id = Number(id);
-  const auction = { id };
+  const ID = Number(id);
+  const auction = { ID };
   [auction.creator,
     auction.owner,
     auction.issuer,
     auction.tokenId,
     auction.price,
     auction.startTime,
-    auction.endTime] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(id);
-  auction.Exchangeid = Number(id);
+    auction.endTime] = await Promise.promisify(DecentralizedExchangeHotPotatoContract.allOf)(ID);
+  auction.Exchangeid = Number(ID);
   auction.tokenId = Number(auction.tokenId);
   auction.startTime *= 1000;
   auction.endTime *= 1000;
@@ -386,7 +394,7 @@ export const getLuckyTokenAuction = async (id) => {
 };
 // 获取市场上（在售）的所有的拍卖
 export const getAllLuckyTokenAuctions = async () => {
-  const rangeArray = (start, end) => Array(end - start + 1).fill(0).map((v, i) => i + start);
+  const rangeArray = (start, end) => Array((end - start) + 1).fill(0).map((v, i) => i + start);
   const total = await Promise.promisify(DecentralizedExchangeHotPotatoContract.totalOrder)();
   const ids = rangeArray(0, total - 1);
   const auctions = await Promise.all(ids.map(id => getLuckyTokenAuction(id)));
@@ -429,13 +437,10 @@ export const revokeAuction = id => new Promise((resolve, reject) => {
 });
 
 export const getPackage = async () => {
-  let ids,
-    ratios,
-    addrs;
-
-  [ids, ratios, addrs] = await Promise.promisify(LuckyPackageContract.getAllPackage)();
+  const [ids, ratios, addrs] = await Promise.promisify(LuckyPackageContract.getAllPackage)();
   // ids = [1, 2, 3];
   // ratios = [1.1, 2.2, 3.3];
+  console.log(addrs);
   const items = await Promise.all(ids.map(id => getItem(id)));
 
   items.forEach((element, index) => {
@@ -444,10 +449,10 @@ export const getPackage = async () => {
 
   let z = 0;
   items.forEach((element, index) => {
-    z += parseInt(ratios[index]);
+    z += parseInt(ratios[index], 10);
   });
 
-  items.forEach((element, index) => {
+  items.forEach((element) => {
     element.sigmaRatio = z;
   });
 
@@ -458,14 +463,6 @@ export const getPackage = async () => {
 export const getPackageSize = async () => {
   const size = await Promise.promisify(LuckyPackageContract.getAllPackage)();
   return Number(size[0].length);
-};
-
-export const isApproved = async (id) => {
-  const t = await Promise.promisify(LuckyPackageContract.approvedFor)(id);
-  if (t !== '0x0000000000000000000000000000000000000000') {
-    return true;
-  }
-  return false;
 };
 
 export const approveD = luckyTokenId => new Promise((resolve, reject) => {

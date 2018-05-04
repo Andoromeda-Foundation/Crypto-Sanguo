@@ -69,7 +69,7 @@ export default {
     });
   },
   async created() {
-    for (let i = 1; i < 211; ++i) {
+    for (let i = 1; i < 211; i += 1) {
       this.$store.dispatch('FETCH_ITEM', i);
     }
   },
@@ -92,11 +92,8 @@ export default {
         this.heros = this.allHeros;
       } else {
         this.heros = [];
-        this.allHeros.forEach((hero) => {
-          if (hero.姓名.contain(keyWord)) {
-            this.heros.append(hero);
-          }
-        });
+        // Should working as array.proto.filter
+        this.heros = this.allHeros.filter(hero => hero['姓名'].includes(keyWord));
       }
     }
   }

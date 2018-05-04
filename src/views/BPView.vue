@@ -7,35 +7,32 @@
             :page="i"
             style="display: inline-block; width: 100%"
         ></pdf>
-    
+
   </div>
 </template>
 
 
 <script>
-import pdf from 'vue-pdf'
+import pdf from 'vue-pdf';
 
-var loadingTask = pdf.createLoadingTask('static/assets/bp_004.pdf');
+const loadingTask = pdf.createLoadingTask('static/assets/bp_004.pdf');
 
 export default {
   components: {
     pdf
   },
-  data(){
+  data() {
     return {
-      src:loadingTask,
-      numPages:undefined,
-    }
-
+      src: loadingTask,
+      numPages: undefined
+    };
   },
   mounted() {
-
-        this.src.then(pdf => {
-
-            this.numPages = pdf.numPages;
-        });
-    }
-}
+    this.src.then((pdfitem) => {
+      this.numPages = pdfitem.numPages;
+    });
+  }
+};
 
 </script>
 

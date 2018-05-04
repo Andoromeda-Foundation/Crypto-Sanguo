@@ -16,19 +16,20 @@ export default {
   name: 'App',
   components: {
     Header,
-    Footer,
+    Footer
   },
   computed: {
     key() {
       return this.$route.name !== undefined
         ? this.$route.name + +new Date()
         : this.$route + +new Date();
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="postcss">
+@import 'buefy/lib/buefy.css';
 .view {
   margin-top: 2rem;
   margin-bottom: 2rem;

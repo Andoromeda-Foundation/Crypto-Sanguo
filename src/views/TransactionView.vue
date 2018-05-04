@@ -32,7 +32,7 @@ export default {
   name: 'TransactionView',
   data() {
     return {
-      datas: [],
+      datas: []
     };
   },
   methods: {
@@ -43,7 +43,7 @@ export default {
     },
     overList() {
       console.log('dsafsda');
-    },
+    }
   },
   mounted() {
     this.$http

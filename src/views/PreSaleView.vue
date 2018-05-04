@@ -353,14 +353,14 @@ export default {
     eventRollDice.watch(async (error, result) => {
       // console.log({ error, result });
       if (error) return;
-      const _from = result.args._from;
-      const _to = result.args._to;
-      const _tokenId = result.args._tokenId.toString();
-      const item = await getItem(_tokenId);
+      const from = result.args.from;
+      const to = result.args.to;
+      const tokenId = result.args.tokenId.toString();
+      const item = await getItem(tokenId);
       const luckyContract = '0x8b481c5af4734501ea8b6a0c3502e001dd883d3d';
       // console.log(_from,_to,_tokenId,item);
-      if (_from.toUpperCase() === luckyContract.toUpperCase()) {
-        let playerName = _to.toUpperCase();
+      if (from.toUpperCase() === luckyContract.toUpperCase()) {
+        let playerName = to.toUpperCase();
         if (this.me && this.me.address.toUpperCase() === playerName) {
           playerName = '你';
         }
@@ -432,6 +432,7 @@ export default {
       if (!this.checkLogin()) {
         return;
       }
+      let LuckyTokenId;
       // 没有指定使用哪个幸运币
       if (isNaN(luckyTokenId)) {
         const myLuckyTokenIds = await getLuckTokensOf(this.me.address);
@@ -448,12 +449,12 @@ export default {
         // 随机选一个幸运币
         const randomLuckyToken =
           myLuckyTokenIds[Math.floor(Math.random() * myLuckyTokenIds.length)];
-        luckyTokenId = randomLuckyToken.id;
+        LuckyTokenId = randomLuckyToken.id;
       }
 
       let alertCfg;
       try {
-        const txHash = await rollDice(luckyTokenId);
+        const txHash = await rollDice(LuckyTokenId);
         // https://ropsten.etherscan.io/tx/0x785a82523626de92240c34ff9c55a838d4f252520e672d228bb8aa0a8f71a06e
         alertCfg = {
           type: 'is-dark',
@@ -558,7 +559,7 @@ export default {
               const time = new Date().getTime() / 1000;
               const startTime = parseInt(time, 10);
               // const endTime = startTime + 24 * 60 * 60; // 1 day
-              const endTime = startTime + Number(durationInHour) * 60 * 60;
+              const endTime = startTime + (Number(durationInHour) * 60 * 60);
               this.toCreateAuction({
                 tokenId: luckyTokenId,
                 priceInETH,
@@ -593,7 +594,7 @@ export default {
     }
   },
   watch: {
-    async luckyTokenTableType(toType, fromType) {
+    async luckyTokenTableType(toType) {
       this.isLoadingLuckyTokens = true;
       try {
         if (toType === 'ALL') {
@@ -606,10 +607,12 @@ export default {
           }
           this.luckyTokens = await getLuckTokensOf(this.me.address);
         }
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
       this.isLoadingLuckyTokens = false;
     },
-    async itemTableType(toType, fromType) {
+    async itemTableType(toType) {
       this.isLoadingItems = true;
       this.items = [];
       try {
@@ -623,10 +626,12 @@ export default {
           this.checkLogin();
           this.items = await getItemsOf(this.me.address);
         }
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
       this.isLoadingItems = false;
     },
-    async txTableType(toType, fromType) {
+    async txTableType(toType) {
       this.isLoadingPackTxs = true;
       try {
         if (toType === 'ALL') {
@@ -636,7 +641,9 @@ export default {
           this.checkLogin();
           this.txList = await getPackTx(this.me.address);
         }
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
       this.isLoadingPackTxs = false;
     }
   }
