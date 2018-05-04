@@ -32,8 +32,8 @@ export default {
     },
     signInError() {
       return this.$store.state.signInError;
-    },
-  },
+    }
+  }
 };
 </script>
 

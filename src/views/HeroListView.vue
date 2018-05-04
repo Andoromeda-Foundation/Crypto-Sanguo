@@ -69,7 +69,7 @@ export default {
     });
   },
   async created() {
-    for (let i = 1; i < 211; ++i) {
+    for (let i = 1; i < 211; i += 1) {
       this.$store.dispatch('FETCH_ITEM', i);
     }
   },

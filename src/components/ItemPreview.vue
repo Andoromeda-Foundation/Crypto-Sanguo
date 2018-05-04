@@ -11,7 +11,9 @@
       <h5 class="column card-name is-4">{{item.title}}
       </h5>
       <div class="column card-info">
-        <span v-if="item.ratio !== undefined">{{ $t('odds') }}:{{(item.ratio / item.sigmaRatio * 100).toFixed(2) + "%"}}</span>
+        <span v-if="item.ratio !== undefined">
+          {{ $t('odds') }}:{{(item.ratio / item.sigmaRatio * 100).toFixed(2) + "%"}}
+        </span>
         <span v-else>{{ $t('Owner') }}: {{ item.owner.slice(-6).toUpperCase() }}</span>
         <span>{{ $t('Current Price') }}:{{item.priceInETH}} ETH</span>
       </div>

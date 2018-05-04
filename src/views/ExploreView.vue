@@ -18,7 +18,7 @@ export default {
   name: 'item-list',
   components: {
     PulseLoader,
-    ItemList,
+    ItemList
   },
 
   data() {

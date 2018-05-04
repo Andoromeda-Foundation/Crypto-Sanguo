@@ -19,7 +19,7 @@ export default {
     tabs: {
       bio: '武将介绍',
       attributes: '武将属性',
-      transactions: '交易记录',
+      transactions: '交易记录'
     },
     tokenNotExist: '武将尚未出场',
     drawCards: '立即抽卡',
@@ -75,9 +75,9 @@ export default {
         revokeAuction: '取回',
         sendTitle: '赠送幸运币',
         send: '赠送'
-      },
+      }
 
-    },
+    }
   },
   'My Cards': '我的卡牌',
   'Sign In': '登录游戏',
@@ -85,7 +85,7 @@ export default {
   FAQs: '常见问题',
   Owner: '拥有者',
   'Current Price': '当前价格',
-  odds:'中奖概率',
+  odds: '中奖概率',
   Buy: '购买',
   BirthdayGift: '智取生辰纲(HOT)',
   'Terms of Service': '使用条款',

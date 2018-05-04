@@ -13,17 +13,17 @@
                   </div>
                   <br/>
                   <div class="btndiv">
-                    <router-link class="gotoGame button is-medium" 
+                    <router-link class="gotoGame button is-medium"
                                   :to="{ name: 'Game' }">进入游戏</router-link>
                     <!-- <a class="button is-medium" href="https://cryptosanguo.pro/#/game" target="_blank">进入游戏</a> -->
                   </div>
                   <div class="btndiv">
-                    <router-link class="gotoShop button is-medium" 
+                    <router-link class="gotoShop button is-medium"
                                   :to="{ name: 'PreSale' }">预售商城</router-link>
                   </div>
                   <div class="btndiv">
                     <!-- <a class="button is-medium" href="http://old.etherwarship.com" style="background-color: transparent; color:white" target="_blank">白皮书</a> -->
-                    <a class="button is-medium" @click="bpClicked()" 
+                    <a class="button is-medium" @click="bpClicked()"
                         style="background-color: transparent; color:white">
                       白皮书
                     </a>
@@ -123,7 +123,7 @@
       </div>
       <br/>
       <div class="columns is-multiline is-mobile">
-        <div class="column is-one-third-desktop is-one-third-tablet is-12-mobile playContainer" v-for="item in playstyle">
+        <div class="column is-one-third-desktop is-one-third-tablet is-12-mobile playContainer" v-for="item in playstyle" :key="item.title">
           <img alt="" v-bind:src="'../static/home/'+item.img+'.jpg'"/>
           <br>
           <a class="playTypeTitle">{{ item.title }}</a>
@@ -188,7 +188,7 @@
 </template>
 
 <script>
-import { Slider, SliderItem } from 'vue-easy-slider'
+import { Slider, SliderItem } from 'vue-easy-slider';
 
 export default {
   name: 'PackViewNew',
@@ -199,24 +199,24 @@ export default {
   data() {
     return {
       playstyle: [
-        {"title":"城池", "content":"城池是玩家的统治的领地，也是玩家之间争夺的焦点。", "img":"home_1_chengchi"},
-        {"title":"武将", "content":"武将具有，统御，武力，智力，内政和魅力五种属性。", "img":"home_2_wujiang"},
-        {"title":"势力", "content":"玩家掌握的所有城市的集合。", "img":"home_3_shili"},
-        {"title":"战斗", "content":"开始直到某一方战败或者撤退。", "img":"home_4_zhandou"},
-        {"title":"预约", "content":"持有武将卡的玩家将可以对城池进行预约。", "img":"home_5_yuyue"},
-        {"title":"时点", "content":"玩家发布指令会消耗时点。", "img":"home_6_shidian"},
-        {"title":"指令", "content":"指令是玩家影响游戏进程的主要手段。", "img":"home_7_zhiling"},
+        { title: '城池', content: '城池是玩家的统治的领地，也是玩家之间争夺的焦点。', img: 'home_1_chengchi' },
+        { title: '武将', content: '武将具有，统御，武力，智力，内政和魅力五种属性。', img: 'home_2_wujiang' },
+        { title: '势力', content: '玩家掌握的所有城市的集合。', img: 'home_3_shili' },
+        { title: '战斗', content: '开始直到某一方战败或者撤退。', img: 'home_4_zhandou' },
+        { title: '预约', content: '持有武将卡的玩家将可以对城池进行预约。', img: 'home_5_yuyue' },
+        { title: '时点', content: '玩家发布指令会消耗时点。', img: 'home_6_shidian' },
+        { title: '指令', content: '指令是玩家影响游戏进程的主要手段。', img: 'home_7_zhiling' }
       ]
-    }
+    };
   },
   methods: {
     bpClicked() {
-      var w = window.open('about:blank');
-      var url = "https://github.com/lychees/Crypto-Sanguo/wiki/%E4%B8%89%E5%9B%BD%E5%BF%97%E7%99%BD%E7%9A%AE%E4%B9%A6"
+      const w = window.open('about:blank');
+      const url = 'https://github.com/lychees/Crypto-Sanguo/wiki/%E4%B8%89%E5%9B%BD%E5%BF%97%E7%99%BD%E7%9A%AE%E4%B9%A6';
       w.location.href = url;
     }
-  },
-}
+  }
+};
 
 </script>
 
